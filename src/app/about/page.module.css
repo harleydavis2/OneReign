@@ -1,0 +1,170 @@
+.pageHero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 140px;
+  padding-bottom: 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.pageHeroBg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 15% 60%, rgba(69,118,255,0.1) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 85% 30%, rgba(23,70,234,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.accent { color: var(--platinate); }
+
+.pageHeroH1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  max-width: 700px;
+  color: var(--dark-blue);
+}
+
+.pageHeroSub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 580px;
+  line-height: 1.75;
+}
+
+.sectionH2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  margin-bottom: 48px;
+  margin-top: 12px;
+  color: var(--dark-blue);
+}
+
+.bodyText {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* Founders */
+.foundersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.founderCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 40px 32px;
+}
+
+.founderAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky-blue), var(--platinate));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(69,118,255,0.25);
+}
+
+.founderInfo {}
+
+.founderName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--dark-blue);
+}
+
+.founderRole {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.founderTagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* Why Us */
+.whyLayout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.whyLeft {}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.whyCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.25s;
+  box-shadow: 0 2px 8px rgba(0,12,40,0.05);
+}
+.whyCard:hover {
+  border-color: var(--accent-mid);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(69,118,255,0.1);
+}
+
+.whyNum {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.whyTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin-bottom: 8px;
+}
+
+.whyDesc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .foundersGrid { grid-template-columns: 1fr 1fr; }
+  .whyLayout { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .foundersGrid { grid-template-columns: 1fr; }
+  .whyGrid { grid-template-columns: 1fr; }
+}

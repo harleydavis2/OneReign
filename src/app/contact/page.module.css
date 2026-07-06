@@ -1,0 +1,203 @@
+.pageHero {
+  padding-top: 160px;
+  padding-bottom: 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 25% 60%, rgba(69,118,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.accent { color: var(--platinate); }
+
+.heroH1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-top: 16px;
+  max-width: 640px;
+  color: var(--dark-blue);
+}
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* Info */
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.infoCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0,12,40,0.06);
+}
+
+.infoTitle {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.infoRow:last-child { border-bottom: none; }
+
+.infoLabel {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.infoValue {
+  font-size: 0.85rem;
+  color: var(--dark-blue);
+  font-weight: 500;
+  text-align: right;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a.infoValue:hover { color: var(--platinate); }
+
+.infoNote {
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-mid);
+  border-radius: 12px;
+  padding: 20px;
+}
+.infoNote p {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* Form */
+.formCol {}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.input {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--dark-blue);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.input::placeholder { color: var(--text-muted); }
+.input:focus {
+  border-color: var(--platinate);
+  box-shadow: 0 0 0 3px rgba(23,70,234,0.1);
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237b8ec8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.65;
+}
+
+.submitBtn {
+  align-self: flex-start;
+  padding: 16px 40px;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
+/* Success */
+.success {
+  background: var(--white);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 16px;
+  padding: 60px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 24px rgba(0,12,40,0.06);
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  background: rgba(34,197,94,0.1);
+  border: 2px solid rgba(34,197,94,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #16a34a;
+}
+
+.success h3 { font-size: 1.5rem; color: var(--dark-blue); }
+.success p { color: var(--text-secondary); }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .formRow { grid-template-columns: 1fr; }
+}

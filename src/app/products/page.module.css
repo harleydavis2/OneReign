@@ -1,0 +1,204 @@
+.pageHero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 140px;
+  padding-bottom: 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.pageHeroBg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -10%, rgba(69,118,255,0.14) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.accent { color: var(--platinate); }
+
+.pageHeroH1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  max-width: 700px;
+  color: var(--dark-blue);
+}
+
+.pageHeroSub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+.productNav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.productNavBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+.productNavBtn:hover {
+  border-color: var(--platinate);
+  color: var(--platinate);
+  background: var(--accent-dim);
+}
+
+.productNavNum {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+}
+
+/* Product Section */
+.productSection {}
+
+.productLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.productLayoutReverse { direction: rtl; }
+.productLayoutReverse > * { direction: ltr; }
+
+.productInfo {}
+
+.productCategoryTag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--platinate);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-mid);
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.rublTag {
+  color: var(--medium-blue);
+  background: rgba(0,33,155,0.07);
+  border-color: rgba(0,33,155,0.2);
+}
+
+.productH2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+  color: var(--dark-blue);
+}
+
+.productDesc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+
+/* Features */
+.productFeatures, .productAgents {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: 0 4px 20px rgba(0,12,40,0.07);
+}
+
+.featuresTitle {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.featureRow {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.featureRow:last-child { border-bottom: none; padding-bottom: 0; }
+.featureRow:first-of-type { padding-top: 0; }
+
+.featureIcon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+
+.featureName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--dark-blue);
+  margin-bottom: 4px;
+}
+
+.featureDesc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Agents */
+.agentCard {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+.agentCard:last-child { border-bottom: none; padding-bottom: 0; }
+.agentCard:first-of-type { padding-top: 0; }
+
+.agentNum {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--platinate);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.agentTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin-bottom: 6px;
+}
+
+.agentDesc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+@media (max-width: 1024px) {
+  .productLayout { grid-template-columns: 1fr; gap: 40px; }
+  .productLayoutReverse { direction: ltr; }
+}

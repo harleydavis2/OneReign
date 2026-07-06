@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ── Brand Palette ─────────────────────────── */
+  --white:         #ffffff;
+  --sky-blue:      #4576ff;
+  --platinate:     #1746ea;
+  --medium-blue:   #00219b;
+  --dark-blue:     #000c28;
+
+  /* ── Semantic tokens (light theme) ─────────── */
+  --bg-primary:    #f5f7ff;          /* very pale blue-white */
+  --bg-secondary:  #eef1fc;          /* soft blue-grey */
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f0f4ff;
+
+  --border:        rgba(0, 33, 155, 0.10);
+  --border-strong: rgba(0, 33, 155, 0.20);
+
+  --text-primary:  var(--dark-blue);
+  --text-secondary:#2a3a6b;
+  --text-muted:    #7b8ec8;
+
+  /* accent = Sky Blue */
+  --accent:        var(--sky-blue);
+  --accent-dim:    rgba(69, 118, 255, 0.08);
+  --accent-mid:    rgba(69, 118, 255, 0.20);
+  --accent-glow:   rgba(69, 118, 255, 0.35);
+
+  /* deep accent for headings / hover */
+  --accent-deep:   var(--platinate);
+  --accent-darker: var(--medium-blue);
+
+  --gradient-hero: radial-gradient(ellipse 90% 60% at 60% -10%, rgba(69,118,255,0.18) 0%, transparent 65%);
+  --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,255,0.6) 100%);
+
+  /* ── Layout ─────────────────────────────────── */
+  --section-py:    120px;
+  --container-max: 1200px;
+  --container-px:  40px;
+
+  /* ── Typography ─────────────────────────────── */
+  --font-display:  'Syne', system-ui, sans-serif;   /* headings */
+  --font-sans:     'Inter', system-ui, sans-serif;   /* body */
+  --font-mono:     'Space Mono', monospace;
+
+  /* ── Motion ─────────────────────────────────── */
+  --transition:      0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ──────────── Scrollbar ──────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: rgba(69,118,255,0.4); border-radius: 4px; }
+
+/* ──────────── Typography ──────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--dark-blue);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+
+p { color: var(--text-secondary); line-height: 1.75; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ──────────── Layout helpers ──────────── */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+.section {
+  padding: var(--section-py) 0;
+  position: relative;
+}
+
+/* ──────────── Eyebrow ──────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ──────────── Buttons ──────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.btn-primary {
+  background: var(--platinate);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--sky-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px var(--accent-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--platinate);
+  border: 1.5px solid var(--border-strong);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  transform: translateY(-2px);
+}
+
+/* ──────────── Cards ──────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 12, 40, 0.06);
+}
+.card:hover {
+  border-color: rgba(69,118,255,0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(69,118,255,0.12);
+}
+
+/* ──────────── Divider ──────────── */
+.divider { width: 100%; height: 1px; background: var(--border); }
+
+/* ──────────── Badge ──────────── */
+.badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--accent-dim);
+  color: var(--accent-deep);
+  border: 1px solid var(--accent-mid);
+}
+
+/* ──────────── Grid helpers ──────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+@media (max-width: 1024px) {
+  :root { --container-px: 24px; --section-py: 80px; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  :root { --container-px: 20px; --section-py: 60px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ──────────── Marquee ──────────── */
+.marquee-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+  background: var(--bg-secondary);
+}
+.marquee-inner {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+.marquee-inner span {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 28px;
+}
+.marquee-inner span strong { color: var(--accent); }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ──────────── Selection ──────────── */
+::selection { background: var(--accent-mid); color: var(--dark-blue); }
+
+/* ──────────── Focus ──────────── */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
