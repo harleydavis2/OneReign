@@ -4,6 +4,8 @@ import {
   IconAI, IconMonitor, IconSpark, IconMegaphone,
   IconCloud, IconLink, IconCheck, IconX, IconArrow, IconLayers,
 } from "@/components/Icons";
+import { Cover } from "@/components/ui/cover";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -82,7 +84,7 @@ export default function HomePage() {
             <span className={styles.metaBadge}>Est. 2025 · Remote / Global</span>
           </div>
           <h1 className={styles.heroH1}>
-            Your business runs<br />on systems.<br />
+            Your business runs<br />on <Cover>systems.</Cover><br />
             <span className={styles.heroAccent}>We build them.</span>
           </h1>
           <p className={styles.heroSub}>
@@ -101,6 +103,29 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+      
+      {/* 3D Product Showcase Scroll Animation */}
+      <section className="section" style={{ background: "var(--bg-secondary)", paddingBottom: "100px", paddingTop: "60px" }}>
+        <ContainerScroll
+          titleComponent={
+            <>
+              <p className="eyebrow" style={{ justifyContent: "center", marginBottom: "16px" }}>Platform Preview</p>
+              <h2 style={{ fontSize: "clamp(2rem, 4.5vw, 3rem)", fontWeight: 800, color: "var(--dark-blue)", lineHeight: 1.15, letterSpacing: "-0.025em" }}>
+                Unleash the power of <br />
+                <span className={styles.heroAccent} style={{ fontSize: "clamp(2.5rem, 5.5vw, 3.8rem)", display: "block", marginTop: "8px" }}>
+                  Autonomous Workflows
+                </span>
+              </h2>
+            </>
+          }
+        >
+          <img
+            src="/hero-ai.png"
+            alt="OneReign system dashboard"
+            draggable={false}
+          />
+        </ContainerScroll>
       </section>
 
       {/* Approach */}
@@ -151,22 +176,38 @@ export default function HomePage() {
           </div>
 
           <div className={styles.servicesGrid}>
-            {services.map((s) => (
-              <div key={s.num} className={`card ${styles.serviceCard}`}>
-                <div className={styles.serviceTopRow}>
-                  <span className={styles.serviceNum}>{s.num}</span>
-                  <span className={styles.serviceIconWrap}><s.Icon size={20} /></span>
+            {services.map((s, index) => {
+              const total = services.length;
+              const mid = (total - 1) / 2;
+              const diff = index - mid;
+              const zVal = Math.floor(10 + (mid - Math.abs(diff)) * 10); // Elevated z-index order
+
+              return (
+                <div 
+                  key={s.num} 
+                  className={`card ${styles.serviceCard}`}
+                  style={{
+                    "--i": diff,
+                    "--abs-i": Math.abs(diff),
+                    "--z": zVal,
+                  } as React.CSSProperties}
+                >
+                  <div className={styles.serviceTopRow}>
+                    <span className={styles.serviceNum}>{s.num}</span>
+                    <span className={styles.serviceIconWrap}><s.Icon size={20} /></span>
+                  </div>
+                  <h3 className={styles.serviceTitle}>{s.title}</h3>
+                  <p className={styles.serviceDesc}>{s.desc}</p>
+                  <ul className={styles.serviceList}>
+                    {s.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className={styles.serviceTitle}>{s.title}</h3>
-                <p className={styles.serviceDesc}>{s.desc}</p>
-                <ul className={styles.serviceList}>
-                  {s.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
+          <p className={styles.deckHelper}>Hover a service to bring it forward</p>
         </div>
       </section>
 

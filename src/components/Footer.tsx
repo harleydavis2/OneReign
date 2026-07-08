@@ -29,6 +29,12 @@ export default function Footer() {
             // Map scroll position to offset (from -60px to 60px)
             const offset = (relativeY - 0.5) * 120;
             containerRef.current.style.setProperty("--bg-offset-y", `${offset}px`);
+
+            // Map relativeY (approx 1.0 at viewport bottom entry, 0.82 at scroll limit) to horizontal background position.
+            // As user scrolls down, relativeY decreases, so positionX decreases from ~90% (left 'O') to ~10% (right 'N').
+            // We clamp positionX between 15% and 85% to ensure the background image always covers the text fully.
+            const positionX = Math.max(15, Math.min(85, (relativeY - 0.82) * 440 + 10)); 
+            containerRef.current.style.setProperty("--bg-offset-x", `${positionX}%`);
           }
           ticking = false;
         });
