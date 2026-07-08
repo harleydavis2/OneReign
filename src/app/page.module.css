@@ -14,8 +14,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 75% 30%, rgba(69,118,255,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(23,70,234,0.07) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 55% at 75% 30%, rgba(69, 118, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(23, 70, 234, 0.07) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -25,8 +25,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0,33,155,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,33,155,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(0, 33, 155, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 33, 155, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
@@ -67,7 +67,9 @@
   color: var(--dark-blue);
 }
 
-.heroAccent { color: var(--platinate); }
+.heroAccent {
+  color: var(--platinate);
+}
 
 .heroSub {
   font-size: clamp(1rem, 1.4vw, 1.15rem);
@@ -104,7 +106,7 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,12,40,0.06);
+  box-shadow: 0 4px 24px rgba(0, 12, 40, 0.06);
 }
 
 .comparisonHeader {
@@ -142,8 +144,14 @@
   background: var(--white);
   transition: background 0.2s;
 }
-.comparisonRow:last-child { border-bottom: none; }
-.comparisonRow:hover { background: var(--bg-secondary); }
+
+.comparisonRow:last-child {
+  border-bottom: none;
+}
+
+.comparisonRow:hover {
+  background: var(--bg-secondary);
+}
 
 .ourWayCell {
   display: flex;
@@ -155,8 +163,8 @@
 .checkIcon {
   width: 24px;
   height: 24px;
-  background: rgba(34,197,94,0.1);
-  border: 1px solid rgba(34,197,94,0.3);
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -169,8 +177,8 @@
 .crossIcon {
   width: 24px;
   height: 24px;
-  background: rgba(239,68,68,0.08);
-  border: 1px solid rgba(239,68,68,0.2);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -222,6 +230,81 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+@media (min-width: 1025px) {
+  .servicesGrid {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 520px;
+    width: 100%;
+    margin-top: 60px;
+    overflow: visible;
+  }
+
+  .serviceCard {
+    position: absolute;
+    width: 290px;
+    height: 400px;
+    bottom: 30px;
+    z-index: var(--z);
+    
+    /* Dynamic scaling multipliers based on screen size */
+    --x-multiplier: 180px; /* Generous spacing */
+    --y-multiplier: 6px;
+    --r-multiplier: 6deg;
+
+    --x: calc(var(--i) * var(--x-multiplier));
+    --y: calc(var(--abs-i) * var(--abs-i) * var(--y-multiplier));
+    --r: calc(var(--i) * var(--r-multiplier));
+
+    transform: translate(var(--x), var(--y)) rotate(var(--r));
+    transform-origin: center bottom;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0, 12, 40, 0.04);
+    padding: 24px !important;
+  }
+
+  /* Medium desktops: decrease spacing and width to prevent overflow */
+  @media (max-width: 1240px) {
+    .serviceCard {
+      --x-multiplier: 145px; /* Tighter layout */
+      --y-multiplier: 4.8px;
+      --r-multiplier: 5deg;
+      width: 275px;
+      height: 410px;
+    }
+  }
+
+  .serviceCard:hover {
+    transform: translate(var(--x), -35px) rotate(0deg) scale(1.06);
+    z-index: 60;
+    border-color: var(--accent);
+    box-shadow: 
+      0 30px 60px -15px rgba(0, 12, 40, 0.15),
+      0 0 0 1px var(--accent-mid);
+  }
+}
+
+.deckHelper {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 30px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .deckHelper {
+    display: none;
+  }
 }
 
 .serviceTopRow {
@@ -280,6 +363,7 @@
   position: relative;
   line-height: 1.5;
 }
+
 .serviceList li::before {
   content: '→';
   position: absolute;
@@ -319,10 +403,11 @@
   min-width: 180px;
   transition: all 0.25s;
 }
+
 .statCard:hover {
   border-color: var(--accent);
   transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(69,118,255,0.15);
+  box-shadow: 0 12px 36px rgba(69, 118, 255, 0.15);
   background: var(--white);
 }
 
@@ -420,15 +505,23 @@
   margin-top: 6px;
   transition: gap 0.2s;
 }
-.productCard:hover .productCardCta { gap: 10px; }
+
+.productCard:hover .productCardCta {
+  gap: 10px;
+}
 
 /* ─── CTA Section ────────────────────────────────── */
 .ctaSection {
   background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
 }
 
-.ctaSection h2 { color: #fff; }
-.ctaSection .heroAccent { color: var(--sky-blue); }
+.ctaSection h2 {
+  color: #fff;
+}
+
+.ctaSection .heroAccent {
+  color: var(--sky-blue);
+}
 
 .ctaInner {
   text-align: center;
@@ -438,7 +531,7 @@
 
 .ctaBody {
   font-size: 1rem;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
   margin-top: 20px;
   line-height: 1.75;
 }
@@ -452,26 +545,53 @@
 }
 
 .ctaSection .btn-outline {
-  color: rgba(255,255,255,0.8);
-  border-color: rgba(255,255,255,0.2);
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
 }
+
 .ctaSection .btn-outline:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* ─── Responsive ─────────────────────────────────── */
 @media (max-width: 1024px) {
-  .servicesGrid { grid-template-columns: repeat(2, 1fr); }
-  .manifestoInner { grid-template-columns: 1fr; gap: 40px; }
-  .manifestoStats { flex-direction: row; flex-wrap: wrap; }
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .manifestoInner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .manifestoStats {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
+
 @media (max-width: 768px) {
-  .productsPreview { grid-template-columns: 1fr; }
-  .comparisonGrid { display: none; }
+  .productsPreview {
+    grid-template-columns: 1fr;
+  }
+
+  .comparisonGrid {
+    display: none;
+  }
 }
+
 @media (max-width: 640px) {
-  .servicesGrid { grid-template-columns: 1fr; }
-  .heroCtas { flex-direction: column; }
-  .ctaBtns { flex-direction: column; align-items: center; }
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCtas {
+    flex-direction: column;
+  }
+
+  .ctaBtns {
+    flex-direction: column;
+    align-items: center;
+  }
 }
