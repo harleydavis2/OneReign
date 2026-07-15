@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { Meteors } from "./ui/meteors";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -23,19 +22,14 @@ export default function Footer() {
           const rect = containerRef.current.getBoundingClientRect();
           const viewportHeight = window.innerHeight;
 
-          // Check if element is in/near viewport
           if (rect.top < viewportHeight && rect.bottom > 0) {
-            // Find relative scroll position (0 = top of viewport, 1 = bottom of viewport)
-            const relativeY = (rect.top + rect.height / 2) / viewportHeight;
-            // Map scroll position to offset (from -60px to 60px)
-            const offset = (relativeY - 0.5) * 120;
-            containerRef.current.style.setProperty("--bg-offset-y", `${offset}px`);
+            const currentDist = viewportHeight - rect.top;
+            const progress = Math.max(0, Math.min(1, currentDist / (rect.height || 200)));
 
-            // Map relativeY (approx 1.0 at viewport bottom entry, 0.82 at scroll limit) to horizontal background position.
-            // As user scrolls down, relativeY decreases, so positionX decreases from ~90% (left 'O') to ~10% (right 'N').
-            // We clamp positionX between 15% and 85% to ensure the background image always covers the text fully.
-            const positionX = Math.max(15, Math.min(85, (relativeY - 0.82) * 440 + 10)); 
-            containerRef.current.style.setProperty("--bg-offset-x", `${positionX}%`);
+            // 0% progress = white on 'O' (left side, position 85%)
+            // 100% progress = white on 'N' (right side, position 15%)
+            const offset = 85 - progress * 70;
+            containerRef.current.style.setProperty("--bg-offset-x", `${offset}%`);
           }
           ticking = false;
         });
@@ -44,7 +38,7 @@ export default function Footer() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial position check
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -52,7 +46,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} ref={containerRef}>
       <div className={styles.container}>
 
         {/* Top Section: Contact Card & Links */}
@@ -140,8 +134,7 @@ export default function Footer() {
 
         {/* Bottom Section: Giant brand text */}
         <div className={styles.bottomSection}>
-          <Meteors number={30} />
-          <div ref={containerRef} className={styles.brandContainer}>
+          <div className={styles.brandContainer}>
             <span className={styles.brandText}>ONEREIGN</span>
             <span className={styles.punctuation}>
               <span className={styles.star}>*</span>

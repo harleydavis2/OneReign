@@ -136,7 +136,7 @@
 .shiftCard:hover {
   transform: translateY(-4px);
   border-color: var(--accent-mid);
-  box-shadow: 
+  box-shadow:
     0 20px 40px -12px rgba(0, 12, 40, 0.08),
     0 0 0 1px var(--accent-mid);
 }
@@ -371,7 +371,7 @@
 .shiftCard:hover .panelOur {
   border-color: var(--accent-mid);
   background: var(--bg-card-hover);
-  box-shadow: 
+  box-shadow:
     0 10px 25px -10px rgba(69, 118, 255, 0.15),
     0 0 0 1px rgba(69, 118, 255, 0.1);
 }
@@ -410,9 +410,10 @@
     height: 400px;
     bottom: 30px;
     z-index: var(--z);
-    
+
     /* Dynamic scaling multipliers based on screen size */
-    --x-multiplier: 180px; /* Generous spacing */
+    --x-multiplier: 180px;
+    /* Generous spacing */
     --y-multiplier: 6px;
     --r-multiplier: 6deg;
 
@@ -432,7 +433,8 @@
   /* Medium desktops: decrease spacing and width to prevent overflow */
   @media (max-width: 1240px) {
     .serviceCard {
-      --x-multiplier: 145px; /* Tighter layout */
+      --x-multiplier: 145px;
+      /* Tighter layout */
       --y-multiplier: 4.8px;
       --r-multiplier: 5deg;
       width: 275px;
@@ -444,7 +446,7 @@
     transform: translate(var(--x), -35px) rotate(0deg) scale(1.06);
     z-index: 60;
     border-color: var(--accent);
-    box-shadow: 
+    box-shadow:
       0 30px 60px -15px rgba(0, 12, 40, 0.15),
       0 0 0 1px var(--accent-mid);
   }
@@ -616,8 +618,17 @@
 }
 
 @keyframes corePulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.15); opacity: 0.95; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.95;
+  }
 }
 
 /* Satellite Panel Style */
@@ -697,27 +708,27 @@
 }
 
 /* Highlight connection pathways on hover */
-.panelTop:hover ~ .svgConnectors .connectorPath:nth-child(1) {
+.panelTop:hover~.svgConnectors .connectorPath:nth-child(1) {
   stroke: var(--accent);
   stroke-width: 3;
   animation: dashPulse 1s infinite linear;
 }
 
-.panelBottomLeft:hover ~ .svgConnectors .connectorPath:nth-child(2) {
+.panelBottomLeft:hover~.svgConnectors .connectorPath:nth-child(2) {
   stroke: var(--accent);
   stroke-width: 3;
   animation: dashPulse 1s infinite linear;
 }
 
-.panelBottomRight:hover ~ .svgConnectors .connectorPath:nth-child(3) {
+.panelBottomRight:hover~.svgConnectors .connectorPath:nth-child(3) {
   stroke: var(--accent);
   stroke-width: 3;
   animation: dashPulse 1s infinite linear;
 }
 
-.panelTop:hover ~ .engineCore .engineCoreInner,
-.panelBottomLeft:hover ~ .engineCore .engineCoreInner,
-.panelBottomRight:hover ~ .engineCore .engineCoreInner {
+.panelTop:hover~.engineCore .engineCoreInner,
+.panelBottomLeft:hover~.engineCore .engineCoreInner,
+.panelBottomRight:hover~.engineCore .engineCoreInner {
   border-color: var(--white);
   box-shadow: 0 0 20px rgba(69, 118, 255, 0.4);
 }
@@ -771,8 +782,17 @@
 }
 
 @keyframes radarEcho {
-  0% { width: 4px; height: 4px; opacity: 1; }
-  100% { width: 24px; height: 24px; opacity: 0; }
+  0% {
+    width: 4px;
+    height: 4px;
+    opacity: 1;
+  }
+
+  100% {
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+  }
 }
 
 /* Chart graphics (RUBL) */
@@ -845,8 +865,15 @@
 }
 
 @keyframes pulseOuter {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(2.5); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
 }
 
 /* ─── Products Preview ───────────────────────────── */
@@ -1005,7 +1032,8 @@
     gap: 20px;
   }
 
-  .svgConnectors, .engineCore {
+  .svgConnectors,
+  .engineCore {
     display: none;
   }
 
@@ -1063,7 +1091,8 @@
     gap: 16px;
   }
 
-  .panelOld, .panelOur {
+  .panelOld,
+  .panelOur {
     padding: 16px;
   }
 

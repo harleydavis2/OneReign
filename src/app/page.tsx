@@ -117,7 +117,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
+
       {/* 3D Product Showcase Scroll Animation */}
       <section className="section" style={{ background: "var(--bg-secondary)", paddingBottom: "100px", paddingTop: "60px" }}>
         <ContainerScroll
@@ -159,7 +159,7 @@ export default function HomePage() {
                 <div key={i} className={styles.shiftCard}>
                   {/* Timeline connecting indicator line */}
                   <div className={styles.shiftTimelineLine} />
-                  
+
                   {/* Badge & Meta Row */}
                   <div className={styles.shiftHeader}>
                     <div className={styles.shiftBadge}>
@@ -227,8 +227,8 @@ export default function HomePage() {
               const zVal = Math.floor(10 + (mid - Math.abs(diff)) * 10); // Elevated z-index order
 
               return (
-                <div 
-                  key={s.num} 
+                <div
+                  key={s.num}
                   className={`card ${styles.serviceCard}`}
                   style={{
                     "--i": diff,
