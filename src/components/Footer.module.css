@@ -186,7 +186,7 @@
 }
 
 .brandContainer {
-  font-size: clamp(2.5rem, 13.5vw, 11rem); /* Larger size to scale up and fit the layout */
+  font-size: clamp(2.5rem, 11vw, 9rem); /* Adjusted to fit the container without wrapping */
   display: inline-flex;
   align-items: baseline; /* Align text and punctuation baselines automatically */
   position: relative;
