@@ -1,0 +1,384 @@
+.diagnosticBox {
+  width: 100%;
+  max-width: 480px;
+  background: var(--dark-blue);
+  border: 1px solid rgba(69, 118, 255, 0.25);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 
+    0 15px 35px -10px rgba(0, 12, 40, 0.5),
+    0 0 15px rgba(69, 118, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.diagnosticBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sky-blue), transparent);
+  pointer-events: none;
+}
+
+/* Tabs selectors */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(69, 118, 255, 0.15);
+  padding-bottom: 12px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.tabs::-webkit-scrollbar {
+  display: none; /* Safari/Chrome */
+}
+
+.tabBtn {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s;
+}
+
+.tabBtn:hover {
+  color: var(--white);
+  background: rgba(69, 118, 255, 0.08);
+}
+
+.activeTabBtn {
+  color: var(--white) !important;
+  background: var(--platinate) !important;
+  border-color: var(--sky-blue) !important;
+  box-shadow: 0 0 10px rgba(23, 70, 234, 0.4);
+}
+
+/* Virtual CRT Screen */
+.virtualScreen {
+  background: #020718;
+  border: 1px solid rgba(69, 118, 255, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* scanline overlay */
+.virtualScreen::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 10;
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+}
+
+.screenHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed rgba(69, 118, 255, 0.2);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.screenTitle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--sky-blue);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.screenPulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulseGreen 1.5s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+.screenVersion {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+/* Screen Grid layout */
+.screenBody {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.diagnosticCopy h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.diagnosticCopy p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+/* Stats items */
+.lossBadge {
+  display: inline-flex;
+  flex-direction: column;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.lossBadge .value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ef4444;
+  line-height: 1.1;
+}
+
+.lossBadge .label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  color: rgba(239, 68, 68, 0.7);
+  letter-spacing: 0.05em;
+}
+
+.savingBadge {
+  display: inline-flex;
+  flex-direction: column;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 6px 12px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.savingBadge .value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #10b981;
+  line-height: 1.1;
+}
+
+.savingBadge .label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  color: rgba(16, 185, 129, 0.7);
+  letter-spacing: 0.05em;
+}
+
+/* Graph representations */
+.telemetryGraph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+}
+
+/* Tab 1: Progress ring */
+.progressRingSvg {
+  transform: rotate(-90deg);
+  width: 100px;
+  height: 100px;
+}
+
+.ringBg {
+  stroke: rgba(69, 118, 255, 0.1);
+}
+
+.ringBar {
+  stroke: var(--sky-blue);
+  stroke-dasharray: 251.2; /* 2 * PI * r (r=40) */
+  stroke-dashoffset: calc(251.2 - (251.2 * var(--pct)) / 100);
+  transition: stroke-dashoffset 1s ease-out;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px var(--sky-blue));
+}
+
+.ringText {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  fill: var(--white);
+  text-anchor: middle;
+}
+
+.ringSubtext {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  fill: var(--text-muted);
+  text-anchor: middle;
+  letter-spacing: 0.05em;
+}
+
+/* Tab 2: Shrinking boxes (context switching) */
+.switchContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+}
+
+.switchState {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100px;
+  justify-content: center;
+  transition: all 0.5s;
+}
+
+.switchBlock {
+  width: 16px;
+  height: 16px;
+  background: var(--platinate);
+  border: 1px solid var(--sky-blue);
+  border-radius: 3px;
+  opacity: 0.4;
+  transition: all 0.3s;
+}
+
+.switchBlockActive {
+  background: var(--sky-blue) !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 6px var(--sky-blue);
+}
+
+.switchOneSystem {
+  width: 60px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--sky-blue) 0%, var(--platinate) 100%);
+  border: 1px solid var(--white);
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(69, 118, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  animation: coreGlow 2s infinite ease-in-out;
+}
+
+@keyframes coreGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(69, 118, 255, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(69, 118, 255, 0.8); }
+}
+
+/* Tab 3: Pipeline Flow dots */
+.pipelineSvg {
+  width: 120px;
+  height: 100px;
+}
+
+.pipeLine {
+  stroke: rgba(69, 118, 255, 0.15);
+  stroke-width: 3;
+}
+
+.pipeFlow {
+  stroke: var(--sky-blue);
+  stroke-width: 3;
+  stroke-dasharray: 20 60;
+  animation: flowDots 2s infinite linear;
+}
+
+@keyframes flowDots {
+  to {
+    stroke-dashoffset: -80;
+  }
+}
+
+.pipeNode {
+  fill: #020718;
+  stroke: rgba(69, 118, 255, 0.3);
+  stroke-width: 1.5;
+  transition: all 0.3s;
+}
+
+.pipeNodeActive {
+  stroke: #10b981 !important;
+  fill: rgba(16, 185, 129, 0.1) !important;
+  filter: drop-shadow(0 0 4px #10b981);
+}
+
+.screenFooter {
+  border-top: 1px dashed rgba(69, 118, 255, 0.15);
+  padding-top: 8px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-muted);
+}
+
+.cursorBlink {
+  width: 4px;
+  height: 10px;
+  background: var(--sky-blue);
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: blinkCursor 0.8s infinite steps(2);
+}
+
+@keyframes blinkCursor {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Mobile responsive screen layout */
+@media (max-width: 580px) {
+  .screenBody {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .telemetryGraph {
+    height: 100px;
+  }
+}

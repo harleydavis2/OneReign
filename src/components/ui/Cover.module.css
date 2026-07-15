@@ -32,7 +32,8 @@
   pointer-events: none;
 }
 
-.coverContainer:hover .textGlow {
+.coverContainer:hover .textGlow,
+.coverContainer.active .textGlow {
   opacity: 0.8;
 }
 
@@ -53,7 +54,8 @@
   mix-blend-mode: overlay;
 }
 
-.coverContainer:hover .textShine {
+.coverContainer:hover .textShine,
+.coverContainer.active .textShine {
   transform: translateX(100%);
 }
 
@@ -68,7 +70,8 @@
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.coverContainer:hover .beamContainer {
+.coverContainer:hover .beamContainer,
+.coverContainer.active .beamContainer {
   opacity: 1;
 }
 
@@ -115,7 +118,8 @@
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.coverContainer:hover .sparkleContainer {
+.coverContainer:hover .sparkleContainer,
+.coverContainer.active .sparkleContainer {
   opacity: 1;
 }
 

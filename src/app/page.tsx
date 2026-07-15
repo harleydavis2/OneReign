@@ -6,6 +6,7 @@ import {
 } from "@/components/Icons";
 import { Cover } from "@/components/ui/cover";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import CtaInteractive from "@/components/CtaInteractive";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -47,23 +48,35 @@ const services = [
   },
 ];
 
-const comparison = [
+const shifts = [
   {
+    num: "01",
+    name: "Process Foundation",
+    Icon: IconLayers,
     ourWay: "Redesign the process first",
     oldWay: "Bolt AI onto broken processes",
     stat: "70% of AI failures stem from poor underlying workflows. We fix the foundation first.",
   },
   {
+    num: "02",
+    name: "System Integration",
+    Icon: IconLink,
     ourWay: "One integrated system",
     oldWay: "Stack tools until something works",
     stat: "Fragmented tech stacks cost companies 30% of their productive time.",
   },
   {
+    num: "03",
+    name: "Connected Architecture",
+    Icon: IconAI,
     ourWay: "Everything connected by design",
     oldWay: "Build features and hope they connect",
     stat: "Unified system architecture reduces long-term technical debt by up to 50%.",
   },
   {
+    num: "04",
+    name: "Iterative Growth",
+    Icon: IconSpark,
     ourWay: "Launch and iterate",
     oldWay: "Launch and pray",
     stat: "Continuous feedback loops improve user retention by 3x.",
@@ -139,27 +152,58 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className={styles.comparisonGrid}>
-            <div className={styles.comparisonHeader}>
-              <span className={styles.ourWayLabel}>Our Way</span>
-              <span className={styles.oldWayLabel}>Old Way</span>
-            </div>
-            {comparison.map((item, i) => (
-              <div key={i} className={styles.comparisonRow}>
-                <div className={styles.ourWayCell}>
-                  <span className={styles.checkIcon}><IconCheck size={12} /></span>
-                  <div>
-                    <p className={styles.comparisonTitle}>{item.ourWay}</p>
-                    <p className={styles.comparisonStat}>{item.stat}</p>
+          <div className={styles.shiftsTimeline}>
+            {shifts.map((shift, i) => {
+              const ShiftIcon = shift.Icon;
+              return (
+                <div key={i} className={styles.shiftCard}>
+                  {/* Timeline connecting indicator line */}
+                  <div className={styles.shiftTimelineLine} />
+                  
+                  {/* Badge & Meta Row */}
+                  <div className={styles.shiftHeader}>
+                    <div className={styles.shiftBadge}>
+                      <span className={styles.shiftNum}>{shift.num}</span>
+                      <span className={styles.shiftName}>{shift.name}</span>
+                    </div>
+                    <div className={styles.shiftIconBox}>
+                      <ShiftIcon size={18} />
+                    </div>
+                  </div>
+
+                  {/* Split Content */}
+                  <div className={styles.shiftGrid}>
+                    {/* Old Way Panel */}
+                    <div className={styles.panelOld}>
+                      <div className={styles.panelOldHeader}>
+                        <span className={styles.panelIconX}><IconX size={12} /></span>
+                        <h4>Old Way</h4>
+                      </div>
+                      <p className={styles.panelOldTitle}>{shift.oldWay}</p>
+                      <div className={styles.diagonalSlash} />
+                    </div>
+
+                    {/* Transition Indicator */}
+                    <div className={styles.shiftTransition}>
+                      <div className={styles.transitionLine} />
+                      <div className={styles.transitionText}>Shift</div>
+                      <div className={styles.transitionLine} />
+                    </div>
+
+                    {/* Our Way Panel */}
+                    <div className={styles.panelOur}>
+                      <div className={styles.panelOurHeader}>
+                        <span className={styles.panelIconCheck}><IconCheck size={14} /></span>
+                        <h4>Our Way</h4>
+                      </div>
+                      <p className={styles.panelOurTitle}>{shift.ourWay}</p>
+                      <div className={styles.panelOurDivider} />
+                      <p className={styles.panelOurStat}>{shift.stat}</p>
+                    </div>
                   </div>
                 </div>
-                <div className={styles.vsLabel}>vs</div>
-                <div className={styles.oldWayCell}>
-                  <span className={styles.crossIcon}><IconX size={10} /></span>
-                  <p className={styles.comparisonTitle}>{item.oldWay}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -228,17 +272,72 @@ export default function HomePage() {
                 See Our Products <IconArrow size={16} />
               </Link>
             </div>
-            <div className={styles.manifestoStats}>
-              {[
-                { num: "2", label: "Live Products" },
-                { num: "3+", label: "AI Agents" },
-                { num: "∞", label: "Ambition" },
-              ].map((s) => (
-                <div key={s.label} className={styles.statCard}>
-                  <span className={styles.statNum}>{s.num}</span>
-                  <span className={styles.statLabel}>{s.label}</span>
+            <div className={styles.engineVisual}>
+              {/* Satellite Panel 1: Conesta (Top) */}
+              <div className={`${styles.hubPanel} ${styles.panelTop}`}>
+                <div className={styles.hubPanelHeader}>
+                  <span className={styles.hubPanelBadge}>CONESTA</span>
+                  <span className={styles.hubPanelNum}>01</span>
                 </div>
-              ))}
+                <h3>Learning Platform</h3>
+                <p>AI study networks & resource libraries built for scale.</p>
+                <div className={styles.radarContainer}>
+                  <div className={styles.radarRing} style={{ animationDelay: "0s" }} />
+                  <div className={styles.radarRing} style={{ animationDelay: "1s" }} />
+                  <div className={styles.radarPoint} />
+                  <span className={styles.radarText}>Radar Active</span>
+                </div>
+              </div>
+
+              {/* Satellite Panel 2: RUBL (Bottom Left) */}
+              <div className={`${styles.hubPanel} ${styles.panelBottomLeft}`}>
+                <div className={styles.hubPanelHeader}>
+                  <span className={styles.hubPanelBadge}>RUBL</span>
+                  <span className={styles.hubPanelNum}>02</span>
+                </div>
+                <h3>Revenue Platform</h3>
+                <p>Autonomous CRM, automated marketing, and automated product demos.</p>
+                <div className={styles.chartContainer}>
+                  <div className={styles.chartBar} style={{ "--h": "40%" } as React.CSSProperties} />
+                  <div className={styles.chartBar} style={{ "--h": "60%" } as React.CSSProperties} />
+                  <div className={styles.chartBar} style={{ "--h": "90%" } as React.CSSProperties} />
+                  <span className={styles.chartText}>Automated Growth</span>
+                </div>
+              </div>
+
+              {/* Satellite Panel 3: Ambition (Bottom Right) */}
+              <div className={`${styles.hubPanel} ${styles.panelBottomRight}`}>
+                <div className={styles.hubPanelHeader}>
+                  <span className={styles.hubPanelBadge}>AMBITION</span>
+                  <span className={styles.hubPanelNum}>∞</span>
+                </div>
+                <h3>System Scaling</h3>
+                <p>Continuous internal product launches feeding insights back to clients.</p>
+                <div className={styles.ambitionContainer}>
+                  <span className={styles.ambitionPulse} />
+                  <span className={styles.ambitionPulseOuter} />
+                  <span className={styles.ambitionText}>AI Agents: Active</span>
+                </div>
+              </div>
+
+              {/* SVG connection lines in the background */}
+              <svg className={styles.svgConnectors} viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Center to Top (Conesta) */}
+                <path d="M200 200 L200 60" className={styles.connectorPath} />
+                {/* Center to Bottom Left (RUBL) */}
+                <path d="M200 200 L70 310" className={styles.connectorPath} />
+                {/* Center to Bottom Right (Ambition) */}
+                <path d="M200 200 L330 310" className={styles.connectorPath} />
+              </svg>
+
+              {/* Central Engine Node */}
+              <div className={styles.engineCore}>
+                <div className={styles.engineCoreInner}>
+                  <IconAI size={24} />
+                  <span>ENGINE</span>
+                </div>
+                <div className={styles.engineCoreGlow} />
+              </div>
             </div>
           </div>
         </div>
@@ -287,14 +386,19 @@ export default function HomePage() {
       {/* CTA */}
       <section className={`section ${styles.ctaSection}`} id="cta">
         <div className="container">
-          <div className={styles.ctaInner}>
-            <h2>Ready to harness your<br /><span className={styles.heroAccent}>Op/Intelligence?</span></h2>
-            <p className={styles.ctaBody}>
-              Tell us what is broken. We will show you what is possible. Every project starts with a conversation — no commitment required.
-            </p>
-            <div className={styles.ctaBtns}>
-              <Link href="/contact" className="btn btn-primary">Start a Project <IconArrow size={16} /></Link>
-              <a href="mailto:hello@onereign.co" className="btn btn-outline">hello@onereign.co</a>
+          <div className={styles.ctaGrid}>
+            <div className={styles.ctaText}>
+              <h2>Ready to harness your<br /><span className={styles.heroAccent}>Op/Intelligence?</span></h2>
+              <p className={styles.ctaBody}>
+                Tell us what is broken. We will show you what is possible. Every project starts with a conversation — no commitment required.
+              </p>
+              <div className={styles.ctaBtns}>
+                <Link href="/contact" className="btn btn-primary">Start a Project <IconArrow size={16} /></Link>
+                <a href="mailto:hello@onereign.co" className="btn btn-outline">hello@onereign.co</a>
+              </div>
+            </div>
+            <div className={styles.ctaGraphic}>
+              <CtaInteractive />
             </div>
           </div>
         </div>

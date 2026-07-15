@@ -177,34 +177,41 @@
 
 /* Bottom Section: Giant Logo Text */
 .bottomSection {
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  overflow: visible;
+  min-height: 280px;
+  overflow: hidden;
+  background-color: #020718;
+  border-top: 1px solid rgba(69, 118, 255, 0.15);
+  border-bottom: 1px solid rgba(69, 118, 255, 0.15);
+  padding: 60px 0;
 }
 
 .brandContainer {
-  font-size: clamp(3rem, 11vw, 8.5rem); /* Decreased font size as requested */
+  font-size: clamp(1.6rem, 11vw, 8.5rem); /* Decreased font size as requested */
   display: inline-flex;
   align-items: baseline; /* Align text and punctuation baselines automatically */
   position: relative;
   user-select: none;
+  z-index: 2;
 }
 
 .brandText {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-weight: 900;
   letter-spacing: 0.12em; /* Spread out the letters */
   text-transform: uppercase; /* Capital letters rather than lowercase */
   background-image: linear-gradient(
     120deg,
-    var(--dark-blue) 10%,
-    var(--platinate) 35%,
-    var(--sky-blue) 47%,
-    #ffffff 50%,
+    #ffffff 10%,
+    var(--sky-blue) 35%,
+    #ffffff 47%,
     var(--sky-blue) 53%,
-    var(--platinate) 70%,
-    var(--dark-blue) 90%
+    #ffffff 70%,
+    #ffffff 90%
   );
   background-size: 250% 100%; /* Wider width to enable smooth sweep across text */
   background-position: var(--bg-offset-x, 50%) 50%;
@@ -237,13 +244,12 @@
   font-weight: 900;
   background-image: linear-gradient(
     120deg,
-    var(--dark-blue) 10%,
-    var(--platinate) 35%,
-    var(--sky-blue) 47%,
-    #ffffff 50%,
+    #ffffff 10%,
+    var(--sky-blue) 35%,
+    #ffffff 47%,
     var(--sky-blue) 53%,
-    var(--platinate) 70%,
-    var(--dark-blue) 90%
+    #ffffff 70%,
+    #ffffff 90%
   );
   background-size: 250% 100%;
   background-position: var(--bg-offset-x, 50%) 50%;
@@ -299,5 +305,11 @@
   .linksColumns {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+  .brandContainer {
+    font-size: clamp(1.6rem, 8vw, 3.2rem);
+  }
+  .brandText {
+    letter-spacing: 0.05em;
   }
 }

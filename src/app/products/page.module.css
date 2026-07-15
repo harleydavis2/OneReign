@@ -198,7 +198,25 @@
   line-height: 1.65;
 }
 
+.productCta {
+  margin-top: 12px;
+}
+
 @media (max-width: 1024px) {
   .productLayout { grid-template-columns: 1fr; gap: 40px; }
   .productLayoutReverse { direction: ltr; }
+}
+
+@media (max-width: 640px) {
+  .productNav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .productNavBtn {
+    width: 100%;
+    justify-content: center;
+  }
+  .productCta {
+    width: 100%;
+  }
 }

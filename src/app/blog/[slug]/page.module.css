@@ -1,0 +1,155 @@
+.pageHero {
+  padding-top: 160px;
+  padding-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 75% 20%, rgba(69,118,255,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.backLink {
+  color: var(--platinate);
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.backLink:hover {
+  opacity: 0.8;
+}
+
+.divider {
+  color: var(--border-strong);
+}
+
+.postDate {
+  color: var(--text-muted);
+}
+
+.postCategory {
+  color: var(--accent);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.heroH1 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  color: var(--dark-blue);
+  font-weight: 800;
+}
+
+.authorRow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Layout */
+.contentLayout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Article Styles */
+.article {
+  max-width: 680px;
+}
+
+.p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.h3 {
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin-top: 40px;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.ul, .ol {
+  margin-bottom: 24px;
+  padding-left: 24px;
+}
+
+.li {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+/* Blog CTA */
+.blogCta {
+  background: linear-gradient(135deg, var(--dark-blue), var(--medium-blue));
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.blogCtaLabel {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sky-blue);
+  margin-bottom: 8px;
+}
+
+.blogCtaText {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.65;
+}
+
+.blogCta .btn-primary {
+  background: var(--sky-blue) !important;
+}
+
+@media (max-width: 960px) {
+  .contentLayout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .sidebar {
+    position: static;
+  }
+  .pageHero {
+    padding-top: 130px;
+  }
+}

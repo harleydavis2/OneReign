@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { Meteors } from "./ui/meteors";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -139,6 +140,7 @@ export default function Footer() {
 
         {/* Bottom Section: Giant brand text */}
         <div className={styles.bottomSection}>
+          <Meteors number={30} />
           <div ref={containerRef} className={styles.brandContainer}>
             <span className={styles.brandText}>ONEREIGN</span>
             <span className={styles.punctuation}>

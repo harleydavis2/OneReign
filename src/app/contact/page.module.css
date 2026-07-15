@@ -200,4 +200,8 @@ a.infoValue:hover { color: var(--platinate); }
 }
 @media (max-width: 600px) {
   .formRow { grid-template-columns: 1fr; }
+  .submitBtn {
+    align-self: stretch;
+    width: 100%;
+  }
 }
