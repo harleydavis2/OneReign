@@ -1,7 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#f5f7ff",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +24,14 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://OneReign.co",
     siteName: "OneReign",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "OneReign",
+  },
+  formatDetection: {
+    telephone: false,
   },
 };
 
@@ -34,3 +50,4 @@ export default function RootLayout({
     </html>
   );
 }
+

@@ -23,12 +23,12 @@ function LogoModel() {
 
 export default function SpinningLogo({ size = 36 }: { size?: number }) {
   return (
-    <div style={{ width: size, height: size, flexShrink: 0 }}>
+    <div style={{ width: size, height: size, flexShrink: 0, pointerEvents: "none" }}>
       <Canvas
         camera={{ position: [0, 0, 6], fov: 35 }}
-        style={{ width: "100%", height: "100%" }}
-        gl={{ antialias: true, alpha: true }}
-        legacy={false}
+        style={{ width: "100%", height: "100%", pointerEvents: "none" }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        dpr={[1, 2]}
       >
         <ambientLight intensity={0.8} color="#ffffff" />
         <directionalLight position={[4, 5, 6]} intensity={1.6} color="#4576ff" />
