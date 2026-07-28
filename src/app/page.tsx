@@ -7,6 +7,7 @@ import {
 import { Cover } from "@/components/ui/cover";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import CtaInteractive from "@/components/CtaInteractive";
+import ServicesSection from "@/components/ServicesSection";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -209,51 +210,7 @@ export default function HomePage() {
       </section>
 
       {/* Services */}
-      <section className="section" id="services" style={{ background: "var(--bg-secondary)" }}>
-        <div className="container">
-          <div className={styles.sectionHeader}>
-            <p className="eyebrow">What We Build</p>
-            <h2>Custom Software.<br />Real Outcomes.</h2>
-            <p className={styles.sectionBody}>
-              Six focused service areas. One integrated approach to building systems that deliver real outcomes.
-            </p>
-          </div>
-
-          <div className={styles.servicesGrid}>
-            {services.map((s, index) => {
-              const total = services.length;
-              const mid = (total - 1) / 2;
-              const diff = index - mid;
-              const zVal = Math.floor(10 + (mid - Math.abs(diff)) * 10); // Elevated z-index order
-
-              return (
-                <div
-                  key={s.num}
-                  className={`card ${styles.serviceCard}`}
-                  style={{
-                    "--i": diff,
-                    "--abs-i": Math.abs(diff),
-                    "--z": zVal,
-                  } as React.CSSProperties}
-                >
-                  <div className={styles.serviceTopRow}>
-                    <span className={styles.serviceNum}>{s.num}</span>
-                    <span className={styles.serviceIconWrap}><s.Icon size={20} /></span>
-                  </div>
-                  <h3 className={styles.serviceTitle}>{s.title}</h3>
-                  <p className={styles.serviceDesc}>{s.desc}</p>
-                  <ul className={styles.serviceList}>
-                    {s.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-          <p className={styles.deckHelper}>Hover a service to bring it forward</p>
-        </div>
-      </section>
+      <ServicesSection />
 
       {/* Manifesto */}
       <section className={`section ${styles.manifesto}`} id="manifesto">

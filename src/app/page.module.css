@@ -382,86 +382,162 @@
 
 /* ─── Services ───────────────────────────────────── */
 .servicesGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 520px;
+  width: 100%;
+  margin-top: 60px;
+  overflow: visible;
+  perspective: 1200px;
 }
 
 .serviceCard {
+  position: absolute;
+  left: calc(50% - 145px);
+  width: 290px;
+  height: 420px;
+  bottom: 30px;
+  z-index: var(--z);
   display: flex;
   flex-direction: column;
   gap: 14px;
+  cursor: pointer;
+  touch-action: manipulation;
+  will-change: transform;
+
+  /* Dynamic scaling multipliers based on desktop screen size */
+  --x-multiplier: 180px;
+  --y-multiplier: 6px;
+  --r-multiplier: 6deg;
+
+  --x: calc(var(--i) * var(--x-multiplier));
+  --y: calc(var(--abs-i) * var(--abs-i) * var(--y-multiplier));
+  --r: calc(var(--i) * var(--r-multiplier));
+
+  transform: translate(var(--x), var(--y)) rotate(var(--r));
+  transform-origin: center bottom;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s, opacity 0.3s;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 12, 40, 0.04);
+  padding: 24px !important;
 }
 
-@media (min-width: 1025px) {
+/* Stable hover hit-box wrapper */
+.serviceCard::before {
+  content: "";
+  position: absolute;
+  inset: -35px -20px -45px -20px;
+  border-radius: 20px;
+  z-index: -1;
+  pointer-events: auto;
+}
+
+.serviceCard:hover,
+.serviceCard.activeCard {
+  transform: translate(var(--x), calc(var(--y) - 28px)) rotate(calc(var(--r) * 0.2)) scale(1.05);
+  z-index: 100 !important;
+  border-color: var(--accent);
+  box-shadow:
+    0 30px 60px -15px rgba(0, 12, 40, 0.15),
+    0 0 0 1px var(--accent-mid);
+}
+
+@media (max-width: 1240px) and (min-width: 1025px) {
+  .serviceCard {
+    left: calc(50% - 137.5px);
+    --x-multiplier: 145px;
+    --y-multiplier: 4.8px;
+    --r-multiplier: 5deg;
+    width: 275px;
+    height: 410px;
+  }
+}
+
+/* Mobile & iOS 3D Fanned Card Deck */
+@media (max-width: 1024px) {
   .servicesGrid {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    height: 520px;
-    width: 100%;
-    margin-top: 60px;
-    overflow: visible;
+    height: 460px;
+    margin-top: 30px;
+    touch-action: pan-y;
   }
 
   .serviceCard {
-    position: absolute;
-    left: calc(50% - 145px);
-    width: 290px;
+    left: calc(50% - 140px);
+    width: 280px;
+    height: 410px;
+    bottom: 20px;
+    z-index: var(--mz);
+
+    /* Mobile 3D Fanned Offset based on active mobile index --mi */
+    --mx: calc(var(--mi) * 38px);
+    --my: calc(var(--m-abs-i) * 10px);
+    --mr: calc(var(--mi) * 5deg);
+
+    transform: translate(var(--mx), var(--my)) rotate(var(--mr)) scale(calc(1 - var(--m-abs-i) * 0.05));
+    opacity: calc(1 - var(--m-abs-i) * 0.22);
+  }
+
+  .serviceCard.activeCard {
+    transform: translate(0, -12px) rotate(0deg) scale(1.04) !important;
+    opacity: 1 !important;
+    z-index: 120 !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 20px 45px rgba(69, 118, 255, 0.2), 0 0 0 1px var(--accent-mid) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .servicesGrid {
+    height: 440px;
+  }
+
+  .serviceCard {
+    left: calc(50% - 130px);
+    width: 260px;
     height: 400px;
-    bottom: 30px;
-    z-index: var(--z);
-
-    /* Dynamic scaling multipliers based on screen size */
-    --x-multiplier: 180px;
-    /* Generous spacing */
-    --y-multiplier: 6px;
-    --r-multiplier: 6deg;
-
-    --x: calc(var(--i) * var(--x-multiplier));
-    --y: calc(var(--abs-i) * var(--abs-i) * var(--y-multiplier));
-    --r: calc(var(--i) * var(--r-multiplier));
-
-    transform: translate(var(--x), var(--y)) rotate(var(--r));
-    transform-origin: center bottom;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    box-shadow: 0 10px 30px rgba(0, 12, 40, 0.04);
-    padding: 24px !important;
+    padding: 20px !important;
+    --mx: calc(var(--mi) * 28px);
+    --my: calc(var(--m-abs-i) * 8px);
+    --mr: calc(var(--mi) * 4deg);
   }
 
-  /* Stable hover hit-box wrapper to prevent mouse position jitter & stutter */
-  .serviceCard::before {
-    content: "";
-    position: absolute;
-    inset: -35px -20px -45px -20px;
-    border-radius: 20px;
-    z-index: -1;
-    pointer-events: auto;
+  .serviceCard.activeCard {
+    transform: translate(0, -10px) rotate(0deg) scale(1.03) !important;
   }
+}
 
-  /* Medium desktops: decrease spacing and width to prevent overflow */
-  @media (max-width: 1240px) {
-    .serviceCard {
-      left: calc(50% - 137.5px);
-      --x-multiplier: 145px;
-      /* Tighter layout */
-      --y-multiplier: 4.8px;
-      --r-multiplier: 5deg;
-      width: 275px;
-      height: 410px;
-    }
-  }
+/* Mobile Service Selector Pills */
+.mobileServicePills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
 
-  .serviceCard:hover {
-    transform: translate(var(--x), calc(var(--y) - 28px)) rotate(calc(var(--r) * 0.2)) scale(1.05);
-    z-index: 60;
-    border-color: var(--accent);
-    box-shadow:
-      0 30px 60px -15px rgba(0, 12, 40, 0.15),
-      0 0 0 1px var(--accent-mid);
-  }
+.mobilePillBtn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  touch-action: manipulation;
+  box-shadow: 0 2px 8px rgba(0, 12, 40, 0.02);
+}
+
+.mobilePillBtn:hover,
+.activePillBtn {
+  color: var(--white) !important;
+  background: var(--platinate) !important;
+  border-color: var(--sky-blue) !important;
+  box-shadow: 0 4px 14px rgba(23, 70, 234, 0.3) !important;
 }
 
 .deckHelper {
@@ -472,7 +548,7 @@
   text-transform: uppercase;
   color: var(--text-muted);
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
   width: 100%;
 }
 
