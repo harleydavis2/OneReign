@@ -1046,14 +1046,24 @@
 /* ─── CTA Section ────────────────────────────────── */
 .ctaSection {
   background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
+  overflow: hidden;
+  position: relative;
 }
 
 .ctaSection h2 {
   color: #fff;
+  font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+  line-height: 1.12;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .ctaSection .heroAccent {
   color: var(--sky-blue);
+}
+
+.ctaH2Br {
+  display: block;
 }
 
 .ctaGrid {
@@ -1061,17 +1071,24 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 60px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .ctaText {
   text-align: left;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .ctaBody {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.75);
   margin-top: 20px;
   line-height: 1.75;
+  max-width: 520px;
+  word-break: break-word;
 }
 
 .ctaBtns {
@@ -1080,19 +1097,24 @@
   justify-content: flex-start;
   margin-top: 40px;
   flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .ctaGraphic {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .ctaSection .btn-outline {
-  color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.25);
+  word-break: break-all;
 }
 
 .ctaSection .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -1144,14 +1166,36 @@
   .ctaGrid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 40px;
+    gap: 36px;
+  }
+
+  .ctaH2Br {
+    display: inline;
   }
 
   .ctaText {
     text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ctaBody {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .ctaBtns {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .ctaBtns a,
+  .ctaBtns button {
+    width: 100%;
+    max-width: 360px;
     justify-content: center;
   }
 }

@@ -345,7 +345,7 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.ctaGrid}>
             <div className={styles.ctaText}>
-              <h2>Ready to harness your<br /><span className={styles.heroAccent}>Op/Intelligence?</span></h2>
+              <h2>Ready to harness your<span className={styles.ctaH2Br}><br /></span> <span className={styles.heroAccent}>Op/Intelligence?</span></h2>
               <p className={styles.ctaBody}>
                 Tell us what is broken. We will show you what is possible. Every project starts with a conversation — no commitment required.
               </p>
