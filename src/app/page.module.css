@@ -1201,16 +1201,24 @@
 }
 
 @media (max-width: 640px) {
-  .servicesGrid {
-    grid-template-columns: 1fr;
-  }
-
   .heroCtas {
     flex-direction: column;
   }
 
+  .ctaGraphic {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
   .ctaBtns {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .ctaBtns a {
+    width: 100%;
+    justify-content: center;
   }
 }
