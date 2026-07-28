@@ -119,7 +119,7 @@ export default function ServicesSection() {
           })}
         </div>
 
-        {/* Mobile / Touch interactive service pills */}
+        {/* Mobile / Touch interactive service pills (Hidden on Desktop & Laptop) */}
         <div className={styles.mobileServicePills}>
           {services.map((s, index) => (
             <button
@@ -133,7 +133,8 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        <p className={styles.deckHelper}>Hover or tap a service to inspect</p>
+        <p className={styles.desktopDeckHelper}>Hover a service to bring it forward</p>
+        <p className={styles.mobileDeckHelper}>Tap or swipe a service to inspect</p>
       </div>
     </section>
   );

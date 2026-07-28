@@ -435,8 +435,7 @@
   pointer-events: auto;
 }
 
-.serviceCard:hover,
-.serviceCard.activeCard {
+.serviceCard:hover {
   transform: translate(var(--x), calc(var(--y) - 28px)) rotate(calc(var(--r) * 0.2)) scale(1.05);
   z-index: 100 !important;
   border-color: var(--accent);
@@ -509,13 +508,19 @@
   }
 }
 
-/* Mobile Service Selector Pills */
+/* Mobile Service Selector Pills (Hidden by default on Desktop/Laptop) */
 .mobileServicePills {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .mobileServicePills {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
 }
 
 .mobilePillBtn {
@@ -541,7 +546,7 @@
   box-shadow: 0 4px 14px rgba(23, 70, 234, 0.3) !important;
 }
 
-.deckHelper {
+.desktopDeckHelper {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 700;
@@ -549,13 +554,29 @@
   text-transform: uppercase;
   color: var(--text-muted);
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
   width: 100%;
 }
 
+.mobileDeckHelper {
+  display: none;
+}
+
 @media (max-width: 1024px) {
-  .deckHelper {
+  .desktopDeckHelper {
     display: none;
+  }
+  .mobileDeckHelper {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
   }
 }
 
