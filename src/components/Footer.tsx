@@ -1,36 +1,40 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const brandRef = useRef<HTMLDivElement>(null);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
     let ticking = false;
 
     const handleScroll = () => {
-      if (!containerRef.current) return;
+      if (!brandRef.current) return;
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          if (!containerRef.current) {
+          if (!brandRef.current) {
             ticking = false;
             return;
           }
 
-          const rect = containerRef.current.getBoundingClientRect();
+          const rect = brandRef.current.getBoundingClientRect();
           const viewportHeight = window.innerHeight;
 
-          if (rect.top < viewportHeight && rect.bottom > 0) {
-            const currentDist = viewportHeight - rect.top;
-            const progress = Math.max(0, Math.min(1, currentDist / (rect.height || 200)));
-
-            // 0% progress = white on 'O' (left side, position 85%)
-            // 100% progress = white on 'N' (right side, position 15%)
-            const offset = 85 - progress * 70;
-            containerRef.current.style.setProperty("--bg-offset-x", `${offset}%`);
+          // Trigger ONE-TIME sheen animation when user reaches the end of the page
+          if (rect.top <= viewportHeight - 20) {
+            if (!hasAnimatedRef.current) {
+              hasAnimatedRef.current = true;
+              brandRef.current.classList.add(styles.animateSheen);
+            }
+          } else if (rect.top > viewportHeight + 150) {
+            // Reset if user scrolls back up past the footer
+            hasAnimatedRef.current = false;
+            brandRef.current.classList.remove(styles.animateSheen);
           }
+
           ticking = false;
         });
         ticking = true;
@@ -46,7 +50,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className={styles.footer} ref={containerRef}>
+    <footer className={styles.footer}>
       <div className={styles.container}>
 
         {/* Top Section: Contact Card & Links */}
@@ -134,7 +138,10 @@ export default function Footer() {
 
         {/* Bottom Section: Giant brand text */}
         <div className={styles.bottomSection}>
-          <div className={styles.brandContainer}>
+          <div
+            ref={brandRef}
+            className={styles.brandContainer}
+          >
             <span className={styles.brandText}>ONEREIGN</span>
             <span className={styles.punctuation}>
               <span className={styles.star}>*</span>

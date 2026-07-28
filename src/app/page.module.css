@@ -406,6 +406,7 @@
 
   .serviceCard {
     position: absolute;
+    left: calc(50% - 145px);
     width: 290px;
     height: 400px;
     bottom: 30px;
@@ -430,9 +431,20 @@
     padding: 24px !important;
   }
 
+  /* Stable hover hit-box wrapper to prevent mouse position jitter & stutter */
+  .serviceCard::before {
+    content: "";
+    position: absolute;
+    inset: -35px -20px -45px -20px;
+    border-radius: 20px;
+    z-index: -1;
+    pointer-events: auto;
+  }
+
   /* Medium desktops: decrease spacing and width to prevent overflow */
   @media (max-width: 1240px) {
     .serviceCard {
+      left: calc(50% - 137.5px);
       --x-multiplier: 145px;
       /* Tighter layout */
       --y-multiplier: 4.8px;
@@ -443,7 +455,7 @@
   }
 
   .serviceCard:hover {
-    transform: translate(var(--x), -35px) rotate(0deg) scale(1.06);
+    transform: translate(var(--x), calc(var(--y) - 28px)) rotate(calc(var(--r) * 0.2)) scale(1.05);
     z-index: 60;
     border-color: var(--accent);
     box-shadow:

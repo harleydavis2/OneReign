@@ -1,6 +1,6 @@
 .footer {
   background-color: #f3f3f3;
-  padding: 80px 0 120px; /* Increased bottom padding to prevent word clipping at scroll limit */
+  padding: 80px 0 24px; /* Reduced bottom padding to align ONEREIGN logo closer to bottom */
   width: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -208,7 +208,7 @@
     var(--medium-blue) 100%
   );
   background-size: 250% 100%;
-  background-position: var(--bg-offset-x, 85%) 50%;
+  background-position: 85% 50%; /* Resting state at 'O' (left side) */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -217,7 +217,20 @@
   line-height: 1.1; /* Adjusted line height since there is no lowercase 'g' descender */
   padding-bottom: 0.05em; /* Extra padding space at bottom to prevent browser clipping */
   vertical-align: baseline;
-  transition: background-position 0.25s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+/* One-shot sheen sweep from 'O' (85%) to 'N' (15%) when reaching end of page */
+.brandContainer.animateSheen .brandText {
+  animation: sheenOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes sheenOnce {
+  0% {
+    background-position: 85% 50%; /* Starts at 'O' */
+  }
+  100% {
+    background-position: 15% 50%; /* Sweeps ONCE to 'N' and stops */
+  }
 }
 
 .punctuation {
@@ -276,7 +289,7 @@
   }
   
   .footer {
-    padding: 60px 0 40px;
+    padding: 60px 0 20px;
   }
 }
 

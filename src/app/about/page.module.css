@@ -50,61 +50,401 @@
   line-height: 1.75;
 }
 
-/* Founders */
+/* Founders / Team Section */
+.teamHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.teamHeaderLeft {
+  flex: 1;
+}
+
+.teamSub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 540px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+/* Filter Tabs */
+.filterTabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  padding: 6px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0, 12, 40, 0.02);
+}
+
+.filterBtn {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filterBtn:hover {
+  color: var(--dark-blue);
+  background: rgba(69, 118, 255, 0.05);
+}
+
+.activeFilter {
+  background: var(--dark-blue) !important;
+  color: var(--white) !important;
+  box-shadow: 0 4px 14px rgba(0, 12, 40, 0.15);
+}
+
 .foundersGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+  perspective: 1200px;
 }
 
 .founderCard {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 20px;
-  padding: 40px 32px;
+  align-items: stretch;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.18s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 12, 40, 0.03);
 }
 
-.founderAvatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--sky-blue), var(--platinate));
+.cardGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(69, 118, 255, 0.09) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.cardLightReflect {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 0%), rgba(255, 255, 255, 0.6) 0%, transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 4;
+}
+
+.founderCard:hover {
+  border-color: var(--accent-mid);
+  box-shadow:
+    0 24px 50px -12px rgba(23, 70, 234, 0.18),
+    0 0 0 1px rgba(69, 118, 255, 0.3);
+}
+
+.founderCard:hover .cardGlow,
+.founderCard:hover .cardLightReflect {
+  opacity: 1;
+}
+
+/* Executive Founder Card Highlight */
+.isFounderCard {
+  border-color: rgba(23, 70, 234, 0.35);
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(23, 70, 234, 0.1);
+}
+
+.portraitHeroFrame {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: radial-gradient(circle at 50% 35%, #e2e8f0 0%, #cbd5e1 60%, #94a3b8 100%);
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #fff;
-  box-shadow: 0 8px 28px rgba(69,118,255,0.25);
 }
 
-.founderInfo {}
+.portraitPhoto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  z-index: 1;
+  opacity: 1;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founderCard:hover .portraitPhoto {
+  transform: scale(1.06);
+}
+
+.portraitOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.2) 30%, transparent 70%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.portraitInitials {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.02em;
+  z-index: 1;
+}
+
+.portraitBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-blue);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  z-index: 3;
+}
+
+.founderCardContent {
+  padding: 16px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  z-index: 3;
+}
 
 .founderName {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 6px;
   color: var(--dark-blue);
+  letter-spacing: -0.01em;
 }
 
 .founderRole {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  text-transform: uppercase;
-  margin-bottom: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  margin-bottom: 10px;
 }
 
 .founderTagline {
   font-size: 0.85rem;
   color: var(--text-muted);
   font-style: italic;
-  line-height: 1.6;
+  line-height: 1.5;
+}
+
+.inspectBtn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.founderCard:hover .inspectBtn {
+  color: var(--accent-deep);
+  transform: translateX(2px);
+}
+
+.inspectHint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.founderCard:hover .inspectHint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Interactive Bio Spotlight Modal */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 12, 40, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.25s ease;
+}
+
+.modalCard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 36px;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 30px 60px -15px rgba(0, 12, 40, 0.25);
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modalClose:hover {
+  background: var(--dark-blue);
+  color: var(--white);
+  border-color: var(--dark-blue);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.modalAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--white);
+  box-shadow: 0 4px 14px rgba(0, 12, 40, 0.12);
+  flex-shrink: 0;
+}
+
+.modalPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.modalInitials {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.modalName {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+}
+
+.modalRole {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.modalBio {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.skillsSection h4 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.skillsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.skillPill {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--dark-blue);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 100px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* Why Us */
