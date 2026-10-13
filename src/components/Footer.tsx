@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
@@ -99,32 +99,29 @@ export default function Footer() {
           <div className={styles.linksColumns}>
             <div className={styles.linkColumn}>
               <h4 className={styles.columnTitle}>Company</h4>
-              <Link href="/pricing" className={styles.columnLink}>Pricing</Link>
-              <Link href="/about" className={styles.columnLink}>About us</Link>
+              <Link href="/about" className={styles.columnLink}>About Us</Link>
+              <Link href="/about" className={styles.columnLink}>Our Mission</Link>
+              <Link href="/about" className={styles.columnLink}>Our Vision</Link>
               <Link href="/blog" className={styles.columnLink}>Blog</Link>
-              <Link href="/privacy" className={styles.columnLink}>Terms & policies</Link>
-              <a href="#" className={styles.columnLink}>Video launches</a>
-              <a href="#" className={styles.columnLink}>
-                Merch <span className={styles.badge}>new</span>
-              </a>
+              <Link href="/contact" className={styles.columnLink}>Contact Us</Link>
             </div>
 
             <div className={styles.linkColumn}>
-              <h4 className={styles.columnTitle}>Products</h4>
-              <Link href="/products#conesta" className={styles.columnLink}>Conesta</Link>
-              <Link href="/products#rubl" className={styles.columnLink}>RUBL</Link>
-              <a href="#" className={styles.columnLink}>AI Platforms</a>
-              <a href="#" className={styles.columnLink}>Workflows</a>
-              <a href="#" className={styles.columnLink}>Software</a>
+              <h4 className={styles.columnTitle}>Our LMS</h4>
+              <span className={styles.columnText}>School Learning Platform</span>
+              <span className={styles.columnText}>Student Learning</span>
+              <span className={styles.columnText}>Teacher Tools</span>
+              <span className={styles.columnText}>Academic Management</span>
+              <span className={styles.columnText}>Coming Soon</span>
             </div>
 
             <div className={styles.linkColumn}>
-              <h4 className={styles.columnTitle}>Services</h4>
-              <a href="#" className={styles.columnLink}>Design services</a>
-              <a href="#" className={styles.columnLink}>Automation</a>
-              <a href="#" className={styles.columnLink}>Web development</a>
-              <a href="#" className={styles.columnLink}>Consulting</a>
-              <Link href="/contact" className={styles.columnLink}>Contact sales</Link>
+              <h4 className={styles.columnTitle}>What We&apos;re Building</h4>
+              <span className={styles.columnText}>Digital Education</span>
+              <span className={styles.columnText}>Online Learning</span>
+              <span className={styles.columnText}>Student Progress Tracking</span>
+              <span className={styles.columnText}>Classroom Management</span>
+              <span className={styles.columnText}>School Solutions</span>
             </div>
           </div>
         </div>

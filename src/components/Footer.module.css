@@ -99,7 +99,7 @@
 /* Link Columns */
 .linksColumns {
   display: grid;
-  grid-template-columns: repeat(3, 160px);
+  grid-template-columns: repeat(3, minmax(160px, auto));
   gap: 40px;
 }
 
@@ -117,19 +117,27 @@
   margin-bottom: 4px;
 }
 
-.columnLink {
+.columnLink,
+.columnText {
   font-family: var(--font-sans);
   font-size: 0.88rem;
   color: #515154;
-  text-decoration: none;
-  transition: color 0.2s;
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
 
+.columnLink {
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
 .columnLink:hover {
   color: #1d1d1f;
+}
+
+.columnText {
+  cursor: default;
 }
 
 .badge {
