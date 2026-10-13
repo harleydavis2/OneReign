@@ -7,11 +7,11 @@ const founders = [
   {
     id: "rajesh",
     name: "R Rajesh",
-    role: "Founder",
-    badge: "FOUNDER",
+    role: "CEO",
+    badge: "CEO",
     category: ["all", "founders", "executive"],
     tagline: "Driving vision, systems & operations.",
-    bio: "Founding visionary at OneReign. Architecting the operational backbone and high-performance system workflows that empower modern enterprises globally.",
+    bio: "Chief Executive Officer at OneReign. Driving corporate vision, architectural backbone, and operational workflows that empower modern enterprises globally.",
     initials: "RR",
     image: "/team/r-rajesh.jpg",
     accentColor: "#1746ea",
@@ -20,11 +20,11 @@ const founders = [
   {
     id: "nikil",
     name: "Nikil",
-    role: "CEO",
-    badge: "CEO",
+    role: "CMO",
+    badge: "CMO",
     category: ["all", "executive"],
     tagline: "Leading global growth & strategy.",
-    bio: "Leading OneReign's global strategy, client engagements, and product growth. Transforming complex technology into high-impact commercial outcomes.",
+    bio: "Chief Marketing Officer at OneReign. Leading global growth, brand strategy, client engagements, and product marketing.",
     initials: "N",
     image: "/team/nikil.jpg",
     accentColor: "#16a34a",
@@ -33,11 +33,11 @@ const founders = [
   {
     id: "allen",
     name: "Allen Mathew",
-    role: "Co-Founder",
-    badge: "CO-FOUNDER",
-    category: ["all", "founders", "engineering"],
+    role: "CTO",
+    badge: "CTO",
+    category: ["all", "founders", "engineering", "executive"],
     tagline: "Building core AI platforms & products.",
-    bio: "Co-founding engineer pioneering AI-native applications (Conesta & RUBL). Focused on multi-agent intelligence, deep technical scalability, and UX perfection.",
+    bio: "Chief Technology Officer at OneReign. Pioneering AI-native platforms and technical architecture. Focused on multi-agent intelligence, deep technical scalability, and platform engineering.",
     initials: "AM",
     image: "/team/allen-mathew.jpg",
     accentColor: "#4576ff",
@@ -46,11 +46,11 @@ const founders = [
   {
     id: "harley",
     name: "Harley Davis",
-    role: "Co-Founder",
-    badge: "CO-FOUNDER",
-    category: ["all", "founders", "engineering"],
+    role: "COO",
+    badge: "COO",
+    category: ["all", "founders", "engineering", "executive"],
     tagline: "Where code meets architecture.",
-    bio: "Co-founding systems architect driving cloud reliability, low-latency microservices, and robust infrastructure automation.",
+    bio: "Chief Operating Officer at OneReign. Driving operational execution, systems architecture, cloud reliability, and infrastructure automation.",
     initials: "HD",
     image: "/team/harley-davis.jpg",
     accentColor: "#7c3aed",
@@ -194,7 +194,7 @@ export default function AboutPage() {
             {filteredFounders.map((f) => (
               <div
                 key={f.name}
-                className={`${styles.founderCard} ${f.role === "Founder" ? styles.isFounderCard : ""}`}
+                className={`${styles.founderCard} ${f.role === "CEO" ? styles.isFounderCard : ""}`}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 onClick={() => setSelectedMember(f)}

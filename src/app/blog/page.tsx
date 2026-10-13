@@ -17,10 +17,10 @@ const categoryColors: Record<string, string> = {
 };
 
 const authors = [
-  { name: "Allen Mathew", role: "Founder, OneReign", initials: "AM", posts: 5 },
-  { name: "Nikil", role: "CEO, OneReign", initials: "N", posts: 8 },
-  { name: "Harley David", role: "Co-Founder, OneReign", initials: "HD", posts: 4 },
-  { name: "R Rajesh", role: "Co-Founder, OneReign", initials: "RR", posts: 3 },
+  { name: "R Rajesh", role: "CEO, OneReign", initials: "RR", posts: 3 },
+  { name: "Nikil", role: "CMO, OneReign", initials: "N", posts: 8 },
+  { name: "Harley Davis", role: "COO, OneReign", initials: "HD", posts: 4 },
+  { name: "Allen Mathew", role: "CTO, OneReign", initials: "AM", posts: 5 },
 ];
 
 export default function BlogPage() {
