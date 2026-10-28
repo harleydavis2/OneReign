@@ -26,7 +26,7 @@ export default function PrivacyPage() {
             <h2>Information We Collect</h2>
             <h3>Directly Provided</h3>
             <ul>
-              <li>Account info (name, email, password) for Conesta/RUBL</li>
+              <li>Account info (name, email, password) for OneReign systems</li>
               <li>Contact form data (name, email, company, budget, project description)</li>
               <li>Payment info (handled by third-party gateways; card/bank details NOT stored)</li>
               <li>Communications sent to OneReign</li>
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
           <section className={styles.legalSection}>
             <h2>How We Use Your Information</h2>
             <ul>
-              <li>Provide and maintain services (Conesta, RUBL, OneReign.tech)</li>
+              <li>Provide and maintain services (OneReign platforms, client systems, and APIs)</li>
               <li>Process transactions &amp; generate GST invoices</li>
               <li>Communicate — respond to enquiries, support</li>
               <li>Improve products via usage analytics</li>
@@ -118,3 +118,4 @@ export default function PrivacyPage() {
     </div>
   );
 }
+

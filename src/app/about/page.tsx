@@ -1,21 +1,23 @@
 "use client";
+
 import { useState } from "react";
-import Link from "next/link";
+import Image from "next/image";
+import Button from "@/components/ui/Button";
+import CtaBand from "@/components/ui/CtaBand";
 import styles from "./page.module.css";
 
 const founders = [
   {
     id: "rajesh",
     name: "R Rajesh",
-    role: "CEO",
+    role: "CEO & Founder",
     badge: "CEO",
     category: ["all", "founders", "executive"],
-    tagline: "Driving vision, systems & operations.",
-    bio: "Chief Executive Officer at OneReign. Driving corporate vision, architectural backbone, and operational workflows that empower modern enterprises globally.",
+    tagline: "Driving systems, graph intelligence & operations.",
+    bio: "Chief Executive Officer at OneReign. Driving corporate vision, architectural backbone, and operational workflows that empower modern enterprises globally. Core contributor to Faultline (FalkorDB) and Quiet backend architecture.",
     initials: "RR",
     image: "/team/r-rajesh.jpg",
-    accentColor: "#1746ea",
-    skills: ["System Architecture", "Operational Scaling", "AI Strategy", "Enterprise Workflow"],
+    skills: ["System Architecture", "Graph Databases (FalkorDB)", "PostgreSQL 17 / PostGIS", "Enterprise Workflow"],
   },
   {
     id: "nikil",
@@ -23,38 +25,35 @@ const founders = [
     role: "CMO",
     badge: "CMO",
     category: ["all", "executive"],
-    tagline: "Leading global growth & strategy.",
+    tagline: "Leading global growth & product strategy.",
     bio: "Chief Marketing Officer at OneReign. Leading global growth, brand strategy, client engagements, and product marketing.",
     initials: "N",
     image: "/team/nikil.jpg",
-    accentColor: "#16a34a",
-    skills: ["Global Growth", "Revenue Ops", "Strategic Alliances", "Product Leadership"],
+    skills: ["Global Growth", "Revenue Ops", "Strategic Alliances", "Product Marketing"],
   },
   {
     id: "allen",
     name: "Allen Mathew",
-    role: "CTO",
+    role: "CTO & Co-Founder",
     badge: "CTO",
     category: ["all", "founders", "engineering", "executive"],
     tagline: "Building core AI platforms & products.",
-    bio: "Chief Technology Officer at OneReign. Pioneering AI-native platforms and technical architecture. Focused on multi-agent intelligence, deep technical scalability, and platform engineering.",
+    bio: "Chief Technology Officer at OneReign. Pioneering AI-native platforms and technical architecture. Focused on multi-agent intelligence, technical scalability, and platform engineering.",
     initials: "AM",
     image: "/team/allen-mathew.jpg",
-    accentColor: "#4576ff",
-    skills: ["AI-First Tech", "Multi-Agent Systems", "Full-Stack Dev", "Platform Engineering"],
+    skills: ["AI Platforms", "Multi-Agent Systems", "Full-Stack Dev", "Platform Reliability"],
   },
   {
     id: "harley",
     name: "Harley Davis",
-    role: "COO",
+    role: "COO & Co-Founder",
     badge: "COO",
     category: ["all", "founders", "engineering", "executive"],
     tagline: "Where code meets architecture.",
-    bio: "Chief Operating Officer at OneReign. Driving operational execution, systems architecture, cloud reliability, and infrastructure automation.",
+    bio: "Chief Operating Officer at OneReign. Driving operational execution, systems architecture, cloud reliability, Android UI development for Quiet, and infrastructure automation.",
     initials: "HD",
     image: "/team/harley-davis.jpg",
-    accentColor: "#7c3aed",
-    skills: ["Cloud Architecture", "DevOps Pipelines", "Microservices", "Security Systems"],
+    skills: ["Cloud Architecture", "Jetpack Compose / Kotlin", "DevOps Pipelines", "Security Systems"],
   },
 ];
 
@@ -66,12 +65,12 @@ const categories = [
 ];
 
 const whyPoints = [
-  { title: "AI-Native", desc: "Built with AI at the core, not bolted on" },
-  { title: "Systems Thinking", desc: "We redesign processes, not just tools" },
-  { title: "Real Products", desc: "We build and run our own platforms" },
-  { title: "Global Remote", desc: "Distributed team, worldwide delivery" },
-  { title: "Integrated Approach", desc: "Everything connected by design" },
-  { title: "Outcome-Focused", desc: "We measure success by results" },
+  { title: "Systems First", desc: "We redesign and codify operational processes before automating a single step." },
+  { title: "Engineering Depth", desc: "No shallow wrappers. We build graph engines, PostGIS spatial queries, and native apps." },
+  { title: "Production Proven", desc: "We build, deploy, and operate our own software (Faultline, Quiet) in public." },
+  { title: "Remote / Global", desc: "Distributed engineering team delivering systems worldwide with sub-24h turnaround." },
+  { title: "Type-Safe Contracts", desc: "Everything is connected by strict schemas, predictable APIs, and zero fragile dependencies." },
+  { title: "Outcome-Driven", desc: "No billing bloat. Every project delivers measured operational speed and clarity." },
 ];
 
 function FounderPortrait({ initials, image, name, badge }: { initials: string; image?: string; name: string; badge: string }) {
@@ -80,9 +79,11 @@ function FounderPortrait({ initials, image, name, badge }: { initials: string; i
   return (
     <div className={styles.portraitHeroFrame}>
       {imgSrc ? (
-        <img
+        <Image
           src={imgSrc}
-          alt={name}
+          alt={`Portrait of ${name}`}
+          width={400}
+          height={400}
           className={styles.portraitPhoto}
           onError={() => setImgSrc(null)}
         />
@@ -101,9 +102,11 @@ function ModalAvatar({ initials, image, name }: { initials: string; image?: stri
   return (
     <div className={styles.modalAvatar}>
       {imgSrc ? (
-        <img
+        <Image
           src={imgSrc}
-          alt={name}
+          alt={`Avatar of ${name}`}
+          width={80}
+          height={80}
           className={styles.modalPhoto}
           onError={() => setImgSrc(null)}
         />
@@ -120,59 +123,31 @@ export default function AboutPage() {
 
   const filteredFounders = founders.filter((f) => f.category.includes(activeCategory));
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((centerY - y) / centerY) * 6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-
-    card.style.setProperty("--rotate-x", `${rotateX}deg`);
-    card.style.setProperty("--rotate-y", `${rotateY}deg`);
-    card.style.setProperty("--mouse-x", `${(x / rect.width) * 100}%`);
-    card.style.setProperty("--mouse-y", `${(y / rect.height) * 100}%`);
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    card.style.setProperty("--rotate-x", "0deg");
-    card.style.setProperty("--rotate-y", "0deg");
-    card.style.setProperty("--mouse-x", "50%");
-    card.style.setProperty("--mouse-y", "0%");
-  };
-
   return (
     <>
-      {/* Page Hero */}
+      {/* ── Page Hero ───────────────────────────────── */}
       <section className={styles.pageHero}>
-        <div className={styles.pageHeroBg} />
         <div className="container">
-          <p className="eyebrow">About OneReign</p>
+          <span className="eyebrow">About OneReign</span>
           <h1 className={styles.pageHeroH1}>
-            AI should make work<br />
-            <span className={styles.accent}>disappear.</span><br />
+            AI should eliminate manual work.<br />
             Not multiply it.
           </h1>
           <p className={styles.pageHeroSub}>
-            We are an AI-first company working globally, founded by engineers who saw businesses drowning in disconnected tools. OneReign exists to build the operational backbone for modern businesses — through scalable systems, AI-driven platforms, and a relentless focus on real outcomes.
+            Founded in 2025 by systems engineers who saw businesses drowning in disconnected SaaS subscriptions and broken manual workflows. OneReign builds the operational backbone for modern companies — through scalable systems, AI-driven platforms, and a relentless focus on verified clarity.
           </p>
         </div>
       </section>
 
-      {/* Founders / Team */}
-      <section className="section" id="founders" style={{ background: "var(--bg-secondary)" }}>
+      {/* ── Team Section ────────────────────────────── */}
+      <section className={styles.teamSection} id="founders">
         <div className="container">
           <div className={styles.teamHeaderRow}>
             <div className={styles.teamHeaderLeft}>
-              <p className="eyebrow">The Leadership</p>
+              <span className="eyebrow">The Leadership</span>
               <h2 className={styles.sectionH2}>Meet the Builders.</h2>
               <p className={styles.teamSub}>
-                Engineers, architects, and product strategists shaping the future of autonomous systems.
+                Engineers, architects, and product strategists shaping autonomous systems and graph-native software.
               </p>
             </div>
 
@@ -194,27 +169,27 @@ export default function AboutPage() {
             {filteredFounders.map((f) => (
               <div
                 key={f.name}
-                className={`${styles.founderCard} ${f.role === "CEO" ? styles.isFounderCard : ""}`}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+                className={styles.founderCard}
                 onClick={() => setSelectedMember(f)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedMember(f);
+                  }
+                }}
               >
-                <div className={styles.cardGlow} />
-                <div className={styles.cardLightReflect} />
-                
-                {/* Executive Portrait Frame */}
                 <FounderPortrait initials={f.initials} image={f.image} name={f.name} badge={f.badge} />
-                
+
                 <div className={styles.founderCardContent}>
                   <h3 className={styles.founderName}>{f.name}</h3>
                   <p className={styles.founderRole}>{f.role} · OneReign</p>
                   <p className={styles.founderTagline}>&ldquo;{f.tagline}&rdquo;</p>
-                  
+
                   <div className={styles.inspectBtn}>
                     <span>View Bio</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="12" height="12">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                    <span aria-hidden="true">→</span>
                   </div>
                 </div>
               </div>
@@ -223,24 +198,34 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Interactive Bio Spotlight Modal */}
+      {/* ── Bio Modal ───────────────────────────────── */}
       {selectedMember && (
         <div className={styles.modalBackdrop} onClick={() => setSelectedMember(null)}>
-          <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.modalClose} onClick={() => setSelectedMember(null)} aria-label="Close">
+          <div
+            className={styles.modalCard}
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+          >
+            <button
+              className={styles.modalClose}
+              onClick={() => setSelectedMember(null)}
+              aria-label="Close dialog"
+            >
               ✕
             </button>
             <div className={styles.modalHeader}>
               <ModalAvatar initials={selectedMember.initials} image={selectedMember.image} name={selectedMember.name} />
               <div>
                 <div className={styles.roleBadge}>{selectedMember.badge}</div>
-                <h3 className={styles.modalName}>{selectedMember.name}</h3>
+                <h3 id="modal-title" className={styles.modalName}>{selectedMember.name}</h3>
                 <p className={styles.modalRole}>{selectedMember.role} · OneReign</p>
               </div>
             </div>
             <p className={styles.modalBio}>{selectedMember.bio}</p>
             <div className={styles.skillsSection}>
-              <h4>Core Capabilities</h4>
+              <h4 className={styles.skillsTitle}>Core Disciplines</h4>
               <div className={styles.skillsGrid}>
                 {selectedMember.skills.map((skill) => (
                   <span key={skill} className={styles.skillPill}>{skill}</span>
@@ -248,27 +233,34 @@ export default function AboutPage() {
               </div>
             </div>
             <div className={styles.modalActions}>
-              <Link href="/contact" className="btn btn-primary" onClick={() => setSelectedMember(null)}>
-                Connect with {selectedMember.name.split(" ")[0]}
-              </Link>
+              <Button
+                variant="primary"
+                href="/contact"
+                onClick={() => setSelectedMember(null)}
+                className={styles.modalCta}
+              >
+                Connect with {selectedMember.name.split(" ")[0]} →
+              </Button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Why Us */}
-      <section className="section" id="why">
+      {/* ── Why OneReign ────────────────────────────── */}
+      <section className={styles.whySection} id="why">
         <div className="container">
           <div className={styles.whyLayout}>
             <div className={styles.whyLeft}>
-              <p className="eyebrow">Why Us</p>
-              <h2 className={styles.sectionH2}>Systems that<br />actually work.</h2>
+              <span className="eyebrow">Our Principles</span>
+              <h2 className={styles.sectionH2}>Engineered for operational clarity.</h2>
               <p className={styles.bodyText}>
-                Engineers who saw businesses drowning in disconnected tools. We built OneReign to fix that — permanently.
+                We refuse to ship brittle boilerplate. Every system we build has verified test coverage, explicit error handling, and documentation that actually matches production behavior.
               </p>
-              <Link href="/contact" className="btn btn-primary" style={{ marginTop: "32px" }}>
-                Work With Us →
-              </Link>
+              <div style={{ marginTop: "32px" }}>
+                <Button variant="primary" href="/contact">
+                  Work with us →
+                </Button>
+              </div>
             </div>
             <div className={styles.whyGrid}>
               {whyPoints.map((p, i) => (
@@ -282,6 +274,13 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <CtaBand
+        heading="Ready to eliminate repetitive work?"
+        subheading="Book a 30-minute introductory call directly with our engineering team."
+        primaryCtaText="Book a free 30-min call"
+        primaryCtaHref="/contact"
+      />
     </>
   );
 }

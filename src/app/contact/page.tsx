@@ -1,5 +1,7 @@
 "use client";
+
 import { useState } from "react";
+import Button from "@/components/ui/Button";
 import styles from "./page.module.css";
 
 export default function ContactPage() {
@@ -12,7 +14,9 @@ export default function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -24,57 +28,80 @@ export default function ContactPage() {
   return (
     <>
       <section className={styles.pageHero}>
-        <div className={styles.heroBg} />
         <div className="container">
-          <p className="eyebrow">Get in Touch</p>
+          <span className="eyebrow">Get in touch</span>
           <h1 className={styles.heroH1}>
-            Let&apos;s build something<br />
-            <span className={styles.accent}>that actually works.</span>
+            Let&apos;s build systems<br />
+            that actually work.
           </h1>
+          <p className={styles.heroSub}>
+            Every engagement starts with a direct technical conversation. No sales scripts, no ambiguous estimates.
+          </p>
         </div>
       </section>
 
-      <section className="section">
+      <section className={styles.contactSection}>
         <div className="container">
           <div className={styles.layout}>
-            {/* Info */}
+            {/* Info Sidebar */}
             <div className={styles.infoCol}>
               <div className={styles.infoCard}>
-                <h3 className={styles.infoTitle}>Contact Details</h3>
-                {[
-                  { label: "Email", value: "hello@onereign.co", href: "mailto:hello@onereign.co" },
-                  { label: "Location", value: "Remote / Global", href: undefined },
-                  { label: "Response Time", value: "< 24 hours", href: undefined },
-                ].map((row) => (
-                  <div key={row.label} className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{row.label}</span>
-                    {row.href ? (
-                      <a href={row.href} className={styles.infoValue}>{row.value}</a>
-                    ) : (
-                      <span className={styles.infoValue}>{row.value}</span>
-                    )}
-                  </div>
-                ))}
+                <h3 className={styles.infoTitle}>Contact Coordinates</h3>
+
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Direct Email</span>
+                  <a href="mailto:hello@onereign.co" className={styles.infoValue}>
+                    hello@onereign.co
+                  </a>
+                </div>
+
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Location</span>
+                  <span className={styles.infoValue}>Remote / Global</span>
+                </div>
+
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Turnaround</span>
+                  <span className={styles.infoValue}>&lt; 24 hours</span>
+                </div>
+
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>LinkedIn</span>
+                  <a
+                    href="https://linkedin.com/company/onereign"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.infoValue}
+                  >
+                    company/onereign ↗
+                  </a>
+                </div>
               </div>
 
               <div className={styles.infoNote}>
-                <p>Every project starts with a conversation — no commitment required. Tell us what is broken. We&apos;ll show you what is possible.</p>
+                <p>
+                  <strong>No sales middlemen:</strong> You will discuss requirements directly with engineering leadership (Rajesh and the core builders).
+                </p>
               </div>
             </div>
 
             {/* Form */}
             <div className={styles.formCol}>
               {submitted ? (
-                <div className={styles.success}>
-                  <span className={styles.successIcon}>✓</span>
-                  <h3>Message sent!</h3>
-                  <p>We&apos;ll be in touch within 24 hours.</p>
+                <div className={styles.successBox} role="status">
+                  <div className={styles.successIcon}>✓</div>
+                  <h2 className={styles.successTitle}>Inquiry Received</h2>
+                  <p className={styles.successDesc}>
+                    Thank you. We will review your project details and follow up at <strong>{form.email}</strong> within 24 hours.
+                  </p>
                 </div>
               ) : (
                 <form className={styles.form} onSubmit={handleSubmit} id="contact-form">
                   <div className={styles.formRow}>
                     <div className={styles.formGroup}>
-                      <label htmlFor="name" className={styles.label}>Name *</label>
+                      <label htmlFor="name" className={styles.label}>
+                        Your Name <span className={styles.required}>*</span>
+                      </label>
                       <input
                         id="name"
                         name="name"
@@ -83,11 +110,15 @@ export default function ContactPage() {
                         value={form.name}
                         onChange={handleChange}
                         className={styles.input}
-                        placeholder="Your full name"
+                        placeholder="Full name"
+                        autoComplete="name"
                       />
                     </div>
+
                     <div className={styles.formGroup}>
-                      <label htmlFor="email" className={styles.label}>Email *</label>
+                      <label htmlFor="email" className={styles.label}>
+                        Work Email <span className={styles.required}>*</span>
+                      </label>
                       <input
                         id="email"
                         name="email"
@@ -97,12 +128,16 @@ export default function ContactPage() {
                         onChange={handleChange}
                         className={styles.input}
                         placeholder="you@company.com"
+                        autoComplete="email"
                       />
                     </div>
                   </div>
+
                   <div className={styles.formRow}>
                     <div className={styles.formGroup}>
-                      <label htmlFor="company" className={styles.label}>Company</label>
+                      <label htmlFor="company" className={styles.label}>
+                        Company / Organization
+                      </label>
                       <input
                         id="company"
                         name="company"
@@ -110,11 +145,15 @@ export default function ContactPage() {
                         value={form.company}
                         onChange={handleChange}
                         className={styles.input}
-                        placeholder="Your company name"
+                        placeholder="Company name"
+                        autoComplete="organization"
                       />
                     </div>
+
                     <div className={styles.formGroup}>
-                      <label htmlFor="budget" className={styles.label}>Budget Range</label>
+                      <label htmlFor="budget" className={styles.label}>
+                        Engagement Scale
+                      </label>
                       <select
                         id="budget"
                         name="budget"
@@ -122,16 +161,19 @@ export default function ContactPage() {
                         onChange={handleChange}
                         className={`${styles.input} ${styles.select}`}
                       >
-                        <option value="">Select a range</option>
-                        <option value="starter">Starter — ₹50K+</option>
-                        <option value="growth">Growth — ₹2L+</option>
+                        <option value="">Select scope</option>
+                        <option value="starter">Starter — ₹50K+ (MVP / Tool)</option>
+                        <option value="growth">Growth — ₹2L+ (Full System)</option>
                         <option value="partnership">Partnership — Custom</option>
-                        <option value="discuss">Prefer to discuss</option>
+                        <option value="discuss">Technical Discovery Session</option>
                       </select>
                     </div>
                   </div>
+
                   <div className={styles.formGroup}>
-                    <label htmlFor="description" className={styles.label}>Project Description *</label>
+                    <label htmlFor="description" className={styles.label}>
+                      What needs building or fixing? <span className={styles.required}>*</span>
+                    </label>
                     <textarea
                       id="description"
                       name="description"
@@ -139,13 +181,19 @@ export default function ContactPage() {
                       value={form.description}
                       onChange={handleChange}
                       className={`${styles.input} ${styles.textarea}`}
-                      placeholder="Tell us what you're building or what's broken..."
-                      rows={6}
+                      placeholder="Describe your workflows, existing software stack, or technical bottleneck..."
+                      rows={5}
                     />
                   </div>
-                  <button type="submit" className={`btn btn-primary ${styles.submitBtn}`} id="submit-contact">
-                    SEND MESSAGE →
-                  </button>
+
+                  <div className={styles.formActions}>
+                    <Button type="submit" variant="primary" className={styles.submitBtn}>
+                      Send inquiry →
+                    </Button>
+                    <span className={styles.privacyNote}>
+                      We treat all technical details under strict confidentiality.
+                    </span>
+                  </div>
                 </form>
               )}
             </div>

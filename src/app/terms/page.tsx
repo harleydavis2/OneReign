@@ -24,7 +24,7 @@ export default function TermsPage() {
         <div className={styles.legalBody}>
           <section className={styles.legalSection}>
             <h2>Services Covered</h2>
-            <p>These terms apply to: OneReign.tech, conesta.in, rubl.in, and all client engagements.</p>
+            <p>These terms apply to: one-reign.vercel.app, OneReign platforms, and all client engagements.</p>
           </section>
 
           <section className={styles.legalSection}>
@@ -107,3 +107,4 @@ export default function TermsPage() {
     </div>
   );
 }
+
