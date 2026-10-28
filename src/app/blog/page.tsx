@@ -1,105 +1,129 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { posts } from "./posts";
+import Button from "@/components/ui/Button";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Blog — Insights & Updates",
+  title: "Blog — Engineering Deep Dives & Systems Thinking",
   description:
-    "Product launches, engineering deep-dives, and industry insights from the OneReign team.",
+    "Engineering insights, graph database architectures, and operational automation from the OneReign team.",
+  alternates: {
+    canonical: "/blog",
+  },
 };
 
-const categoryColors: Record<string, string> = {
-  Insights: "#60a5fa",
-  Engineering: "#a78bfa",
-  Product: "#34d399",
-  Company: "#f59e0b",
+const categoryTags: Record<string, string> = {
+  Engineering: "#C6FF4D",
+  Insights: "#60A5FA",
+  Product: "#FBBF24",
+  Culture: "#A1A1AA",
 };
-
-const authors = [
-  { name: "R Rajesh", role: "CEO, OneReign", initials: "RR", posts: 3 },
-  { name: "Nikil", role: "CMO, OneReign", initials: "N", posts: 8 },
-  { name: "Harley Davis", role: "COO, OneReign", initials: "HD", posts: 4 },
-  { name: "Allen Mathew", role: "CTO, OneReign", initials: "AM", posts: 5 },
-];
 
 export default function BlogPage() {
+  const uniqueAuthors = Array.from(new Set(posts.map((p) => p.author))).map((name) => ({
+    name,
+    count: posts.filter((p) => p.author === name).length,
+    initials: name
+      .split(" ")
+      .map((part) => part[0])
+      .join(""),
+  }));
+
   return (
     <>
       <section className={styles.pageHero}>
-        <div className={styles.heroBg} />
         <div className="container">
-          <p className="eyebrow">Blog</p>
-          <h1 className={styles.heroH1}>Insights &amp; Updates</h1>
+          <span className="eyebrow">Engineering Journal</span>
+          <h1 className={styles.heroH1}>Systems, Architecture &amp; Operations</h1>
           <p className={styles.heroSub}>
-            Product launches, engineering deep-dives, and industry insights from the OneReign team.
+            Real post-mortems, graph database experiments, and systems engineering principles written directly by our builders.
           </p>
         </div>
       </section>
 
-      <section className="section">
+      <section className={styles.blogSection}>
         <div className="container">
           <div className={styles.layout}>
+            {/* Posts List */}
             <div className={styles.postsList}>
               {posts.map((post) => (
-                <article key={post.issue} className={styles.postCard}>
+                <article key={post.slug} className={styles.postCard}>
+                  {/* Visuvate-style hairline highlight and radial glow */}
+                  <div className={styles.cardHighlight} aria-hidden="true" />
+                  <div className={styles.cardRadial} aria-hidden="true" />
+
                   <div className={styles.postMeta}>
-                    <span className={styles.postIssue}>{post.issue}</span>
+                    <span className={styles.postIssue}>ISSUE {post.issue}</span>
                     <span
                       className={styles.postCategory}
-                      style={{ color: categoryColors[post.category] || "var(--accent)", borderColor: `${categoryColors[post.category]}33` || "var(--accent-mid)" }}
+                      style={{
+                        color: categoryTags[post.category] || "#C6FF4D",
+                        borderColor: `${categoryTags[post.category] || "#C6FF4D"}33`,
+                      }}
                     >
                       {post.category}
                     </span>
                     <span className={styles.postDate}>{post.date}</span>
                   </div>
+
                   <h2 className={styles.postTitle}>
                     <Link href={`/blog/${post.slug}`} className={styles.postTitleLink}>
                       {post.title}
                     </Link>
                   </h2>
+
                   <p className={styles.postSummary}>{post.summary}</p>
+
                   <div className={styles.postFooter}>
-                    <span className={styles.postAuthor}>{post.author}</span>
+                    <span className={styles.postAuthor}>By {post.author}</span>
                     <Link href={`/blog/${post.slug}`} className={styles.readMore}>
-                      Read →
+                      Read article →
                     </Link>
                   </div>
                 </article>
               ))}
             </div>
 
+            {/* Sidebar */}
             <aside className={styles.sidebar}>
-              <div className={styles.sidebarSection}>
-                <h3 className={styles.sidebarTitle}>Authors</h3>
-                {authors.map((a) => (
-                  <div key={a.name} className={styles.authorCard}>
-                    <div className={styles.authorAvatar}>{a.initials}</div>
-                    <div>
-                      <p className={styles.authorName}>{a.name}</p>
-                      <p className={styles.authorRole}>{a.role}</p>
-                      <p className={styles.authorPosts}>{a.posts} posts</p>
+              <div className={styles.sidebarCard}>
+                <div className={styles.cardHighlight} aria-hidden="true" />
+                <h3 className={styles.sidebarTitle}>Contributors</h3>
+                <div className={styles.authorsList}>
+                  {uniqueAuthors.map((a) => (
+                    <div key={a.name} className={styles.authorRow}>
+                      <div className={styles.authorAvatar}>{a.initials}</div>
+                      <div>
+                        <p className={styles.authorName}>{a.name}</p>
+                        <p className={styles.authorCount}>{a.count} articles</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
-              <div className={styles.sidebarSection}>
+              <div className={styles.sidebarCard}>
+                <div className={styles.cardHighlight} aria-hidden="true" />
                 <h3 className={styles.sidebarTitle}>Categories</h3>
-                {Object.entries(categoryColors).map(([cat, color]) => (
-                  <div key={cat} className={styles.catRow}>
-                    <span className={styles.catDot} style={{ background: color }} />
-                    <span className={styles.catName}>{cat}</span>
-                  </div>
-                ))}
+                <div className={styles.categoriesList}>
+                  {Object.entries(categoryTags).map(([cat, color]) => (
+                    <div key={cat} className={styles.catRow}>
+                      <span className={styles.catDot} style={{ backgroundColor: color }} />
+                      <span className={styles.catName}>{cat}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className={styles.blogCta}>
-                <p className={styles.blogCtaLabel}>WORKING ON THE SAME PROBLEM?</p>
-                <p className={styles.blogCtaText}>We build operational systems that solve it.</p>
-                <Link href="/contact" className="btn btn-primary" style={{ marginTop: "16px", width: "100%", justifyContent: "center" }}>
-                  Get in touch →
-                </Link>
+              <div className={styles.ctaCard}>
+                <h4 className={styles.ctaTitle}>Have a broken workflow?</h4>
+                <p className={styles.ctaText}>
+                  We design and deploy automation pipelines that eliminate manual friction.
+                </p>
+                <Button variant="primary" href="/contact" className={styles.ctaBtn}>
+                  Book a discovery call →
+                </Button>
               </div>
             </aside>
           </div>

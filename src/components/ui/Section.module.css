@@ -1,0 +1,22 @@
+.header {
+  margin-bottom: var(--space-48);
+  max-width: 760px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.heading {
+  margin-bottom: var(--space-16);
+  color: var(--text);
+}
+
+.intro {
+  font-size: var(--font-size-body);
+  color: var(--muted);
+  line-height: 1.6;
+}
+

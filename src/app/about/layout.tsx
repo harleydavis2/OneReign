@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About — AI-First. System-Focused.",
+  title: "About — Systems Over Noise",
   description:
-    "Meet the team behind Conesta and RUBL — building operational intelligence for modern businesses.",
+    "Meet the engineering team at OneReign — building AI systems, automation workflows, and custom software for modern businesses.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

@@ -1,315 +1,216 @@
 .footer {
-  background-color: #f3f3f3;
-  padding: 80px 0 24px; /* Reduced bottom padding to align ONEREIGN logo closer to bottom */
+  position: relative;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: #0B0B0D;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 80px 0 40px;
+  overflow: hidden;
 }
 
-.container {
-  max-width: var(--container-max);
+.inner {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--container-px);
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
+  padding: 0 24px;
 }
 
-/* Top Section: Contact Card + Link Columns */
-.topSection {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
-}
-
-.contactCard {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 32px;
-  width: 380px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.contactTitle {
-  font-family: var(--font-sans);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1d1d1f;
-  margin: 0;
-}
-
-.contactDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.contactItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: #515154;
-}
-
-.contactIcon {
-  width: 18px;
-  height: 18px;
-  color: #86868b;
-  flex-shrink: 0;
-}
-
-.contactLink {
-  color: #515154;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.contactLink:hover {
-  opacity: 0.7;
-}
-
-.socialsRow {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.socialIconBox {
-  width: 36px;
-  height: 36px;
-  background-color: #f3f3f3;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #515154;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.socialIconBox:hover {
-  background-color: #e5e5e7;
-  color: #1d1d1f;
-}
-
-/* Link Columns */
-.linksColumns {
+/* ── Top Row: Bordered Link Tiles ──────────────────────────────────── */
+.tilesRow {
   display: grid;
-  grid-template-columns: repeat(3, minmax(160px, auto));
-  gap: 40px;
-}
-
-.linkColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.columnTitle {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #86868b;
-  margin-bottom: 4px;
-}
-
-.columnLink,
-.columnText {
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  color: #515154;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.columnLink {
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.columnLink:hover {
-  color: #1d1d1f;
-}
-
-.columnText {
-  cursor: default;
-}
-
-.badge {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 100px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  text-transform: lowercase;
-  background: #ffffff;
-  color: #1d1d1f;
-  border: 1px solid #d1d5db;
-  margin-left: 4px;
-  line-height: 1.2;
-}
-
-/* Middle Row: AI Guide */
-.middleRow {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-}
-
-.topLink {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #1d1d1f;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: opacity 0.2s;
-  text-decoration: none;
-}
-
-.topLink:hover {
-  opacity: 0.7;
-}
-
-.sparkle {
-  font-size: 0.95rem;
-  color: #1d1d1f;
-}
-
-/* Bottom Section: Giant Logo Text */
-.bottomSection {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 60px 0 0px;
-}
-
-.brandContainer {
-  font-size: clamp(2.5rem, 11vw, 9rem); /* Adjusted to fit the container without wrapping */
-  display: inline-flex;
-  align-items: baseline; /* Align text and punctuation baselines automatically */
-  position: relative;
-  user-select: none;
-  z-index: 2;
-}
-
-.brandText {
-  font-family: var(--font-display); /* Updated to the display font (Syne) */
-  font-weight: 900;
-  letter-spacing: 0.12em; /* Spread out the letters */
-  text-transform: uppercase; /* Capital letters rather than lowercase */
-  background-image: linear-gradient(
-    120deg,
-    var(--medium-blue) 0%,
-    var(--medium-blue) 40%,
-    #ffffff 50%,
-    var(--medium-blue) 60%,
-    var(--medium-blue) 100%
-  );
-  background-size: 250% 100%;
-  background-position: 85% 50%; /* Resting state at 'O' (left side) */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  display: inline-block;
-  line-height: 1.1; /* Adjusted line height since there is no lowercase 'g' descender */
-  padding-bottom: 0.05em; /* Extra padding space at bottom to prevent browser clipping */
-  vertical-align: baseline;
-}
-
-/* One-shot sheen sweep from 'O' (85%) to 'N' (15%) when reaching end of page */
-.brandContainer.animateSheen .brandText {
-  animation: sheenOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-@keyframes sheenOnce {
-  0% {
-    background-position: 85% 50%; /* Starts at 'O' */
-  }
-  100% {
-    background-position: 15% 50%; /* Sweeps ONCE to 'N' and stops */
-  }
-}
-
-.punctuation {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 0.82em; /* Matches the cap height of the text */
-  margin-left: -0.02em; /* Adjusted to account for trailing letter-spacing */
-  padding: 0.05em 0;
-  vertical-align: baseline;
-  margin-bottom: 0.18em; /* Align the bottom dot with the uppercase baseline */
-}
-
-.star {
-  font-size: 0.65em;
-  line-height: 0.7;
-  font-weight: 900;
-  color: var(--sky-blue);
-  display: inline-block;
-}
-
-.dot {
-  width: 0.16em;
-  height: 0.16em;
-  border-radius: 50%;
-  background-image: url('/mesh-pattern.png');
-  background-size: 115% 140%;
-  background-position: center calc(50% + var(--bg-offset-y, 0px));
-  display: inline-block;
-  transition: background-position 0.25s cubic-bezier(0.1, 0.8, 0.2, 1);
-}
-
-/* Responsiveness */
-@media (max-width: 1024px) {
-  .topSection {
-    flex-direction: column;
-    gap: 40px;
-    align-items: stretch;
-  }
-  
-  .contactCard {
-    width: 100%;
-  }
-  
-  .linksColumns {
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    gap: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    gap: 40px;
-  }
-  
-  .footer {
-    padding: 60px 0 20px;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 72px;
 }
 
 @media (max-width: 640px) {
-  .linksColumns {
+  .tilesRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+.linkTile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background-color: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .linkTile {
+    padding: 16px 18px;
+  }
+}
+
+.linkTile:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.linkTile:hover {
+  background-color: #1a1a20;
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+.tileLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tileIcon {
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.linkTile:hover .tileIcon {
+  color: #FFFFFF;
+}
+
+.tileLabel {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.tileArrow {
+  font-size: 15px;
+  color: var(--muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.linkTile:hover .tileArrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+/* ── 4-Column Grid with Thin Vertical Dividers ─────────────────────── */
+.columnsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 900px) {
+  .columnsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .columnsGrid {
     grid-template-columns: 1fr;
-    gap: 28px;
   }
-  .brandContainer {
-    font-size: clamp(1.6rem, 8vw, 3.2rem);
+}
+
+.column {
+  padding: 40px 32px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.column:last-child {
+  border-right: none;
+}
+
+@media (max-width: 900px) {
+  .column:nth-child(2n) {
+    border-right: none;
   }
-  .brandText {
-    letter-spacing: 0.05em;
+  .column:nth-child(1),
+  .column:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
+}
+
+@media (max-width: 600px) {
+  .column {
+    padding: 32px 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .column:last-child {
+    border-bottom: none;
+  }
+}
+
+.columnHeading {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.linksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footerLink {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-block;
+  outline: none;
+}
+
+.footerLink:hover,
+.footerLink:focus-visible {
+  color: #FFFFFF;
+}
+
+.contactText {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Bottom Line ───────────────────────────────────────────────────── */
+.bottomLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 36px;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.tagline {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+  opacity: 0.8;
 }

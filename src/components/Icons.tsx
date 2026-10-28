@@ -12,20 +12,15 @@ const defaults: SVGProps<SVGSVGElement> = {
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number; className?: string };
 
-const icon =
-  (children: React.ReactNode) =>
-  ({ size = 20, className, ...props }: IconProps) =>
-    (
-      <svg
-        {...defaults}
-        width={size}
-        height={size}
-        className={className}
-        {...props}
-      >
-        {children}
-      </svg>
-    );
+const icon = (children: React.ReactNode) => {
+  const Comp = ({ size = 20, className, ...props }: IconProps) => (
+    <svg {...defaults} width={size} height={size} className={className} {...props}>
+      {children}
+    </svg>
+  );
+  Comp.displayName = 'Icon';
+  return Comp;
+};
 
 // Arrow up-right (like external link / go)
 export const IconArrow = icon(
@@ -168,3 +163,4 @@ export const IconMegaphone = icon(
     <path d="M17 9a4 4 0 010 6" />
   </>
 );
+

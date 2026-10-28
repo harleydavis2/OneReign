@@ -1,0 +1,357 @@
+.pricingSection {
+  position: relative;
+  width: 100%;
+  padding: 120px 0 100px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* Atmospheric glow backdrop */
+.ambientGlow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1000px, 92vw);
+  height: 480px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(198, 255, 77, 0.03) 0%,
+    rgba(56, 189, 248, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Giant section title "Pricing" placed partly behind cards */
+.giantTitleWrapper {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1; /* Below cards */
+}
+
+.giantTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(64px, 14vw, 160px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(245, 245, 245, 0.05);
+  text-transform: none;
+  white-space: nowrap;
+}
+
+/* Section Header */
+.sectionHeader {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 52px;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--accent);
+}
+
+.sectionHeading {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0 0 14px;
+}
+
+.sectionIntro {
+  font-size: clamp(15px, 1.4vw, 17px);
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Pricing Grid (3 Cards) ────────────────────────────────────────── */
+.pricingGrid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .pricingGrid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* Outer Card Container */
+.cardWrapper {
+  position: relative;
+  display: flex;
+}
+
+/* Soft radial glow behind the middle card only */
+.middleGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(198, 255, 77, 0.09) 0%,
+    rgba(56, 189, 248, 0.04) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.pricingCard {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  background-color: #0B0B0D;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 40px 32px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardWrapper:hover .pricingCard {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8);
+}
+
+.pricingCardPopular {
+  border-color: rgba(198, 255, 77, 0.30);
+  box-shadow: 0 12px 32px -10px rgba(198, 255, 77, 0.08);
+}
+
+.cardWrapper:hover .pricingCardPopular {
+  border-color: rgba(198, 255, 77, 0.60);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.9), 0 0 30px rgba(198, 255, 77, 0.12);
+}
+
+/* Thin Top Highlight Line */
+.topHighlight {
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.topHighlightAccent {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(198, 255, 77, 0.65),
+    transparent
+  );
+}
+
+/* Card Header */
+.cardHeader {
+  margin-bottom: 28px;
+}
+
+.tierBadgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.tierName {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+}
+
+.popularBadge {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(198, 255, 77, 0.12);
+  border: 1px solid rgba(198, 255, 77, 0.28);
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.tierSummary {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 24px;
+  min-height: 44px;
+}
+
+/* Price Box */
+.priceBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.priceLabel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.priceValue {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* 4 Feature Rows Separated by Thin Lines */
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.featureRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.featureRow:last-child {
+  border-bottom: none;
+}
+
+.featureIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.featureText {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* Card Actions */
+.cardActions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.detailsLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  outline: none;
+}
+
+.detailsLink:hover,
+.detailsLink:focus-visible {
+  color: var(--text);
+}
+
+.detailsArrow {
+  transition: transform 0.2s ease;
+}
+
+.detailsLink:hover .detailsArrow {
+  transform: translateX(3px);
+}
+
+/* Bottom Note Under Cards */
+.bottomNote {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  margin-top: 36px;
+  padding: 0 24px;
+}
+
+.bottomNoteText {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .cardWrapper:hover .pricingCard {
+    transform: none !important;
+  }
+}
+

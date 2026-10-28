@@ -1,371 +1,234 @@
 .pageHero {
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 140px;
-  padding-bottom: 80px;
-  position: relative;
-  overflow: hidden;
-  background: var(--white);
+  padding-top: var(--space-64);
+  padding-bottom: var(--space-48);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--surface);
 }
-
-.pageHeroBg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 60% at 15% 60%, rgba(69,118,255,0.1) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 40% at 85% 30%, rgba(23,70,234,0.07) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.accent { color: var(--platinate); }
 
 .pageHeroH1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 24px;
-  max-width: 700px;
-  color: var(--dark-blue);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-display);
+  color: var(--text);
+  margin-bottom: var(--space-16);
+  line-height: 1.12;
 }
 
 .pageHeroSub {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  max-width: 580px;
-  line-height: 1.75;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  color: var(--muted);
+  max-width: 720px;
+  line-height: 1.6;
 }
 
-.sectionH2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  margin-bottom: 48px;
-  margin-top: 12px;
-  color: var(--dark-blue);
+/* ── Team Section ───────────────────────────── */
+.teamSection {
+  padding: var(--space-64) 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.bodyText {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
-
-/* Founders / Team Section */
 .teamHeaderRow {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 48px;
-  gap: 30px;
+  margin-bottom: var(--space-48);
+  gap: var(--space-24);
   flex-wrap: wrap;
 }
 
-.teamHeaderLeft {
-  flex: 1;
+.sectionH2 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-h2);
+  color: var(--text);
+  margin-bottom: var(--space-8);
 }
 
 .teamSub {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  max-width: 540px;
-  line-height: 1.6;
-  margin-top: 8px;
+  font-size: var(--font-size-small);
+  color: var(--muted);
+  max-width: 520px;
 }
 
-/* Filter Tabs */
 .filterTabs {
   display: flex;
-  align-items: center;
   gap: 8px;
-  background: var(--white);
-  padding: 6px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 10px rgba(0, 12, 40, 0.02);
-  max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.filterTabs::-webkit-scrollbar {
-  display: none;
+  flex-wrap: wrap;
 }
 
 .filterBtn {
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  background: transparent;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  padding: 8px 14px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
   cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: all 0.25s ease;
-  touch-action: manipulation;
+  transition: all var(--transition);
 }
 
 .filterBtn:hover {
-  color: var(--dark-blue);
-  background: rgba(69, 118, 255, 0.05);
+  color: var(--text);
+  border-color: var(--border-strong);
 }
 
 .activeFilter {
-  background: var(--dark-blue) !important;
-  color: var(--white) !important;
-  box-shadow: 0 4px 14px rgba(0, 12, 40, 0.15);
+  background-color: #1A1A22;
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .foundersGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  perspective: 1200px;
+  gap: var(--space-24);
 }
 
 .founderCard {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  position: relative;
-  overflow: hidden;
   cursor: pointer;
-  transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
-  transform-style: preserve-3d;
-  transition: transform 0.18s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 12, 40, 0.03);
+  transition: all var(--transition);
 }
 
-.cardGlow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(69, 118, 255, 0.09) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-
-.cardLightReflect {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 0%), rgba(255, 255, 255, 0.6) 0%, transparent 55%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-  z-index: 4;
-}
-
-.founderCard:hover {
-  border-color: var(--accent-mid);
-  box-shadow:
-    0 24px 50px -12px rgba(23, 70, 234, 0.18),
-    0 0 0 1px rgba(69, 118, 255, 0.3);
-}
-
-.founderCard:hover .cardGlow,
-.founderCard:hover .cardLightReflect {
-  opacity: 1;
-}
-
-/* Executive Founder Card Highlight */
-.isFounderCard {
-  border-color: rgba(23, 70, 234, 0.35);
-  background: #ffffff;
-  box-shadow: 0 8px 30px rgba(23, 70, 234, 0.1);
+.founderCard:hover,
+.founderCard:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  outline: none;
 }
 
 .portraitHeroFrame {
   position: relative;
   width: 100%;
-  height: 260px;
-  background: radial-gradient(circle at 50% 35%, #e2e8f0 0%, #cbd5e1 60%, #94a3b8 100%);
+  aspect-ratio: 1 / 1;
+  background-color: #0E0E12;
   overflow: hidden;
-  border-radius: 20px 20px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .portraitPhoto {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 15%;
-  z-index: 1;
-  opacity: 1;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
 }
 
-.founderCard:hover .portraitPhoto {
-  transform: scale(1.06);
+.portraitInitials {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--muted);
 }
 
 .portraitOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.2) 30%, transparent 70%);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.portraitInitials {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 800;
-  color: #1e293b;
-  letter-spacing: -0.02em;
-  z-index: 1;
+  background: linear-gradient(180deg, transparent 60%, rgba(11, 11, 13, 0.8) 100%);
 }
 
 .portraitBadge {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  bottom: 12px;
+  left: 12px;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--dark-blue);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  padding: 5px 12px;
-  border-radius: 100px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background-color: #0B0B0D;
   border: 1px solid var(--border);
-  z-index: 3;
+  color: var(--accent);
 }
 
 .founderCardContent {
-  padding: 16px 22px 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  z-index: 3;
+  flex: 1;
 }
 
 .founderName {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--dark-blue);
-  letter-spacing: -0.01em;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  color: var(--text);
+  margin-bottom: 2px;
 }
 
 .founderRole {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-top: 2px;
-  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 12px;
 }
 
 .founderTagline {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-size: 0.8125rem;
+  color: #D4D4D8;
   font-style: italic;
-  line-height: 1.5;
+  line-height: 1.45;
+  margin-bottom: 16px;
+  flex: 1;
 }
 
 .inspectBtn {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--accent);
-  margin-top: 14px;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.25s ease;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: color var(--transition);
 }
 
 .founderCard:hover .inspectBtn {
-  color: var(--accent-deep);
-  transform: translateX(2px);
-}
-
-.inspectHint {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
   color: var(--accent);
-  margin-top: 8px;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
-.founderCard:hover .inspectHint {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Interactive Bio Spotlight Modal */
+/* ── Bio Modal ──────────────────────────────── */
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 12, 40, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  animation: fadeIn 0.25s ease;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  padding: 24px;
+  z-index: 2000;
 }
 
 .modalCard {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 36px;
-  max-width: 520px;
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  max-width: 540px;
   width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  padding: 36px;
   position: relative;
-  box-shadow: 0 30px 60px -15px rgba(0, 12, 40, 0.25);
-  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9);
 }
 
 .modalClose {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.25rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 8px;
 }
 
 .modalClose:hover {
-  background: var(--dark-blue);
-  color: var(--white);
-  border-color: var(--dark-blue);
+  color: var(--text);
 }
 
 .modalHeader {
@@ -379,57 +242,64 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+  border: 2px solid var(--border);
+  background-color: #0E0E12;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid var(--white);
-  box-shadow: 0 4px 14px rgba(0, 12, 40, 0.12);
-  flex-shrink: 0;
 }
 
 .modalPhoto {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
 }
 
 .modalInitials {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.roleBadge {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--accent);
+  margin-bottom: 4px;
 }
 
 .modalName {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--dark-blue);
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  color: var(--text);
+  margin-bottom: 2px;
 }
 
 .modalRole {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-top: 2px;
+  font-size: 0.8125rem;
+  color: var(--muted);
 }
 
 .modalBio {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
+  font-size: var(--font-size-small);
+  color: #D4D4D8;
+  line-height: 1.65;
   margin-bottom: 24px;
 }
 
-.skillsSection h4 {
+.skillsSection {
+  margin-bottom: 28px;
+}
+
+.skillsTitle {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: var(--font-size-label);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  color: var(--muted);
   margin-bottom: 12px;
 }
 
@@ -437,96 +307,97 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 28px;
 }
 
 .skillPill {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--dark-blue);
-  background: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background-color: #0E0E12;
   border: 1px solid var(--border);
-  padding: 6px 14px;
-  border-radius: 100px;
+  border-radius: 4px;
+  color: var(--text);
 }
 
 .modalActions {
-  display: flex;
-  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.modalCta {
+  width: 100%;
 }
 
-@keyframes modalPop {
-  from { opacity: 0; transform: scale(0.92) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+/* ── Why OneReign ────────────────────────────── */
+.whySection {
+  padding: var(--space-64) 0;
 }
 
-/* Why Us */
 .whyLayout {
   display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 80px;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--space-64);
   align-items: start;
 }
 
-.whyLeft {}
+.bodyText {
+  font-size: var(--font-size-body);
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: var(--space-16);
+}
 
 .whyGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: var(--space-24);
 }
 
 .whyCard {
-  background: var(--bg-card);
+  background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 24px;
-  transition: all 0.25s;
-  box-shadow: 0 2px 8px rgba(0,12,40,0.05);
-}
-.whyCard:hover {
-  border-color: var(--accent-mid);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(69,118,255,0.1);
 }
 
 .whyNum {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-size: var(--font-size-label);
   color: var(--accent);
-  letter-spacing: 0.1em;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   display: block;
 }
 
 .whyTitle {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--dark-blue);
-  margin-bottom: 8px;
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  color: var(--text);
+  margin-bottom: 6px;
 }
 
 .whyDesc {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  line-height: 1.6;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
 @media (max-width: 1024px) {
-  .foundersGrid { grid-template-columns: 1fr 1fr; }
-  .whyLayout { grid-template-columns: 1fr; gap: 40px; }
+  .foundersGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .whyLayout {
+    grid-template-columns: 1fr;
+    gap: var(--space-32);
+  }
 }
-@media (max-width: 640px) {
-  .foundersGrid { grid-template-columns: 1fr; }
-  .whyGrid { grid-template-columns: 1fr; }
-  .whyLeft a {
-    width: 100%;
-    margin-top: 24px !important;
+
+@media (max-width: 600px) {
+  .foundersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .whyGrid {
+    grid-template-columns: 1fr;
   }
 }

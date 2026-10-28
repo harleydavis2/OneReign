@@ -45,7 +45,7 @@
 
 **URL:** https://fludigo.tech  
 **Title:** Fludigo — AI Platforms, Automation & Custom Software  
-**Meta Description:** Fludigo builds AI platforms, automation workflows, and custom software for modern businesses. Explore Conesta and RUBL — products built to replace chaos with clarity.
+**Meta Description:** Fludigo builds AI platforms, automation workflows, and custom software for modern businesses. Explore Faultline and Quiet — products built to replace chaos with clarity.
 
 ---
 
@@ -151,11 +151,11 @@
 
 **Product Cards:**
 
-- **Conesta** — Learning Platform  
-  "Where students learn together." → [`/products#conesta`]
+- **Faultline** — Learning Platform  
+  "Where students learn together." → [`/products#Faultline`]
 
-- **rubl** — Revenue Platform  
-  "Sales on autopilot." → [`/products#rubl`]
+- **Quiet** — Revenue Platform  
+  "Sales on autopilot." → [`/products#Quiet`]
 
 ---
 
@@ -176,7 +176,7 @@
 ### Footer
 
 **Company:** About, Blog, News  
-**Products:** Conesta, RUBL  
+**Products:** Faultline, Quiet  
 **Client Services:** Partnerships, Contact  
 **Connect:** Instagram, Facebook, LinkedIn, X, Threads  
 **Legal:** Privacy Policy, Terms of Service, Cookie Policy, Do Not Sell My Info  
@@ -188,7 +188,7 @@
 
 **URL:** https://fludigo.tech/about  
 **Title:** About Fludigo — AI-First. System-Focused.  
-**Meta Description:** Meet the team behind Conesta and RUBL — building operational intelligence for modern businesses.
+**Meta Description:** Meet the team behind Faultline and Quiet — building operational intelligence for modern businesses.
 
 ---
 
@@ -242,8 +242,8 @@
 ## 3. Products
 
 **URL:** https://fludigo.tech/products  
-**Title:** Our Products — Conesta & RUBL | Fludigo  
-**Meta Description:** Explore Fludigo's products. Conesta is an AI-powered collaborative learning platform. RUBL puts your sales pipeline on autopilot.
+**Title:** Our Products — Faultline & Quiet | Fludigo  
+**Meta Description:** Explore Fludigo's products. Faultline is an AI-powered collaborative learning platform. Quiet puts your sales pipeline on autopilot.
 
 ---
 
@@ -257,11 +257,11 @@
 
 **Product Nav:**
 - Learning Platform →
-- rubl Revenue Platform →
+- Quiet Revenue Platform →
 
 ---
 
-### Product: Conesta (`#conesta`)
+### Product: Faultline (`#Faultline`)
 
 **Category:** Learning Platform  
 **Headline (H2):**
@@ -276,11 +276,11 @@
 - Community-driven resource library
 - Built on Claude API (AI architecture)
 
-**CTA:** [Visit Conesta →](https://conesta.in)
+**CTA:** [Visit Faultline →](https://Faultline.in)
 
 ---
 
-### Product: RUBL (`#rubl`)
+### Product: Quiet (`#Quiet`)
 
 **Category:** Revenue Platform  
 **Headline (H2):**
@@ -294,7 +294,7 @@
 2. **Studio** — AI marketing content creation
 3. **Showcase** — automated product demos
 
-**CTA:** [Visit RUBL →](https://rubl.in)
+**CTA:** [Visit Quiet →](https://Quiet.in)
 
 ---
 
@@ -423,14 +423,14 @@ All · Product · Engineering · Insights · Company
 | 014 | 16 APR 2026 | Insights | Why 90% of Startups Fail — And It's Not What You Think (2026 Data) | Jabez Paul Asir |
 | 013 | 14 APR 2026 | Insights | The Founder Burnout Crisis No One Is Talking About | Jabez Paul Asir |
 | 012 | 12 APR 2026 | Insights | Why Your CRM Is a Graveyard (And What Replaces It) | Jabez Paul Asir |
-| 011 | 10 APR 2026 | Engineering | Building Conesta with AI-First Architecture | Jabez Paul Asir |
+| 011 | 10 APR 2026 | Engineering | Building Faultline with AI-First Architecture | Jabez Paul Asir |
 | 010 | 09 APR 2026 | Insights | The Follow-Up Failure That's Killing Your Revenue | Jabez Paul Asir |
 | 009 | 07 APR 2026 | Insights | 42 SaaS Tools and Nothing Works Together | Ermars Castar |
 | 008 | 05 APR 2026 | Insights | Why Systems Thinking Beats Tool Shopping | Jabez Paul Asir |
 | 007 | 03 APR 2026 | Insights | The Future of Product Demos Is AI — And Nobody's Built It Yet | Jabez Paul Asir |
 | 006 | 01 APR 2026 | Insights | The Hidden Cost of Operational Chaos in Small Businesses | Pranov Prahaladh R |
 | 005 | 30 MAR 2026 | Insights | Your First Sales Hire Will Probably Fail. Here's Why. | Jabez Paul Asir |
-| 004 | 28 MAR 2026 | Product | Introducing RUBL — Sales on Autopilot | Ermars Castar |
+| 004 | 28 MAR 2026 | Product | Introducing Quiet — Sales on Autopilot | Ermars Castar |
 | 003 | 26 MAR 2026 | Engineering | AI Is the Salt, Not the Steak | Ermars Castar |
 | 002 | 24 MAR 2026 | Insights | Data-Driven vs. Gut Feel: Why 58% of Companies Are Guessing | Pranov Prahaladh R |
 | 001 | 22 MAR 2026 | Engineering | The All-in-One Platform Trap: Lessons from Bitrix, Odoo, and Zoho | Ermars Castar |
@@ -442,14 +442,14 @@ All · Product · Engineering · Insights · Company
 - **014 — Why 90% of Startups Fail:** Startup failure isn't about bad ideas. 966 startups shut down in 2024 alone. New data shows operational friction, not lack of funding, is the real killer.
 - **013 — Founder Burnout Crisis:** 73% of tech founders experience shadow burnout. 49% consider quitting. Here's what the 2025 data actually says — and what to do about it.
 - **012 — CRM Is a Graveyard:** 50% of CRM implementations fail. Reps spend 9 hours/week on data entry. 37% fabricate data. The CRM model is broken — here's what comes next.
-- **011 — Building Conesta:** How we designed Conesta's learning engine from scratch — AI-generated study paths, real-time collaboration, and why we chose to build on Claude API.
+- **011 — Building Faultline:** How we designed Faultline's learning engine from scratch — AI-generated study paths, real-time collaboration, and why we chose to build on Claude API.
 - **010 — Follow-Up Failure:** 76% of qualified leads get zero follow-up. 80% of deals need 5+ touchpoints. Here's the data on the biggest sales leak in your business.
 - **009 — 42 SaaS Tools:** The average small company uses 42 SaaS apps. SaaS costs per employee hit $9,100/year. Half those licences are unused. Here's the real cost of tool sprawl.
 - **008 — Systems Thinking:** Most businesses buy tools. We build systems. Here's why connecting the dots matters more than adding another SaaS subscription.
 - **007 — AI Product Demos:** The demo platform market is projected to hit $7.8B by 2033. Interactive demos get 8–32% CTR vs 3.7% for other CTAs. Here's the gap nobody has filled.
 - **006 — Operational Chaos:** 42% of company knowledge lives in one person's head. 88% of small businesses face cash flow disruptions.
 - **005 — First Sales Hire:** A bad first sales hire sets your startup back 12+ months. Average ramp time is 6–9 months.
-- **004 — Introducing RUBL:** RUBL is our revenue intelligence platform that unifies CRM, AI marketing, and automated product demos.
+- **004 — Introducing Quiet:** Quiet is our revenue intelligence platform that unifies CRM, AI marketing, and automated product demos.
 - **003 — AI Is the Salt:** 88% of organisations use AI. Only 6% extract real value. 60% of AI initiatives will be abandoned by 2026.
 - **002 — Data-Driven:** 58% of companies base half their decisions on gut feel. Data-driven orgs show 25% higher EBITDA.
 - **001 — All-in-One Trap:** You can do everything in Bitrix24 — just not well. Why all-in-one platforms fail.
@@ -506,7 +506,7 @@ All · Product · Engineering · Insights · Company
 ### Information Collected
 
 **Directly Provided:**
-- Account info (name, email, password) for Conesta/RUBL
+- Account info (name, email, password) for Faultline/Quiet
 - Contact form data (name, email, company, budget, project description)
 - Payment info (handled by third-party gateways; card/bank details NOT stored)
 - Communications sent to Fludigo
@@ -526,7 +526,7 @@ All · Product · Engineering · Insights · Company
 ---
 
 ### Use of Information
-- Provide and maintain services (Conesta, RUBL, fludigo.tech)
+- Provide and maintain services (Faultline, Quiet, fludigo.tech)
 - Process transactions & generate GST invoices
 - Communicate — respond to enquiries, support
 - Improve products via usage analytics
@@ -600,7 +600,7 @@ All · Product · Engineering · Insights · Company
 
 ### Key Terms
 
-**Services covered:** fludigo.tech, conesta.in, rubl.in, client engagements
+**Services covered:** fludigo.tech, Faultline.in, Quiet.in, client engagements
 
 **Acceptable Use — Prohibited:**
 - Illegal activity (Indian law or applicable jurisdiction)
@@ -690,9 +690,9 @@ fludigo.tech/
 ├── /about                   ← About (mission, founders, why us)
 │   ├── #founders
 │   └── #why
-├── /products                ← Products (Conesta + RUBL)
-│   ├── #conesta
-│   └── #rubl
+├── /products                ← Products (Faultline + Quiet)
+│   ├── #Faultline
+│   └── #Quiet
 ├── /pricing                 ← Pricing (Starter, Growth, Partnership)
 ├── /contact                 ← Contact form
 ├── /blog                    ← Blog index (14 posts)
@@ -708,3 +708,4 @@ fludigo.tech/
 ---
 
 *End of scrape — fludigo.tech | Generated 2026-07-06*
+

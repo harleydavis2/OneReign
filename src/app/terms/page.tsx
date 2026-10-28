@@ -24,7 +24,7 @@ export default function TermsPage() {
         <div className={styles.legalBody}>
           <section className={styles.legalSection}>
             <h2>Services Covered</h2>
-            <p>These terms apply to: OneReign.tech, conesta.in, rubl.in, and all client engagements.</p>
+            <p>These terms apply to: one-reign.vercel.app, OneReign platforms, and all client engagements.</p>
           </section>
 
           <section className={styles.legalSection}>
@@ -97,7 +97,7 @@ export default function TermsPage() {
             <h2>Grievance Officer</h2>
             <div className={styles.contactBox}>
               <p><strong>Name:</strong> Jabez Paul Asir</p>
-              <p><strong>Email:</strong> <a href="mailto:hello@onereign.co">hello@onereign.co</a></p>
+              <p><strong>Email:</strong> <a href="mailto:onereign.official@gmail.com">onereign.official@gmail.com</a></p>
               <p><strong>Address:</strong> No-38, GV Opulence, CS-2, Janabai Street, VivekNagar, Ambattur, Tiruvallur-600053, Chennai, TN</p>
               <p><strong>Response:</strong> Acknowledged within 24h, resolved within 15 days</p>
             </div>
@@ -107,3 +107,5 @@ export default function TermsPage() {
     </div>
   );
 }
+
+
