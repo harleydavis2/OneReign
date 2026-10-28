@@ -1,0 +1,189 @@
+/* ── Browser Frame ─────────────────────────── */
+.browserFrame {
+  width: 100%;
+  border-radius: 8px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+
+.browserFrame:hover {
+  border-color: rgba(161, 161, 170, 0.3);
+}
+
+.browserHeader {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #111114;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+
+.trafficLights {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dotRed {
+  background-color: #EF4444;
+  opacity: 0.8;
+}
+
+.dotYellow {
+  background-color: #F59E0B;
+  opacity: 0.8;
+}
+
+.dotGreen {
+  background-color: #10B981;
+  opacity: 0.8;
+}
+
+.urlBar {
+  flex: 1;
+  max-width: 440px;
+  background-color: #0B0B0D;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.lockIcon {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.urlText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.browserContent {
+  position: relative;
+  width: 100%;
+  background-color: #070709;
+  line-height: 0;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ── Phone Frame ─────────────────────────── */
+.phoneContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-16) 0;
+}
+
+.phoneFrame {
+  width: 100%;
+  max-width: 390px;
+  border-radius: 36px;
+  background-color: #18181D;
+  border: 3px solid #2A2A32;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  position: relative;
+}
+
+.phoneNotch {
+  height: 28px;
+  background-color: #18181D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.phoneSpeaker {
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #2E2E38;
+}
+
+.phoneCamera {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2E2E38;
+}
+
+.phoneScreen {
+  background-color: #0B0B0D;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Placeholder for missing real captures ────── */
+.placeholder {
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.placeholderIcon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.placeholderTitle {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.placeholderMeta {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--muted);
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.placeholderTag {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: rgba(198, 255, 77, 0.08);
+  border: 1px dashed var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+}

@@ -1,0 +1,122 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 32px 28px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.card:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-color: var(--accent);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-24);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.arrow {
+  color: var(--muted);
+  font-size: 1.125rem;
+  transition: transform var(--transition), color var(--transition);
+}
+
+.card:hover .arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+.cardBody {
+  flex: 1;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-h3);
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: var(--space-8);
+  line-height: 1.3;
+}
+
+.outcome {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-small);
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: var(--space-24);
+}
+
+.bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-24) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: #D4D4D8;
+  line-height: 1.45;
+}
+
+.bulletDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--muted);
+  margin-top: 7px;
+  flex-shrink: 0;
+  transition: background-color var(--transition);
+}
+
+.card:hover .bulletDot {
+  background-color: var(--accent);
+}
+
+.cardFooter {
+  padding-top: var(--space-16);
+  border-top: 1px solid rgba(161, 161, 170, 0.08);
+}
+
+.learnMore {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--text);
+  transition: color var(--transition);
+}
+
+.card:hover .learnMore {
+  color: var(--accent);
+}

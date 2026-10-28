@@ -1,0 +1,45 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border);
+  line-height: 1;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Live Badge */
+.live {
+  background-color: rgba(198, 255, 77, 0.08);
+  border-color: rgba(198, 255, 77, 0.3);
+  color: var(--accent);
+}
+
+.live .dot {
+  background-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* In Progress Badge */
+.inProgress {
+  background-color: rgba(161, 161, 170, 0.08);
+  border-color: rgba(161, 161, 170, 0.25);
+  color: var(--text);
+}
+
+.inProgress .dot {
+  background-color: #EAB308; /* Amber dot for in-progress */
+  box-shadow: 0 0 6px rgba(234, 179, 8, 0.6);
+}

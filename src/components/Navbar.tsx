@@ -1,74 +1,156 @@
 "use client";
-import { useState, useEffect, Suspense } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
+import Button from "@/components/ui/Button";
 import styles from "./Navbar.module.css";
 
-const SpinningLogo = dynamic(() => import("./SpinningLogo"), { ssr: false });
-
-const navLinks = [
-  { label: "01 · Home", href: "/" },
-  { label: "02 · Approach", href: "/#approach" },
-  { label: "03 · Services", href: "/#services" },
-  { label: "04 · Products", href: "/products" },
-  { label: "05 · Blog", href: "/blog" },
-  { label: "06 · Contact", href: "/contact" },
+const navItems = [
+  { label: "Services", href: "/#services" },
+  { label: "Products", href: "/products" },
+  { label: "Approach", href: "/#approach" },
+  { label: "Blog", href: "/blog" },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  const navRef = useRef<HTMLElement>(null);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // Close menu on route change without cascading effect
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
 
+  // Handle escape key and body scroll lock
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && menuOpen) {
+        setMenuOpen(false);
+        menuBtnRef.current?.focus();
+      }
+    };
+
     if (menuOpen) {
       document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
     } else {
       document.body.style.overflow = "";
     }
+
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [menuOpen]);
 
   return (
-    <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
+    <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
-        <Link href="/" className={styles.logo}>
-          <Suspense fallback={<div className={styles.logoFallback}>O</div>}>
-          <SpinningLogo size={36} />
-          </Suspense>
-          <span className={styles.logoText}>ONEREIGN</span>
+        {/* Brand Wordmark & Identity */}
+        <Link href="/" className={styles.brand} aria-label="OneReign Home">
+          <span className={styles.mark} aria-hidden="true">
+            <span className={styles.markBar} />
+            <span className={styles.markBar} />
+            <span className={styles.markBar} />
+          </span>
+          <span className={styles.wordmark}>ONEREIGN</span>
         </Link>
 
-        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={styles.navLink}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/pricing" className={`btn btn-primary ${styles.ctaBtn}`} onClick={() => setMenuOpen(false)}>
-            Pricing
-          </Link>
+        {/* Desktop Navigation */}
+        <nav className={styles.desktopNav} aria-label="Main Navigation">
+          <ul className={styles.navList}>
+            {navItems.map((item) => {
+              const isActive =
+                item.href === pathname ||
+                (item.href !== "/" && pathname?.startsWith(item.href) && !item.href.includes("#"));
+
+              return (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className={`${styles.navLink} ${isActive ? styles.navLinkActive : ""}`}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
 
+        {/* Desktop CTA Action */}
+        <div className={styles.desktopAction}>
+          <Button variant="primary" href="/contact" className={styles.navCta}>
+            Book a call
+          </Button>
+        </div>
+
+        {/* Mobile Hamburger Toggle */}
         <button
-          className={`${styles.burger} ${menuOpen ? styles.burgerOpen : ""}`}
+          ref={menuBtnRef}
+          type="button"
+          className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
         >
-          <span /><span /><span />
+          <span className={styles.bar} />
+          <span className={styles.bar} />
+          <span className={styles.bar} />
         </button>
+      </div>
+
+      {/* Accessible Full-Width Mobile Menu Overlay */}
+      <div
+        id="mobile-nav"
+        className={`${styles.mobileOverlay} ${menuOpen ? styles.mobileOpen : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className={styles.mobileContent}>
+          <nav ref={navRef} aria-label="Mobile Navigation">
+            <ul className={styles.mobileList}>
+              {navItems.map((item) => {
+                const isActive =
+                  item.href === pathname ||
+                  (item.href !== "/" && pathname?.startsWith(item.href) && !item.href.includes("#"));
+
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      className={`${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ""}`}
+                      onClick={() => setMenuOpen(false)}
+                      tabIndex={menuOpen ? 0 : -1}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className={styles.mobileAction}>
+            <Button
+              variant="primary"
+              href="/contact"
+              onClick={() => setMenuOpen(false)}
+              className={styles.mobileCta}
+            >
+              Book a free 30-min call →
+            </Button>
+            <p className={styles.mobileMeta}>Est. 2025 · Remote / Global</p>
+          </div>
+        </div>
       </div>
     </header>
   );
