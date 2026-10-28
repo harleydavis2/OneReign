@@ -1,0 +1,137 @@
+.faqSection {
+  position: relative;
+  width: 100%;
+  padding: 120px 0 100px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* Header */
+.sectionHeader {
+  max-width: 840px;
+  margin: 0 auto 52px;
+  text-align: left;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--accent);
+}
+
+.sectionTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(38px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ── Accordion List ────────────────────────────────────────────────── */
+.accordionList {
+  max-width: 840px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.accordionItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color 0.2s ease;
+}
+
+.accordionTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  transition: color 0.2s ease;
+}
+
+.accordionTrigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent);
+  border-radius: 6px;
+}
+
+.questionText {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.accordionTrigger:hover .questionText {
+  color: #FFFFFF;
+}
+
+/* Plus Icon Container */
+.iconWrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.accordionTrigger:hover .iconWrap {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Rotate Plus to Cross */
+.iconRotated {
+  transform: rotate(45deg);
+  color: var(--accent) !important;
+  border-color: rgba(198, 255, 77, 0.35) !important;
+  background: rgba(198, 255, 77, 0.08) !important;
+}
+
+/* Answer Body */
+.answerText {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 72ch;
+  padding-bottom: 28px;
+  padding-top: 2px;
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .iconWrap {
+    transition: none !important;
+  }
+}

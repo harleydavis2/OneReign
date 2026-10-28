@@ -1,0 +1,183 @@
+.introSection {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg);
+  padding: 96px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.layoutWrapper {
+  width: 100%;
+  padding-left: max(1.5rem, calc((100vw - 1200px) / 2 + 1.5rem));
+  padding-right: 0;
+}
+
+.columns {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.textCol {
+  width: 45%;
+  flex-shrink: 0;
+  padding-right: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 20;
+}
+
+.mosaicCol {
+  width: 55%;
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 16px 0;
+}
+
+/* Gradient Masks */
+.maskLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  background: linear-gradient(to right, #0B0B0D 15%, rgba(11, 11, 13, 0.8) 55%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.maskTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, #0B0B0D 0%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.maskBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(to top, #0B0B0D 0%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Marquee Rows */
+.mosaicStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.marqueeRowLeft {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeLeft 60s linear infinite;
+}
+
+.marqueeRowRight {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeRight 60s linear infinite;
+}
+
+.marqueeRowLeft:hover,
+.marqueeRowRight:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Tile Styles */
+.tile {
+  width: 440px;
+  height: 330px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--surface);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.tile:hover {
+  border-color: rgba(198, 255, 77, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeRowLeft,
+  .marqueeRowRight {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile & Tablet Styles */
+@media (max-width: 1024px) {
+  .layoutWrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .columns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .textCol {
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .mosaicCol {
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    margin-right: -24px;
+  }
+
+  .maskLeft {
+    width: 60px;
+  }
+
+  .secondRow {
+    display: none !important;
+  }
+
+  .tile {
+    width: 320px;
+    height: 240px;
+  }
+}
+

@@ -1,0 +1,364 @@
+.proofSection {
+  position: relative;
+  width: 100%;
+  min-height: 820px;
+  padding: 140px 0 130px;
+  background-color: #000000;
+  overflow: hidden; /* Strict: prevent horizontal scroll */
+}
+
+/* ── Interactive Rotating & Draggable World Globe ─────────────────── */
+.globeWrapper {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(980px, 95vw);
+  height: min(980px, 95vw);
+  z-index: 1;
+  mask-image: radial-gradient(
+    circle at 50% 44%,
+    black 44%,
+    rgba(0, 0, 0, 0.7) 60%,
+    transparent 74%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 44%,
+    black 44%,
+    rgba(0, 0, 0, 0.7) 60%,
+    transparent 74%
+  );
+}
+
+.globeRadialFade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    62% 62% at 50% 42%,
+    transparent 42%,
+    rgba(0, 0, 0, 0.45) 70%,
+    #000000 96%
+  );
+  pointer-events: none;
+}
+
+.globeCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+}
+
+/* ── Giant Heading "Testimonials" ─────────────────────────────────── */
+.giantTitleWrapper {
+  position: absolute;
+  top: 130px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2; /* Sits over the globe, behind frosted glass cards */
+}
+
+.giantTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(46px, 9vw, 132px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: #FFFFFF;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* ── Cards Grid (Visuvate 12 Columns: 4 left / 8 right) ────────────── */
+.cardsGrid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 16px;
+  align-items: stretch;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+}
+
+/* ── Visuvate Frosted Glass Cards ─────────────────────────────────── */
+.statsCard,
+.rightCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: color-mix(in srgb, #000000 48%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid var(--vv-card-border);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+    0 24px 60px -12px rgba(0, 0, 0, 0.85);
+  transition: border-color 0.3s var(--ease-brand), box-shadow 0.3s var(--ease-brand);
+}
+
+.statsCard:hover,
+.rightCard:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.24),
+    0 28px 70px -12px rgba(0, 0, 0, 0.95);
+}
+
+/* ── Left Card: Stats ─────────────────────────────────────────────── */
+.statsCard {
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+  .statsCard {
+    padding: 32px 24px;
+  }
+}
+
+.statsList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statNumberRow {
+  display: flex;
+  align-items: flex-start;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(40px, 4.4vw, 60px);
+  line-height: 0.9;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  color: #FFFFFF;
+}
+
+.statNumber {
+  font-variant-numeric: tabular-nums;
+}
+
+.statSuffix {
+  margin-left: 2px;
+  font-size: 0.46em;
+  line-height: 1.5;
+  color: #0099FF; /* Electric blue matching Visuvate */
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #9A9A9A;
+  line-height: 1.3;
+}
+
+/* ── Right Card: Testimonial Carousel ─────────────────────────────── */
+.rightCard {
+  padding: 44px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 380px;
+}
+
+@media (max-width: 640px) {
+  .rightCard {
+    padding: 32px 24px;
+  }
+}
+
+.carouselHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.indexText {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: #9A9A9A;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+.indexCurrent {
+  color: #FFFFFF;
+}
+
+.indexDivider {
+  color: #9A9A9A;
+}
+
+.indexRule {
+  margin-top: 10px;
+  display: block;
+  height: 1px;
+  width: 56px;
+  background-color: var(--vv-card-rule);
+}
+
+.quoteSvg {
+  height: clamp(20px, 2.2vw, 28px);
+  width: auto;
+  flex-shrink: 0;
+  color: #FFFFFF;
+  opacity: 0.3;
+}
+
+.starsRow {
+  display: flex;
+  gap: 4px;
+  color: #FBBF24;
+  margin-top: 8px;
+}
+
+.quoteWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  padding-top: 16px;
+}
+
+.quoteText {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.authorRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatarInitial {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background-color: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-inter-tight), sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FBBF24;
+  flex-shrink: 0;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.authorRole {
+  font-size: 13px;
+  color: #9A9A9A;
+}
+
+.carouselNav {
+  display: flex;
+  gap: 8px;
+}
+
+.navBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #9A9A9A;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-brand);
+  outline: none;
+}
+
+.navBtn:hover,
+.navBtn:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Fallback Card */
+.fallbackContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fallbackEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.fallbackTitle {
+  font-family: var(--font-inter-tight), sans-serif;
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.fallbackText {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #9A9A9A;
+  margin: 0;
+}
+
+.fallbackAction {
+  padding-top: 8px;
+}

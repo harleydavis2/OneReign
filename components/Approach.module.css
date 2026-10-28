@@ -1,0 +1,512 @@
+.approachSection {
+  position: relative;
+  width: 100%;
+  padding: 120px 0 100px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* Header */
+.sectionHeader {
+  margin-bottom: 56px;
+  max-width: 760px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--accent);
+}
+
+.sectionTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--text);
+  margin: 0;
+  text-align: left;
+}
+
+/* ── Bento Layout: 3 Rows, 2 Cards per Row ─────────────────────────── */
+.bentoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.bentoRow {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .bentoRow {
+    flex-direction: column;
+  }
+}
+
+/* Column Proportion Classes */
+.cardWide {
+  flex: 1.45;
+}
+
+.cardNarrow {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .cardWide,
+  .cardNarrow {
+    flex: 1 1 100%;
+  }
+}
+
+/* Generic Bento Card */
+.bentoCard {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #131317 0%, #0F0F12 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 640px) {
+  .bentoCard {
+    padding: 28px 24px;
+  }
+}
+
+.bentoCard:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6);
+}
+
+.cardTextContent {
+  margin-bottom: 32px;
+}
+
+.cardHeading {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin: 0 0 14px;
+}
+
+.cardBody {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 48ch;
+  margin: 0;
+}
+
+.cardBody strong {
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* ── Visual 1: Discovery First (Offset Surface Cards) ──────────────── */
+.offsetCardsTrack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 8px 0;
+}
+
+@media (max-width: 600px) {
+  .offsetCardsTrack {
+    grid-template-columns: 1fr;
+  }
+}
+
+.offsetCard {
+  background-color: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.offsetCard:nth-child(1) {
+  transform: translateY(0);
+}
+
+.offsetCard:nth-child(2) {
+  transform: translateY(-8px);
+  border-color: rgba(198, 255, 77, 0.25);
+}
+
+.offsetCard:nth-child(3) {
+  transform: translateY(6px);
+}
+
+@media (max-width: 600px) {
+  .offsetCard:nth-child(2),
+  .offsetCard:nth-child(3) {
+    transform: none;
+  }
+}
+
+.offsetCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.offsetCardIcon {
+  color: var(--accent);
+}
+
+.offsetCardTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.offsetCardDesc {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Visual 2: Process Before Tools (Before/After Flow) ────────────── */
+.flowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.flowRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flowBadge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  width: 60px;
+  text-align: center;
+}
+
+.flowBadgeBefore {
+  background: rgba(239, 68, 68, 0.12);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.flowBadgeAfter {
+  background: rgba(198, 255, 77, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(198, 255, 77, 0.3);
+}
+
+.flowSteps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.flowStep {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.flowArrow {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.flowStepFinal {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.flowStepFinalBad {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #FCA5A5;
+}
+
+.flowStepFinalGood {
+  background: rgba(198, 255, 77, 0.1);
+  border: 1px solid rgba(198, 255, 77, 0.35);
+  color: var(--accent);
+}
+
+/* ── Visual 3: One Connected System (Animated SVG Diagram) ──────────── */
+.systemDiagramWrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.systemSvg {
+  width: 100%;
+  height: 100%;
+  max-width: 380px;
+}
+
+.dashedLine {
+  stroke: rgba(198, 255, 77, 0.4);
+  stroke-dasharray: 4, 4;
+  animation: lineDash 20s linear infinite;
+}
+
+@keyframes lineDash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.nodeCenter {
+  fill: #151519;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.nodeSatellite {
+  fill: #151519;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 1;
+}
+
+.nodeLabel {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  fill: var(--text);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.nodeLabelCenter {
+  fill: var(--accent);
+}
+
+/* ── Visual 4: Built to Be Reliable (Log Table) ────────────────────── */
+.logTableWrapper {
+  border-radius: 14px;
+  background: #0B0B0D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.logTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.logTable th {
+  text-align: left;
+  padding: 10px 14px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.logTable td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.logTable tr:last-child td {
+  border-bottom: none;
+}
+
+.logTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+}
+
+.logType {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.logStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(198, 255, 77, 0.1);
+  border: 1px solid rgba(198, 255, 77, 0.25);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.statusDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background-color: currentColor;
+}
+
+/* ── Visual 5: Smooth Handover (What You Get Table) ────────────────── */
+.handoverTableWrapper {
+  border-radius: 14px;
+  background: #0B0B0D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.handoverHeader {
+  padding: 12px 16px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.handoverList {
+  display: flex;
+  flex-direction: column;
+}
+
+.handoverItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.handoverItem:last-child {
+  border-bottom: none;
+}
+
+.handoverName {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.includedChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0B0B0D;
+  background-color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+/* ── Visual 6: Future-Ready (Rotating Tick Ring & Logo) ─────────────── */
+.rotatingDialContainer {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialSvg {
+  width: 180px;
+  height: 180px;
+  animation: rotateDial 40s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotateDial {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.centerLogoWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #151519;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .dashedLine,
+  .dialSvg {
+    animation: none !important;
+  }
+}

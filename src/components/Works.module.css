@@ -1,0 +1,424 @@
+.worksSection {
+  position: relative;
+  width: 100%;
+  background-color: #000000;
+  margin-top: -100px; /* Seamless overlap with Introduction */
+}
+
+/* ── Sticky Pinned Viewport Container (h-screen) ──────────────────── */
+.stickyViewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Electric Blue Caustic Lines Backdrop (bluelines.jpg) ─────────── */
+.causticBackdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.causticImage {
+  object-fit: cover;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  filter: contrast(1.15) saturate(1.2);
+}
+
+.causticRadialGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1300px, 100vw);
+  height: 700px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 153, 255, 0.22) 0%,
+    rgba(0, 85, 255, 0.08) 45%,
+    transparent 72%
+  );
+  filter: blur(52px);
+  pointer-events: none;
+}
+
+/* ── Giant Background Heading: Our Works ──────────────────────────── */
+.giantTitleWrapper {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1; /* Sits behind the 3D cards */
+}
+
+.giantTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(56px, 10vw, 150px);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  color: #FFFFFF;
+  text-shadow:
+    0 0 60px rgba(0, 153, 255, 0.35),
+    0 4px 30px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* ── 3D Amphitheater Stage ────────────────────────────────────────── */
+.stage3D {
+  position: relative;
+  width: 100%;
+  height: 680px;
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.amphitheaterTilt {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardAnchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.amphiCard {
+  position: absolute;
+  top: -140px;
+  left: -210px;
+  width: 420px;
+  text-decoration: none;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.amphiCard:hover {
+  transform: translateZ(55px) scale(1.04);
+}
+
+.cardFrame {
+  position: relative;
+  width: 100%;
+  height: 265px;
+  border-radius: 16px;
+  background-color: #0E0E12;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  box-shadow: 0 16px 42px -10px rgba(0, 0, 0, 0.88);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.amphiCard:hover .cardFrame,
+.amphiCardCenter .cardFrame {
+  border-color: rgba(0, 153, 255, 0.7);
+  box-shadow:
+    0 24px 60px -12px rgba(0, 0, 0, 0.95),
+    0 0 38px rgba(0, 153, 255, 0.35);
+}
+
+.tileImage {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.amphiCard:hover .tileImage {
+  transform: scale(1.03);
+}
+
+/* ── Surface-colored Honest Placeholder ───────────────────────────── */
+.placeholderCard {
+  width: 100%;
+  height: 100%;
+  background-color: #121216;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  position: relative;
+}
+
+.placeholderTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.placeholderBadge {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #A1A1AA;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.placeholderCenter {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.placeholderIcon {
+  color: #0099FF;
+  opacity: 0.85;
+}
+
+.placeholderTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.placeholderDesc {
+  font-size: 12px;
+  color: #A1A1AA;
+  margin: 0;
+}
+
+.placeholderBottom {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ── Meta label below cards ───────────────────────────────────────── */
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 6px 0;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+.amphiCard:hover .cardMeta,
+.cardMetaVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tileTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 290px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.statusLive {
+  composes: statusBadge;
+  background: rgba(0, 153, 255, 0.14);
+  color: #0099FF;
+  border: 1px solid rgba(0, 153, 255, 0.35);
+}
+
+.statusInProgress {
+  composes: statusBadge;
+  background: rgba(161, 161, 170, 0.12);
+  color: #A1A1AA;
+  border: 1px solid rgba(161, 161, 170, 0.25);
+}
+
+.statusDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background-color: currentColor;
+}
+
+/* ── End-of-Scroll Veil Overlay & Giant "View all" ─────────────────── */
+.scrollVeil {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+  z-index: 35;
+  transition: opacity 0.5s var(--ease-brand);
+}
+
+.viewAllOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+}
+
+.viewAllLink {
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--ease-brand);
+}
+
+.viewAllLink:hover {
+  transform: scale(1.05);
+}
+
+/* ── 380vh Scroll Runway ──────────────────────────────────────────── */
+.scrollRunway {
+  height: 380vh;
+  pointer-events: none;
+}
+
+/* ── Mobile Horizontal Snap Carousel (< 768px) ─────────────────────── */
+.mobileCarousel {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .worksSection {
+    margin-top: 0;
+  }
+
+  .stickyViewport {
+    position: relative;
+    height: auto;
+    padding: 80px 0 20px;
+  }
+
+  .stage3D,
+  .scrollRunway,
+  .scrollVeil,
+  .viewAllOverlay {
+    display: none;
+  }
+
+  .giantTitleWrapper {
+    position: relative;
+    top: auto;
+    transform: none;
+    margin-bottom: 24px;
+  }
+
+  .giantTitle {
+    font-size: clamp(52px, 13vw, 84px);
+  }
+
+  .mobileCarousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 24px 40px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .mobileCarousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobileTile {
+    flex: 0 0 85vw;
+    max-width: 360px;
+    scroll-snap-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobileCardFrame {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    border-radius: 16px;
+    background-color: #0E0E12;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+
+  .mobileMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 4px;
+  }
+
+  .mobileTitle {
+    font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* ── Prefers Reduced Motion ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .scrollRunway {
+    height: 100vh !important;
+  }
+
+  .amphitheaterTilt {
+    transform: none !important;
+  }
+
+  .amphiCard {
+    transition: none !important;
+  }
+}

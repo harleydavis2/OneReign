@@ -22,7 +22,7 @@ The redesign will transition OneReign into a **premium editorial tech** identity
 |---|---|---|---|
 | **1** | Hero headline renders duplicated word: *"Your business runs on systems.systems. We build them."* | **Confirmed.** `src/app/page.tsx` line 101 rendered `<Cover>systems.</Cover>systems.` causing duplicated text. | Replaced with short, high-impact copy: *"We build the systems your business runs on."* without decorative Cover component. |
 | **2** | `<meta name="theme-color">` is `#f5f7ff` (light) while site is dark. | **Confirmed.** `src/app/layout.tsx` line 11 set `themeColor: "#f5f7ff"`. | Updated `themeColor` in `src/app/layout.tsx` to `#0B0B0D`. |
-| **3** | Inconsistent `og:url` pointing to `https://OneReign.co` instead of Vercel deployment. Missing canonical tag, 1200x630 OG image, and summary large image card. | **Confirmed.** `metadataBase` missing; `openGraph.url` pointed to `https://OneReign.co`. | Configured `metadataBase` to `https://one-reign.vercel.app`, added canonical links, configured `og:image` (1200x630) and `twitter:card="summary_large_image"`. |
+| **3** | Inconsistent `og:url` pointing to legacy placeholder instead of Vercel deployment. Missing canonical tag, 1200x630 OG image, and summary large image card. | **Confirmed.** `metadataBase` missing; `openGraph.url` pointed to old placeholder. | Configured `metadataBase` to `https://one-reign.vercel.app`, added canonical links, configured `og:image` (1200x630) and `twitter:card="summary_large_image"`. |
 | **4** | Meta description, keywords, footer, and pages still mention Conesta and RUBL. | **Confirmed.** 14+ files reference Conesta / RUBL (`layout.tsx`, `page.tsx`, `about/layout.tsx`, `products/page.tsx`, `blog/posts.ts`, `privacy/page.tsx`, `terms/page.tsx`). | Full purge of Conesta, RUBL, `conesta.in`, and `rubl.in`. Replaced with OneReign flagship products: **Faultline** and **Quiet**. |
 | **5** | Footer has stale "Our LMS / School Learning Platform / Teacher Tools" & "What We're Building". | **Confirmed.** `src/components/Footer.tsx` lines 110–125 rendered generic LMS and educational placeholders. | Purged all LMS references. Replaced with clear company navigation, product links, and contact info. |
 | **6** | *"Hey AI, your official guide to OneReign"* links to `#`. | **Confirmed.** `src/components/Footer.tsx` line 131 had `<a href="#" className={styles.topLink}>`. | Removed dead anchor link. Created machine-readable AI context `/llms.txt` and clean footer branding. |
@@ -71,7 +71,7 @@ The redesign will transition OneReign into a **premium editorial tech** identity
 - **Fix:** Universal `:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }` applied across all interactive elements (`<a>`, `<button>`, `<input>`, `<textarea>`). Added `Skip to content` bypass link.
 
 ### 3.6 Form Accessibility & Validation
-- **Contact Page:** Inputs properly tied to `<label htmlFor="...">`, input autocomplete attributes configured, clear error/required indicators, and submission confirmation state. Tested contact email `hello@onereign.co`.
+- **Contact Page:** Inputs properly tied to `<label htmlFor="...">`, input autocomplete attributes configured, clear error/required indicators, and submission confirmation state. Tested contact email `onereign.official@gmail.com`.
 
 ### 3.7 Internal & External Link Status Crawl
 - `/` -> 200 OK
@@ -98,3 +98,4 @@ The redesign will transition OneReign into a **premium editorial tech** identity
 3. **Phase 2:** Product case studies (Faultline & Quiet), complete elimination of Conesta & RUBL.
 4. **Phase 3:** Motion reduction, responsive mobile testing, fluid typography.
 5. **Phase 4:** Accessibility landmarks, SEO metadata, JSON-LD schemas, sitemap, Lighthouse optimization.
+

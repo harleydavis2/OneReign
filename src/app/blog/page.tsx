@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const categoryTags: Record<string, string> = {
-  Engineering: "var(--accent)",
+  Engineering: "#C6FF4D",
   Insights: "#60A5FA",
   Product: "#FBBF24",
   Culture: "#A1A1AA",
@@ -49,13 +49,17 @@ export default function BlogPage() {
             <div className={styles.postsList}>
               {posts.map((post) => (
                 <article key={post.slug} className={styles.postCard}>
+                  {/* Visuvate-style hairline highlight and radial glow */}
+                  <div className={styles.cardHighlight} aria-hidden="true" />
+                  <div className={styles.cardRadial} aria-hidden="true" />
+
                   <div className={styles.postMeta}>
                     <span className={styles.postIssue}>ISSUE {post.issue}</span>
                     <span
                       className={styles.postCategory}
                       style={{
-                        color: categoryTags[post.category] || "var(--accent)",
-                        borderColor: "var(--border)",
+                        color: categoryTags[post.category] || "#C6FF4D",
+                        borderColor: `${categoryTags[post.category] || "#C6FF4D"}33`,
                       }}
                     >
                       {post.category}
@@ -84,6 +88,7 @@ export default function BlogPage() {
             {/* Sidebar */}
             <aside className={styles.sidebar}>
               <div className={styles.sidebarCard}>
+                <div className={styles.cardHighlight} aria-hidden="true" />
                 <h3 className={styles.sidebarTitle}>Contributors</h3>
                 <div className={styles.authorsList}>
                   {uniqueAuthors.map((a) => (
@@ -99,6 +104,7 @@ export default function BlogPage() {
               </div>
 
               <div className={styles.sidebarCard}>
+                <div className={styles.cardHighlight} aria-hidden="true" />
                 <h3 className={styles.sidebarTitle}>Categories</h3>
                 <div className={styles.categoriesList}>
                   {Object.entries(categoryTags).map(([cat, color]) => (

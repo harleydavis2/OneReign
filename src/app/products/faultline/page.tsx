@@ -70,8 +70,28 @@ const techStack = [
 ];
 
 export default function FaultlineCaseStudyPage() {
+  const faultlineSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Faultline",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Cloud / Web",
+    description:
+      "Faultline finds where an organisation's documented knowledge contradicts itself, ranks each conflict by what sits downstream of it, and repairs it.",
+    url: "https://faultline-production-f69d.up.railway.app",
+    author: {
+      "@type": "Organization",
+      name: "OneReign",
+      url: "https://one-reign.vercel.app",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faultlineSchema) }}
+      />
       {/* ── Header ─────────────────────────────────── */}
       <section className={styles.caseHero}>
         <div className="container">

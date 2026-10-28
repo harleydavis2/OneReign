@@ -1,0 +1,91 @@
+.ctaSection {
+  position: relative;
+  width: 100%;
+  padding: 130px 0 0;
+  background-color: var(--bg);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Atmospheric glow */
+.ambientGlow {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1000px, 92vw);
+  height: 480px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(198, 255, 77, 0.04) 0%,
+    rgba(56, 189, 248, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.heading {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(48px, 8.5vw, 96px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin: 0 0 40px;
+  text-transform: none;
+}
+
+.headingLine {
+  display: block;
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+/* Huge Logo Mark partially cropped with blurred bottom edge */
+.logoWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto -200px; /* Partly cropped by section bottom */
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 5;
+  mask-image: linear-gradient(
+    to bottom,
+    black 25%,
+    rgba(0, 0, 0, 0.8) 55%,
+    transparent 90%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 25%,
+    rgba(0, 0, 0, 0.8) 55%,
+    transparent 90%
+  );
+}
+
+.logoImage {
+  width: min(700px, 90vw);
+  height: auto;
+  opacity: 0.85;
+  filter: brightness(1.2) contrast(1.05) drop-shadow(0 0 60px rgba(255, 255, 255, 0.08));
+}
+

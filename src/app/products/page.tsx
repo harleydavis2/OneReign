@@ -48,7 +48,7 @@ export default function ProductsPage() {
               screenshotSrc="/images/products/faultline-detail-desktop.png"
               screenshotAlt="Faultline knowledge conflict resolution dashboard and traversal graph"
               frameType="browser"
-              urlBarText="https://faultline.onereign.co"
+              urlBarText="https://faultline-production-f69d.up.railway.app"
               tags={["FalkorDB", "Cypher", "FastAPI", "Python 3.12", "React", "Cytoscape.js"]}
             />
 
@@ -63,6 +63,7 @@ export default function ProductsPage() {
               caseStudyHref="/products/quiet"
               externalHref="https://github.com/rajeshr20/Quiet-App"
               externalLabel="GitHub ↗"
+              screenshotSrc="/images/products/quiet-score-mobile.png"
               screenshotAlt="Quiet Android application running on Pixel 7"
               frameType="phone"
               tags={["Android", "Kotlin 2.0", "Jetpack Compose", "Supabase", "PostGIS", "RevenueCat"]}

@@ -108,7 +108,7 @@ export default function PrivacyPage() {
             <div className={styles.contactBox}>
               <p><strong>Name:</strong> Jabez Paul Asir</p>
               <p><strong>Designation:</strong> Grievance Officer, OneReign Private Limited</p>
-              <p><strong>Email:</strong> <a href="mailto:hello@onereign.co">hello@onereign.co</a></p>
+              <p><strong>Email:</strong> <a href="mailto:onereign.official@gmail.com">onereign.official@gmail.com</a></p>
               <p><strong>Address:</strong> No-38, GV Opulence, CS-2, Janabai Street, VivekNagar, Ambattur, Tiruvallur-600053, Chennai, Tamil Nadu, India</p>
               <p><strong>Resolution time:</strong> Within 30 days</p>
             </div>
@@ -118,4 +118,5 @@ export default function PrivacyPage() {
     </div>
   );
 }
+
 

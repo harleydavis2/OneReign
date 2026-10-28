@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import siteContent from "@/content/site";
 import styles from "./CtaBand.module.css";
 
 interface CtaBandProps {
@@ -16,7 +17,7 @@ export default function CtaBand({
   subheading = "Book a 30-minute discovery session with our engineering team. No pitch, just clear architecture.",
   primaryCtaText = "Book a free 30-min call",
   primaryCtaHref = "/contact",
-  email = "hello@onereign.co",
+  email = siteContent.contact.email,
   className = "",
 }: CtaBandProps) {
   return (

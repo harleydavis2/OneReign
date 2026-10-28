@@ -1,32 +1,37 @@
 .heroSection {
+  position: relative;
   padding-top: var(--space-64);
   padding-bottom: var(--space-48);
-  border-bottom: 1px solid var(--border);
-  background-color: var(--surface);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: radial-gradient(70% 60% at 50% 0%, rgba(198, 255, 77, 0.04) 0%, transparent 80%),
+              #0B0B0D;
 }
 
 .heroH1 {
   font-family: var(--font-serif);
-  font-size: var(--font-size-display);
-  color: var(--text);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 500;
+  color: #F5F5F5;
   margin-bottom: var(--space-16);
-  line-height: 1.12;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .heroSub {
   font-family: var(--font-sans);
   font-size: var(--font-size-body);
-  color: var(--muted);
+  color: #A1A1AA;
   max-width: 640px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .productsSection {
-  padding: var(--space-64) 0;
+  padding: var(--space-64) 0 var(--space-96) 0;
+  background-color: #0B0B0D;
 }
 
 .productsStack {
   display: flex;
   flex-direction: column;
-  gap: var(--space-48);
+  gap: 48px;
 }

@@ -1,0 +1,381 @@
+.servicesSection {
+  position: relative;
+  width: 100%;
+  padding: 110px 0 100px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* Subtle ambient backdrop */
+.ambientGlow {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1000px, 90vw);
+  height: 480px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(198, 255, 77, 0.03) 0%,
+    rgba(56, 189, 248, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── PART A: Header Row ────────────────────────────────────────────── */
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.headingWrapper {
+  max-width: 680px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--accent);
+}
+
+.sectionHeading {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--text);
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+}
+
+/* ── Services Grid (6 Cards) ───────────────────────────────────────── */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.serviceCard {
+  position: relative;
+  height: 280px;
+  border-radius: 16px;
+  background-color: #0B0B0D;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.serviceCard:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px var(--bg);
+}
+
+.serviceCard:hover {
+  border-color: rgba(198, 255, 77, 0.40);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.8),
+    0 0 28px rgba(198, 255, 77, 0.08);
+}
+
+/* Faint animated dot-grid background on card hover */
+.cardDotGrid {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(rgba(198, 255, 77, 0.22) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  background-position: 0 0;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.serviceCard:hover .cardDotGrid,
+.serviceCard:focus-visible .cardDotGrid {
+  opacity: 1;
+  animation: dotGridShift 20s linear infinite;
+}
+
+@keyframes dotGridShift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 44px 44px;
+  }
+}
+
+.cardContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.cardIcon {
+  width: 32px;
+  height: 32px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.serviceCard:hover .cardIcon {
+  transform: translateY(-2px);
+}
+
+.cardTitle {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  text-align: center;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.serviceCard:hover .cardTitle,
+.serviceCard:focus-visible .cardTitle {
+  color: #FFFFFF;
+}
+
+/* ── PART B: Platform Flexibility ──────────────────────────────────── */
+.platformBlock {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .platformBlock {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Card: Starfield Background */
+.stackCard {
+  position: relative;
+  border-radius: 16px;
+  background-color: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 44px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  overflow: hidden;
+}
+
+.starfieldBg {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.65), transparent),
+    radial-gradient(1.5px 1.5px at 75px 120px, rgba(198, 255, 77, 0.55), transparent),
+    radial-gradient(1px 1px at 135px 45px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 185px 165px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 240px 75px, rgba(255, 255, 255, 0.75), transparent),
+    radial-gradient(1px 1px at 295px 140px, rgba(198, 255, 77, 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 345px 35px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 390px 180px, rgba(255, 255, 255, 0.5), transparent);
+  background-size: 420px 220px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stackContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stackHeading {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+}
+
+.stackText {
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 44ch;
+  margin: 0;
+}
+
+.stackAction {
+  position: relative;
+  z-index: 2;
+}
+
+/* Right Grid: 4x2 Bordered Cells */
+.integrationsGrid {
+  position: relative;
+  border-radius: 16px;
+  background-color: #0B0B0D;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  overflow: hidden;
+}
+
+.cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 130px;
+  padding: 16px 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  transition: background-color 0.25s ease;
+  user-select: none;
+}
+
+/* Remove outer borders inside grid */
+.cell:nth-child(4n) {
+  border-right: none;
+}
+
+.cell:nth-child(n + 5) {
+  border-bottom: none;
+}
+
+.cell:hover {
+  background-color: rgba(255, 255, 255, 0.035);
+}
+
+.cellIcon {
+  color: #A1A1AA;
+  transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell:hover .cellIcon {
+  color: #FFFFFF;
+  transform: scale(1.08);
+}
+
+.cellLabel {
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  opacity: 0.7;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.cell:hover .cellLabel {
+  opacity: 1;
+  color: #FFFFFF;
+}
+
+@media (max-width: 600px) {
+  .integrationsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  .cell:nth-child(4n) {
+    border-right: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .cell:nth-child(2n) {
+    border-right: none;
+  }
+
+  .cell:nth-child(n + 5) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .cell:nth-child(n + 7) {
+    border-bottom: none;
+  }
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .serviceCard:hover .cardDotGrid,
+  .serviceCard:focus-visible .cardDotGrid {
+    animation: none !important;
+  }
+
+  .serviceCard:hover .cardIcon,
+  .cell:hover .cellIcon {
+    transform: none !important;
+  }
+}

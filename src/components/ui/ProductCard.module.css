@@ -1,24 +1,62 @@
 .productCard {
+  position: relative;
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   gap: var(--space-48);
   align-items: center;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 40px;
-  transition: border-color var(--transition);
+  background: rgba(18, 18, 23, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 44px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .productCard:hover {
-  border-color: rgba(161, 161, 170, 0.28);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 36px 90px -20px rgba(0, 0, 0, 0.85),
+              0 0 45px -10px rgba(198, 255, 77, 0.08);
+}
+
+/* Hairline bevel highlight along top card border */
+.cardHighlight {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 1px;
+  width: 520px;
+  max-width: 80%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Subtle radial glow from top of card */
+.cardRadial {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(65% 45% at 50% 0%, rgba(198, 255, 77, 0.05) 0%, transparent 75%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .visualCol {
+  position: relative;
+  z-index: 2;
   width: 100%;
 }
 
 .infoCol {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,32 +76,41 @@
 
 .contextTag {
   font-family: var(--font-mono);
-  font-size: var(--font-size-label);
-  color: var(--muted);
-  letter-spacing: 0.05em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #A1A1AA;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
 }
 
 .title {
   font-family: var(--font-serif);
-  font-size: var(--font-size-h2);
-  color: var(--text);
-  margin-bottom: var(--space-4);
+  font-size: clamp(2rem, 3.2vw, 2.625rem);
+  font-weight: 500;
+  color: #F5F5F5;
+  margin-bottom: 6px;
   line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .tagline {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.0625rem;
-  color: var(--accent);
-  margin-bottom: var(--space-8);
+  font-size: 1.125rem;
+  color: #C6FF4D;
+  margin-bottom: var(--space-12);
+  line-height: 1.4;
 }
 
 .description {
   font-family: var(--font-sans);
-  font-size: var(--font-size-body);
-  color: var(--muted);
-  line-height: 1.6;
+  font-size: 0.9375rem;
+  color: #A1A1AA;
+  line-height: 1.65;
   margin-bottom: var(--space-24);
 }
 
@@ -76,25 +123,42 @@
 
 .tag {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
   color: #D4D4D8;
-  background-color: #0E0E12;
-  border: 1px solid var(--border);
-  padding: 4px 10px;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: rgba(198, 255, 77, 0.06);
+  border-color: rgba(198, 255, 77, 0.25);
+  color: #F5F5F5;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .productCard {
     grid-template-columns: 1fr;
     gap: var(--space-32);
-    padding: 24px;
+    padding: 28px 24px;
+    border-radius: 20px;
+  }
+
+  .title {
+    font-size: 1.875rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
   }
 }

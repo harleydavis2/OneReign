@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import Section from "@/components/ui/Section";
-import ServiceCard from "@/components/ui/ServiceCard";
 import ProductCard from "@/components/ui/ProductCard";
 import ScreenshotFrame from "@/components/ui/ScreenshotFrame";
-import CtaBand from "@/components/ui/CtaBand";
+import Cta from "@/components/Cta";
+import TechStack from "@/components/TechStack";
+import Introduction from "@/components/Introduction";
+import StudioMockup from "@/components/StudioMockup";
+import Works from "@/components/Works";
+import Approach from "@/components/Approach";
+import Proof from "@/components/Proof";
+import Faq from "@/components/Faq";
+import Services from "@/components/Services";
+import Pricing from "@/components/Pricing";
+import siteContent from "@/content/site";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -16,197 +25,94 @@ export const metadata: Metadata = {
   },
 };
 
-const approachRows = [
-  {
-    num: "01",
-    title: "Process Foundation",
-    oldWay: "Bolt AI onto broken, undocumented workflows and hope for productivity gains.",
-    ourWay: "Redesign and streamline the core operational process before automating a single step.",
-  },
-  {
-    num: "02",
-    title: "System Integration",
-    oldWay: "Stack isolated SaaS subscriptions until teams spend half their day manually copying data.",
-    ourWay: "Architect a single connected system where data flows seamlessly between tools and databases.",
-  },
-  {
-    num: "03",
-    title: "Architecture by Design",
-    oldWay: "Build ad-hoc features independently and struggle with maintenance and technical debt.",
-    ourWay: "Engineer modular, scalable architecture with typed contracts, proven databases, and clear boundaries.",
-  },
-  {
-    num: "04",
-    title: "Delivery & Iteration",
-    oldWay: "Massive multi-month projects that ship all at once without real user validation.",
-    ourWay: "Ship working systems incrementally, measure real operational impact, and iterate continuously.",
-  },
-];
-
-const services = [
-  {
-    num: "01",
-    title: "AI & Automation",
-    outcome: "Replace repetitive manual operations with deterministic AI workflows and autonomous agents.",
-    bullets: [
-      "Custom AI agents & autonomous task execution",
-      "Automated operational data pipelines",
-      "Custom LLM orchestration & structured validation",
-    ],
-  },
-  {
-    num: "02",
-    title: "Custom Software",
-    outcome: "Production platforms built specifically around how your company operates.",
-    bullets: [
-      "Web applications & internal client portals",
-      "Scalable backend services & typed APIs",
-      "Operational dashboards & workflow engines",
-    ],
-  },
-  {
-    num: "03",
-    title: "AI Products",
-    outcome: "Take AI-native software ideas from technical validation to production launch.",
-    bullets: [
-      "AI-first product architecture & prototyping",
-      "Model evaluation, fine-tuning & prompt systems",
-      "Resilient product UX, guardrails & caching",
-    ],
-  },
-  {
-    num: "04",
-    title: "Marketing Systems",
-    outcome: "Unify content distribution, lead capture, and revenue pipelines into cohesive workflows.",
-    bullets: [
-      "Automated lead qualification & routing pipelines",
-      "Multi-channel automated customer messaging",
-      "Real-time pipeline telemetry & attribution",
-    ],
-  },
-  {
-    num: "05",
-    title: "Cloud & DevOps",
-    outcome: "Resilient cloud infrastructure engineered for uptime, security, and continuous delivery.",
-    bullets: [
-      "AWS & GCP cloud architecture & security",
-      "Automated CI/CD pipelines & release tooling",
-      "Containerization, orchestration & monitoring",
-    ],
-  },
-  {
-    num: "06",
-    title: "Integrations & APIs",
-    outcome: "Connect siloed software systems and legacy databases into unified workflows.",
-    bullets: [
-      "High-performance API development & orchestration",
-      "Legacy database modernization & syncing",
-      "Webhook architecture & event-driven messaging",
-    ],
-  },
-];
-
 export default function HomePage() {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteContent.brand.name,
+    legalName: siteContent.brand.legalName,
+    url: siteContent.brand.canonicalUrl,
+    logo: `${siteContent.brand.canonicalUrl}/logo-full.png`,
+    description: siteContent.brand.subtitle,
+    foundingDate: "2025",
+    sameAs: [siteContent.socials.linkedin].filter(Boolean),
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: siteContent.contact.email,
+      contactType: "customer service",
+    },
+  };
+
   return (
     <>
-      {/* ── Section 1: Hero ─────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      {/* ── Section 1: Hero (Editorial Centered Layout with Studio Canvas) ── */}
       <section className={styles.heroSection}>
         <div className="container">
-          <div className={styles.heroGrid}>
-            <div className={styles.heroContent}>
-              <span className="eyebrow">AI platforms, automation & custom software</span>
-
-              <h1 className={styles.heroH1}>
-                We build the systems your business runs on.
-              </h1>
-
-              <p className={styles.heroSub}>
-                OneReign designs and ships AI agents, automation workflows and custom software — so your team stops doing repetitive work and starts moving faster.
-              </p>
-
-              <div className={styles.heroCtas}>
-                <Button variant="primary" href="/contact">
-                  Book a free 30-min call →
-                </Button>
-                <Button variant="secondary" href="/products">
-                  See our products
-                </Button>
-              </div>
-
-              <div className={styles.trustLine}>
-                <span className={styles.trustDot} aria-hidden="true" />
-                <span>Remote / Global · Est. 2025 · hello@onereign.co</span>
-              </div>
+          <div className={styles.heroCenter}>
+            <div className={styles.heroPill}>
+              <span className={styles.heroPillDot} />
+              <span>AI Platforms & Custom Software · Est. 2025</span>
             </div>
 
-            <div className={styles.heroVisual}>
-              <ScreenshotFrame
-                type="browser"
-                src="/images/products/faultline-detail-desktop.png"
-                alt="Faultline knowledge conflict detection interface showing live graph traversal and contradiction analysis"
-                width={1440}
-                height={900}
-                priority={true}
-                urlBarText="https://faultline-production-f69d.up.railway.app"
-              />
+            <h1 className={styles.heroH1}>
+              We build the <span className={styles.heroH1Italic}>systems</span>
+              <br />
+              <span className={styles.heroH1Italic}>your business</span> runs on.
+            </h1>
+
+            <p className={styles.heroSub}>
+              OneReign designs and ships AI agents, automation workflows and custom software — so your team stops doing repetitive work and starts moving faster.
+            </p>
+
+            <div className={styles.heroCtas}>
+              <Button variant="primary" href="/contact">
+                Book a free 30-min call →
+              </Button>
+              <Button variant="secondary" href="/products">
+                See our products
+              </Button>
+            </div>
+
+            <div className={styles.trustLine}>
+              <span className={styles.trustDot} aria-hidden="true" />
+              <span>
+                {siteContent.brand.location} · {siteContent.brand.established} · {siteContent.contact.email}
+              </span>
             </div>
           </div>
+
+          {/* Interactive Studio Canvas Mockup */}
+          <StudioMockup />
         </div>
       </section>
 
-      {/* ── Section 2: Approach ─────────────────────── */}
-      <Section
-        id="approach"
-        eyebrow="Our Approach"
-        heading="Systems over tool clutter."
-        intro="Buying more software rarely fixes operational friction. We engineer unified workflows that eliminate manual overhead from the foundation up."
-      >
-        <div className={styles.approachTable}>
-          <div className={styles.approachHeaderRow}>
-            <span className={styles.colHeader}>Focus Area</span>
-            <span className={styles.colHeader}>The Old Way</span>
-            <span className={styles.colHeader}>The OneReign Way</span>
-          </div>
+      {/* ── Tech Stack ─────────────────────────────── */}
+      <TechStack />
 
-          {approachRows.map((row) => (
-            <div key={row.num} className={styles.approachRow}>
-              <div className={styles.approachMeta}>
-                <span className={styles.approachNum}>{row.num}</span>
-                <span className={styles.approachTitle}>{row.title}</span>
-              </div>
-              <div className={styles.oldWayCol}>
-                <span className={styles.rowLabelMobile}>Old Way:</span>
-                <p className={styles.oldWayText}>{row.oldWay}</p>
-              </div>
-              <div className={styles.ourWayCol}>
-                <span className={styles.rowLabelMobile}>OneReign Way:</span>
-                <p className={styles.ourWayText}>{row.ourWay}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {/* ── Section: Introduction ───────────────────── */}
+      <Introduction />
 
-      {/* ── Section 3: Services ─────────────────────── */}
-      <Section
-        id="services"
-        eyebrow="Engineering Capabilities"
-        heading="Built for scale, clarity, and speed."
-        intro="Six core disciplines tailored to modern companies needing production-grade automation and resilient software."
-      >
-        <div className={styles.servicesGrid}>
-          {services.map((svc) => (
-            <ServiceCard
-              key={svc.num}
-              num={svc.num}
-              title={svc.title}
-              outcome={svc.outcome}
-              bullets={svc.bullets}
-              href="/contact"
-            />
-          ))}
-        </div>
-      </Section>
+      {/* ── Section 2: Works (3D Curved Gallery) ──────── */}
+      <Works />
+
+      {/* ── Section 3: Approach (Bento 3-Row Grid) ───── */}
+      <Approach />
+
+      {/* ── Section 4: Proof ─────────────────────────── */}
+      <Proof />
+
+      {/* ── Section 5: FAQ (Accordions + JSON-LD) ────── */}
+      <Faq />
+
+      {/* ── Section 6: Services (Grid + Platform Flexibility) ── */}
+      <Services />
+
+      {/* ── Section 4: Pricing ─────────────────────── */}
+      <Pricing />
 
       {/* ── Section 4: Flagship Products ────────────── */}
       <Section
@@ -230,7 +136,7 @@ export default function HomePage() {
             screenshotSrc="/images/products/faultline-detail-desktop.png"
             screenshotAlt="Faultline knowledge graph and conflict resolver desktop view"
             frameType="browser"
-            urlBarText="https://faultline.onereign.co"
+            urlBarText="https://faultline-production-f69d.up.railway.app"
             tags={["FalkorDB", "Cypher", "FastAPI", "Python 3.12", "React", "Cytoscape.js"]}
           />
 
@@ -245,6 +151,7 @@ export default function HomePage() {
             caseStudyHref="/products/quiet"
             externalHref="https://github.com/rajeshr20/Quiet-App"
             externalLabel="GitHub ↗"
+            screenshotSrc="/images/products/quiet-score-mobile.png"
             screenshotAlt="Quiet Android application running on Pixel 7"
             frameType="phone"
             tags={["Android", "Kotlin 2.0", "Jetpack Compose", "Supabase", "PostGIS", "RevenueCat"]}
@@ -252,14 +159,8 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ── Section 5: Final CTA Band ───────────────── */}
-      <CtaBand
-        heading="Tell us what's broken. We'll show you what's possible."
-        subheading="Book a 30-minute discovery call directly with Rajesh and the engineering team. We'll examine your workflows and outline an actionable architecture."
-        primaryCtaText="Book a free 30-min call"
-        primaryCtaHref="/contact"
-        email="hello@onereign.co"
-      />
+      {/* ── Section: Final High-Impact CTA ──────────── */}
+      <Cta />
     </>
   );
 }

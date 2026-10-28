@@ -1,0 +1,36 @@
+# OneReign — Operational Intelligence & AI Systems
+
+> OneReign builds the systems your business runs on: AI agents, automated workflows, and custom production software.
+
+## Identity & Company
+- Name: OneReign Private Limited
+- Established: 2025
+- Location: Remote / Global
+- Website: https://one-reign.vercel.app
+- Contact: onereign.official@gmail.com
+- WhatsApp: +91 8667768636 (https://wa.me/918667768636)
+- Verified LinkedIn: https://linkedin.com/company/onereign
+
+## Core Disciplines & Services
+1. AI & Automation: Custom task execution agents, automated data pipelines, LLM orchestration.
+2. Custom Software: Production web/mobile apps, scalable backend services, internal tooling.
+3. AI Products: Architecture, model evaluation, and product UX for AI-first applications.
+4. Marketing Systems: Lead qualification, multi-channel messaging, and telemetry pipelines.
+5. Cloud & DevOps: AWS/GCP cloud architecture, CI/CD automated deployments, containerization.
+6. Integrations & APIs: High-performance API development, legacy database modernizations, webhook sync.
+
+## Flagship Products
+### Faultline (Status: Live)
+- One-liner: Faultline finds where an organisation's documented knowledge contradicts itself, ranks each conflict by what sits downstream of it, and repairs it.
+- Live Demo: https://faultline-production-f69d.up.railway.app/conflicts/conflict-0b1fd48ed309
+- GitHub: https://github.com/rajeshr20/Faultline
+- Stack: FalkorDB (raw Cypher), Python 3.12, FastAPI, React, Cytoscape.js, Groq, Gemini.
+- Key Property: Collapses 57,291 combinatorial claim pairs down to 1,666 candidates using graph topology, eliminating O(n²) LLM costs.
+
+### Quiet (Status: In progress)
+- One-liner: Cafes, libraries, parks and coworking spaces near you, scored live by the people who were just there.
+- Event: RevenueCat Shipaton 2026
+- GitHub: https://github.com/rajeshr20/Quiet-App
+- Stack: Android (Kotlin 2.0, Jetpack Compose Material 3), Supabase PostgreSQL 17 + PostGIS, Edge Functions, RevenueCat.
+- Key Property: Live Quiet Score (0-100) computed exclusively in Postgres SQL function `quiet_score()`.
+

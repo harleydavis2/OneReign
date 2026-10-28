@@ -38,6 +38,10 @@ export default function ProductCard({
 }: ProductCardProps) {
   return (
     <div className={styles.productCard}>
+      {/* Visuvate-style hairline top light reflection & subtle radial glow */}
+      <div className={styles.cardHighlight} aria-hidden="true" />
+      <div className={styles.cardRadial} aria-hidden="true" />
+
       <div className={styles.visualCol}>
         <ScreenshotFrame
           type={frameType}
@@ -65,7 +69,9 @@ export default function ProductCard({
         {tags.length > 0 && (
           <div className={styles.tagList}>
             {tags.map((tag, idx) => (
-              <span key={idx} className={styles.tag}>{tag}</span>
+              <span key={idx} className={styles.tag}>
+                {tag}
+              </span>
             ))}
           </div>
         )}
@@ -76,7 +82,12 @@ export default function ProductCard({
           </Button>
 
           {externalHref && (
-            <Button variant="secondary" href={externalHref} target="_blank" rel="noopener noreferrer">
+            <Button
+              variant="secondary"
+              href={externalHref}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {externalLabel || "External link"}
             </Button>
           )}

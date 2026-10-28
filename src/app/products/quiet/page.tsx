@@ -109,8 +109,27 @@ const techStack = [
 ];
 
 export default function QuietCaseStudyPage() {
+  const quietSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Quiet",
+    applicationCategory: "LifestyleApplication",
+    operatingSystem: "Android",
+    description:
+      "Find your peaceful place. Cafes, libraries, parks and coworking spaces near you, scored live by the people who were just there.",
+    author: {
+      "@type": "Organization",
+      name: "OneReign",
+      url: "https://one-reign.vercel.app",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(quietSchema) }}
+      />
       {/* ── Header ─────────────────────────────────── */}
       <section className={styles.caseHero}>
         <div className="container">
