@@ -1,8 +1,4 @@
 import type { Metadata } from "next";
-import Button from "@/components/ui/Button";
-import Section from "@/components/ui/Section";
-import ProductCard from "@/components/ui/ProductCard";
-import ScreenshotFrame from "@/components/ui/ScreenshotFrame";
 import Cta from "@/components/Cta";
 import TechStack from "@/components/TechStack";
 import Introduction from "@/components/Introduction";
@@ -14,6 +10,7 @@ import Proof from "@/components/Proof";
 import Faq from "@/components/Faq";
 import Services from "@/components/Services";
 import Pricing from "@/components/Pricing";
+import Products from "@/components/Products";
 import siteContent from "@/content/site";
 import styles from "./page.module.css";
 
@@ -85,49 +82,7 @@ export default function HomePage() {
       <Pricing />
 
       {/* ── Section 4: Flagship Products ────────────── */}
-      <Section
-        id="products"
-        eyebrow="Flagship Products"
-        heading="Software we engineer and run."
-        intro="We don't just consult on systems — we build, ship, and operate them. Explore our real production systems."
-      >
-        <div className={styles.productsStack}>
-          {/* Product A: Faultline */}
-          <ProductCard
-            id="faultline"
-            name="Faultline"
-            tagline="Finds where company knowledge contradicts itself."
-            status="Live"
-            eventOrContext="Graph Hacks 2026 (FalkorDB × WeMakeDevs)"
-            description="Faultline finds where an organisation's documented knowledge contradicts itself, ranks each conflict by what sits downstream of it, and repairs it."
-            caseStudyHref="/products/faultline"
-            externalHref="https://faultline-production-f69d.up.railway.app/conflicts/conflict-0b1fd48ed309"
-            externalLabel="Live Demo ↗"
-            screenshotSrc="/images/products/faultline-detail-desktop.png"
-            screenshotAlt="Faultline knowledge graph and conflict resolver desktop view"
-            frameType="browser"
-            urlBarText="https://faultline-production-f69d.up.railway.app"
-            tags={["FalkorDB", "Cypher", "FastAPI", "Python 3.12", "React", "Cytoscape.js"]}
-          />
-
-          {/* Product B: Quiet */}
-          <ProductCard
-            id="quiet"
-            name="Quiet"
-            tagline="Find your peaceful place."
-            status="In progress"
-            eventOrContext="RevenueCat Shipaton 2026"
-            description="Cafes, libraries, parks and coworking spaces near you, scored live by the people who were just there."
-            caseStudyHref="/products/quiet"
-            externalHref="https://github.com/rajeshr20/Quiet-App"
-            externalLabel="GitHub ↗"
-            screenshotSrc="/images/products/quiet-score-mobile.png"
-            screenshotAlt="Quiet Android application running on Pixel 7"
-            frameType="phone"
-            tags={["Android", "Kotlin 2.0", "Jetpack Compose", "Supabase", "PostGIS", "RevenueCat"]}
-          />
-        </div>
-      </Section>
+      <Products />
 
       {/* ── Section: Final High-Impact CTA ──────────── */}
       <Cta />
