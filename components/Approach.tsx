@@ -17,10 +17,11 @@ const DIAL_TICKS = Array.from({ length: 36 }, (_, i) => {
   const isMajor = i % 6 === 0;
   const r2 = isMajor ? 82 : 75;
 
-  const x1 = cx + r1 * Math.cos(rad);
-  const y1 = cy + r1 * Math.sin(rad);
-  const x2 = cx + r2 * Math.cos(rad);
-  const y2 = cy + r2 * Math.sin(rad);
+  const round = (n: number) => Math.round(n * 100) / 100;
+  const x1 = round(cx + r1 * Math.cos(rad));
+  const y1 = round(cy + r1 * Math.sin(rad));
+  const x2 = round(cx + r2 * Math.cos(rad));
+  const y2 = round(cy + r2 * Math.sin(rad));
 
   return { angle, x1, y1, x2, y2, isMajor };
 });

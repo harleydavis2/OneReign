@@ -9,7 +9,6 @@ import React, {
   useCallback,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import { useRouter } from "next/navigation";
 import type { MotionValue } from "motion/react";
@@ -63,7 +62,7 @@ function createPlaceholderTexture(project: string, status: string): THREE.Canvas
 }
 
 /**
- * Animated background plane with glowing flowing caustic waves, vignette, and grain
+ * Animated background plane with glowing flowing lines, vignette, and grain
  */
 function BackgroundPlane() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -107,85 +106,109 @@ function BackgroundPlane() {
 }
 
 /**
+ * Generates a crisp CanvasTexture for the centered title "Our Works"
+ * Uses 2D canvas context — completely eliminating WebGL context leaks from troika SDF.
+ */
+function createTitleTexture(): { texture: THREE.CanvasTexture; aspect: number } {
+  const canvas = document.createElement("canvas");
+  canvas.width = 2048;
+  canvas.height = 512;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    const tex = new THREE.CanvasTexture(canvas);
+    return { texture: tex, aspect: 4 };
+  }
+
+  const renderText = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const fontSize = 160;
+    // Inter Tight 700 for "Our", Instrument Serif 400 italic for "Works"
+    const fontSans = `700 ${fontSize}px "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const fontSerif = `italic 400 ${Math.round(fontSize * 1.15)}px "Instrument Serif", Georgia, serif`;
+
+    ctx.font = fontSans;
+    const ourMetrics = ctx.measureText("Our");
+    const ourW = ourMetrics.width;
+
+    ctx.font = fontSerif;
+    const worksMetrics = ctx.measureText("Works");
+    const worksW = worksMetrics.width;
+
+    const gap = 38;
+    const totalW = ourW + gap + worksW;
+    const startX = (canvas.width - totalW) / 2;
+    const baselineY = canvas.height / 2 + fontSize * 0.32;
+
+    // Draw "Our"
+    ctx.font = fontSans;
+    ctx.fillStyle = "#F5F5F5";
+    ctx.fillText("Our", startX, baselineY);
+
+    // Draw "Works"
+    ctx.font = fontSerif;
+    ctx.fillStyle = "#F5F5F5";
+    ctx.fillText("Works", startX + ourW + gap, baselineY);
+  };
+
+  renderText();
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  texture.needsUpdate = true;
+
+  // If custom web fonts finish loading later, re-render to update the glyphs
+  if (typeof document !== "undefined" && document.fonts) {
+    document.fonts.ready.then(() => {
+      renderText();
+      texture.needsUpdate = true;
+    });
+  }
+
+  return { texture, aspect: canvas.width / canvas.height };
+}
+
+/**
  * Centered Title inside the ring: "Our Works"
  * Positioned at [0, -0.1, 0] OUTSIDE the spin and tilt groups.
  * Recomputes scale whenever size or camera changes to stay exactly TITLE_FRACTION wide.
  */
 function TitleMesh() {
-  const groupRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   const { size, camera } = useThree();
-  const [widths, setWidths] = useState({ our: 1.4, works: 2.1, ready: false });
 
-  const handleSyncOur = useCallback((troikaObj: any) => {
-    if (troikaObj?.material) {
-      troikaObj.material.depthTest = true;
-      troikaObj.material.depthWrite = true;
-      troikaObj.material.alphaTest = 0.5;
-    }
-    const bounds = troikaObj?.textRenderInfo?.blockBounds;
-    if (bounds) {
-      const w = bounds[2] - bounds[0];
-      setWidths((prev) => ({ ...prev, our: w, ready: true }));
-    }
+  const titleData = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return createTitleTexture();
   }, []);
-
-  const handleSyncWorks = useCallback((troikaObj: any) => {
-    if (troikaObj?.material) {
-      troikaObj.material.depthTest = true;
-      troikaObj.material.depthWrite = true;
-      troikaObj.material.alphaTest = 0.5;
-    }
-    const bounds = troikaObj?.textRenderInfo?.blockBounds;
-    if (bounds) {
-      const w = bounds[2] - bounds[0];
-      setWidths((prev) => ({ ...prev, works: w, ready: true }));
-    }
-  }, []);
-
-  const gap = 0.28;
-  const totalW = widths.our + gap + widths.works;
-  const ourX = -totalW / 2 + widths.our / 2;
-  const worksX = totalW / 2 - widths.works / 2;
 
   useLayoutEffect(() => {
-    if (!groupRef.current) return;
+    if (!meshRef.current || !titleData) return;
     const aspect = size.width / size.height;
     const safeAspect = Math.max(aspect, 1);
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(WORKS_CONFIG.FOV / 2));
     const visibleWidthAtCenter = 2 * camera.position.z * tanHalf * safeAspect;
-    const targetScale = (WORKS_CONFIG.TITLE_FRACTION * visibleWidthAtCenter) / totalW;
-    groupRef.current.scale.setScalar(targetScale);
-  }, [size.width, size.height, camera.position.z, totalW]);
+    const targetW = WORKS_CONFIG.TITLE_FRACTION * visibleWidthAtCenter;
+    const targetH = targetW / titleData.aspect;
+    meshRef.current.scale.set(targetW, targetH, 1);
+  }, [size.width, size.height, camera.position.z, titleData]);
+
+  if (!titleData) return null;
 
   return (
-    <group ref={groupRef} position={[0, -0.1, 0]}>
-      <Text
-        font="/fonts/inter-tight-latin-700-normal.woff"
-        fontSize={1}
-        color="#F5F5F5"
-        anchorX="center"
-        anchorY="middle"
-        position={[ourX, 0, 0]}
-        material-depthTest={true}
-        material-depthWrite={true}
-        onSync={handleSyncOur}
-      >
-        Our
-      </Text>
-      <Text
-        font="/fonts/instrument-serif-latin-400-italic.woff"
-        fontSize={1}
-        color="#F5F5F5"
-        anchorX="center"
-        anchorY="middle"
-        position={[worksX, 0, 0]}
-        material-depthTest={true}
-        material-depthWrite={true}
-        onSync={handleSyncWorks}
-      >
-        Works
-      </Text>
-    </group>
+    <mesh ref={meshRef} position={[0, -0.1, 0]}>
+      <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial
+        map={titleData.texture}
+        transparent={true}
+        depthWrite={true}
+        depthTest={true}
+        alphaTest={0.02}
+      />
+    </mesh>
   );
 }
 
@@ -329,7 +352,7 @@ function SceneContent({
   const frontDistRef = useRef(0);
   const tileMaterialsRef = useRef<THREE.ShaderMaterial[]>([]);
 
-  // Dynamic Camera Fit with safe aspect clamping
+  // 1) Dynamic Camera Fit with safe aspect clamping
   useLayoutEffect(() => {
     const C = WORKS_CONFIG;
     const aspect = size.width / size.height;
@@ -376,46 +399,49 @@ function SceneContent({
 
   useEffect(() => {
     const loader = new THREE.TextureLoader();
-    let isCancelled = false;
+    const loadedList: Array<{ texture: THREE.Texture; aspect: number }> = [];
 
-    const initialEntries = worksList.map((item) => {
-      const tex = loader.load(
-        item.image,
-        (t) => {
-          if (isCancelled) return;
-          t.colorSpace = THREE.SRGBColorSpace;
-          t.anisotropy = 8;
-          t.generateMipmaps = true;
-          t.minFilter = THREE.LinearMipmapLinearFilter;
-          const img = t.image as HTMLImageElement | undefined;
-          const asp =
-            img?.naturalWidth && img?.naturalHeight
-              ? img.naturalWidth / img.naturalHeight
-              : 1.6;
-          setTextureEntries((prev) =>
-            prev.map((e) => (e.texture === t ? { ...e, aspect: asp } : e))
-          );
-        },
-        undefined,
-        () => {
-          if (isCancelled) return;
-          const fallback = createPlaceholderTexture(item.project, item.status);
-          (tex as any).image = fallback.image;
-          tex.needsUpdate = true;
-        }
-      );
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = 8;
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      return { texture: tex, aspect: 1.6 };
+    worksList.forEach((item) => {
+      try {
+        const tex = loader.load(
+          item.image,
+          (t) => {
+            t.colorSpace = THREE.SRGBColorSpace;
+            t.anisotropy = 8;
+            t.generateMipmaps = true;
+            t.minFilter = THREE.LinearMipmapLinearFilter;
+            const img = t.image as HTMLImageElement | undefined;
+            const asp =
+              img?.naturalWidth && img?.naturalHeight
+                ? img.naturalWidth / img.naturalHeight
+                : 1.6;
+            const entry = loadedList.find((e) => e.texture === t);
+            if (entry) entry.aspect = asp;
+          },
+          undefined,
+          () => {
+            const fallback = createPlaceholderTexture(item.project, item.status);
+            (tex as any).image = fallback.image;
+            tex.needsUpdate = true;
+          }
+        );
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.anisotropy = 8;
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+        loadedList.push({ texture: tex, aspect: 1.6 });
+      } catch {
+        loadedList.push({
+          texture: createPlaceholderTexture(item.project, item.status),
+          aspect: 1.6,
+        });
+      }
     });
 
-    setTextureEntries(initialEntries);
+    setTextureEntries(loadedList);
 
     return () => {
-      isCancelled = true;
-      initialEntries.forEach((e) => {
+      loadedList.forEach((e) => {
         try {
           e.texture.dispose();
         } catch {}
@@ -466,10 +492,9 @@ function SceneContent({
 
   const tileCount = WORKS_CONFIG.TILE_COUNT_DESKTOP;
 
-  if (textureEntries.length === 0) return null;
-
   return (
     <>
+      <color attach="background" args={["#0B0B0D"]} />
       <BackgroundPlane />
 
       {/* Title placed at [0, -0.1, 0] OUTSIDE the spin and tilt groups */}
@@ -482,23 +507,24 @@ function SceneContent({
       >
         {/* Spin Group holding all tiles */}
         <group ref={spinGroupRef}>
-          {Array.from({ length: tileCount }).map((_, i) => {
-            const item = worksList[i % worksList.length];
-            const entry = textureEntries[i % textureEntries.length];
-            return (
-              <SingleTile
-                key={`ring-tile-${i}`}
-                item={item}
-                index={i}
-                totalCount={tileCount}
-                texture={entry.texture}
-                texAspect={entry.aspect}
-                onHover={onHoverTile}
-                onSelect={onSelectTile}
-                onRegisterMaterial={registerMaterial}
-              />
-            );
-          })}
+          {textureEntries.length > 0 &&
+            Array.from({ length: tileCount }).map((_, i) => {
+              const item = worksList[i % worksList.length];
+              const entry = textureEntries[i % textureEntries.length];
+              return (
+                <SingleTile
+                  key={`ring-tile-${i}`}
+                  item={item}
+                  index={i}
+                  totalCount={tileCount}
+                  texture={entry.texture}
+                  texAspect={entry.aspect}
+                  onHover={onHoverTile}
+                  onSelect={onSelectTile}
+                  onRegisterMaterial={registerMaterial}
+                />
+              );
+            })}
         </group>
       </group>
     </>
@@ -550,7 +576,7 @@ export default function WorksScene({
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.05 }
+      { threshold: 0.0, rootMargin: "400px" }
     );
 
     observer.observe(el);
@@ -605,7 +631,7 @@ export default function WorksScene({
   return (
     <div
       ref={containerRef}
-      className={`relative h-full w-full select-none ${
+      className={`relative h-full w-full select-none bg-[#0B0B0D] ${
         hoveredItem ? "cursor-pointer" : isDragging ? "cursor-grabbing" : "cursor-grab"
       }`}
       style={{ touchAction: "pan-y" }}
@@ -630,9 +656,12 @@ export default function WorksScene({
           alpha: false,
           powerPreference: "high-performance",
         }}
-        frameloop={isInView && isTabVisible ? "always" : "never"}
+        onCreated={({ gl }) => {
+          gl.setClearColor("#0B0B0D", 1);
+        }}
+        frameloop={isTabVisible ? "always" : "never"}
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{ width: "100%", height: "100%", display: "block", backgroundColor: "#0B0B0D" }}
       >
         <SceneContent
           worksList={worksList}
@@ -675,3 +704,4 @@ export default function WorksScene({
     </div>
   );
 }
+

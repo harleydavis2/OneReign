@@ -239,12 +239,54 @@ function Works3DOverlay({
 }
 
 /**
+ * Pinned 3D Section Component (only mounted when in 3D mode)
+ * Encapsulates useScroll so the target ref is always mounted and hydrated.
+ */
+function Works3DSection({ worksList }: { worksList: WorkItem[] }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <>
+      {/* Accessible skip link */}
+      <a
+        href="#after-works"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-24 focus:left-6 focus:z-50 focus:rounded-full focus:bg-[#C6FF4D] focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:text-black"
+      >
+        Skip works showcase
+      </a>
+
+      <section
+        ref={sectionRef}
+        id="works"
+        className="relative w-full bg-[#0B0B0D]"
+        style={{ height: "400svh" }}
+      >
+        <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-[#0B0B0D]">
+          <WorksScene worksList={worksList} scrollProgress={scrollYProgress} />
+          <Works3DOverlay scrollProgress={scrollYProgress} totalCount={worksList.length} />
+        </div>
+      </section>
+
+      {/* Normal-flow View all work button placed directly after pinned section */}
+      <div id="after-works" className="relative z-20 flex justify-center bg-[#0B0B0D] py-14">
+        <Button variant="secondary" href="/products">
+          View all work →
+        </Button>
+      </div>
+    </>
+  );
+}
+
+/**
  * Primary Works Component
  * Switches cleanly between the 3D spinning ring gallery (desktop fine pointer)
  * and the 2D native swipe carousel (mobile, tablet, touch, reduced-motion).
  */
 export default function Works() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [is3DMode, setIs3DMode] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -281,12 +323,6 @@ export default function Works() {
     };
   }, []);
 
-  // Motion scroll progress for pinned 400svh section
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
   // Server-render or render 2D mode when not in 3D
   if (!mounted || !is3DMode) {
     return (
@@ -309,32 +345,7 @@ export default function Works() {
   // 3D Mode: pinned 400svh runway with sticky 100svh Canvas
   return (
     <>
-      {/* Accessible skip link */}
-      <a
-        href="#after-works"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-24 focus:left-6 focus:z-50 focus:rounded-full focus:bg-[#C6FF4D] focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:text-black"
-      >
-        Skip works showcase
-      </a>
-
-      <section
-        ref={sectionRef}
-        id="works"
-        className="relative w-full bg-[#0B0B0D]"
-        style={{ height: "400svh" }}
-      >
-        <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
-          <WorksScene worksList={works} scrollProgress={scrollYProgress} />
-          <Works3DOverlay scrollProgress={scrollYProgress} totalCount={works.length} />
-        </div>
-      </section>
-
-      {/* Normal-flow View all work button placed directly after pinned section */}
-      <div id="after-works" className="relative z-20 flex justify-center bg-[#0B0B0D] py-14">
-        <Button variant="secondary" href="/products">
-          View all work →
-        </Button>
-      </div>
+      <Works3DSection worksList={works} />
 
       {/* Visually hidden accessible links for keyboard & screen-reader users */}
       <ul className="sr-only">
