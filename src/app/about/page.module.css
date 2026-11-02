@@ -1,24 +1,83 @@
 .pageHero {
-  padding-top: var(--space-64);
-  padding-bottom: var(--space-48);
-  border-bottom: 1px solid var(--border);
-  background-color: var(--surface);
+  position: relative;
+  padding-top: clamp(140px, 16vw, 180px);
+  padding-bottom: clamp(48px, 6vw, 72px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: var(--bg);
+  overflow: hidden;
+  text-align: center;
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, 92vw);
+  height: 480px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(198, 255, 77, 0.05) 0%,
+    rgba(56, 189, 248, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 1;
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin-bottom: 20px;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .pageHeroH1 {
-  font-family: var(--font-serif);
-  font-size: var(--font-size-display);
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 800;
   color: var(--text);
-  margin-bottom: var(--space-16);
-  line-height: 1.12;
+  margin-bottom: 20px;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
 }
 
 .pageHeroSub {
-  font-family: var(--font-sans);
-  font-size: var(--font-size-body);
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(16px, 1.8vw, 18px);
   color: var(--muted);
   max-width: 720px;
   line-height: 1.6;
+  margin: 0 auto;
 }
 
 /* ── Team Section ───────────────────────────── */
@@ -37,10 +96,12 @@
 }
 
 .sectionH2 {
-  font-family: var(--font-serif);
-  font-size: var(--font-size-h2);
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
   color: var(--text);
   margin-bottom: var(--space-8);
+  letter-spacing: -0.02em;
 }
 
 .teamSub {

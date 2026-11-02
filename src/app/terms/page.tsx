@@ -12,7 +12,10 @@ export default function TermsPage() {
       <div className={styles.pageHero}>
         <div className={styles.heroBg} />
         <div className="container">
-          <p className="eyebrow">Legal</p>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot} />
+            <span>Legal</span>
+          </div>
           <h1 className={styles.heroH1}>Terms of Service</h1>
           <p className={styles.heroSub}>
             Governed by: Laws of India, State of Tamil Nadu · Jurisdiction: Chennai courts

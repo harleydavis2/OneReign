@@ -71,8 +71,12 @@ function WorksCarousel2D({ worksList }: { worksList: WorkItem[] }) {
     <section className="relative w-full bg-[#0B0B0D] py-20 text-white" id="works-2d">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <div className="mb-10 text-center">
-          <h2 className="font-display-sans text-[clamp(40px,6vw,84px)] font-bold tracking-tight text-[#F5F5F5]">
+        <div className="mb-12 text-center flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 font-display-sans text-xs font-semibold uppercase tracking-[0.14em] text-[#F5F5F5] bg-white/[0.04] border border-white/[0.08] px-3.5 py-1.5 rounded-full mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF4D] shadow-[0_0_10px_#C6FF4D]" />
+            <span>Portfolio</span>
+          </div>
+          <h2 className="font-display-sans text-[clamp(38px,5.5vw,68px)] font-extrabold tracking-[-0.035em] text-[#F5F5F5]">
             Our <span className="vv-accent">Works</span>
           </h2>
         </div>

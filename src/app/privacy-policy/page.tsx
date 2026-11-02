@@ -19,7 +19,10 @@ export default function PrivacyPolicyPage() {
       <div className={styles.pageHero}>
         <div className={styles.heroBg} />
         <Container>
-          <p className="eyebrow">Privacy & Transparency</p>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot} />
+            <span>Privacy & Transparency</span>
+          </div>
           <h1 className={styles.heroH1}>Privacy Policy</h1>
           <p className={styles.heroSub}>
             Effective Date: Est. 2025 · OneReign Systems

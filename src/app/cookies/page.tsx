@@ -19,7 +19,10 @@ export default function CookiesPage() {
       <div className={styles.pageHero}>
         <div className={styles.heroBg} />
         <Container>
-          <p className="eyebrow">Technical Policies</p>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot} />
+            <span>Technical Policies</span>
+          </div>
           <h1 className={styles.heroH1}>Cookie Policy</h1>
           <p className={styles.heroSub}>
             Transparent information regarding functional session storage and performance cookies.

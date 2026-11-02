@@ -1,5 +1,5 @@
 .pageHero {
-  padding-top: var(--space-64);
+  padding-top: clamp(140px, 16vw, 180px);
   padding-bottom: var(--space-48);
   border-bottom: 1px solid var(--border);
   background-color: var(--surface);
@@ -42,10 +42,12 @@
 }
 
 .heroH1 {
-  font-family: var(--font-serif);
-  font-size: var(--font-size-display);
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(34px, 4.5vw, 56px);
+  font-weight: 800;
   color: var(--text);
-  line-height: 1.15;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
   margin-bottom: var(--space-16);
   max-width: 860px;
 }
