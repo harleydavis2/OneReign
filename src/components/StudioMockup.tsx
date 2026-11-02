@@ -2,10 +2,34 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 
 export default function StudioMockup() {
   const [activeDevice, setActiveDevice] = useState<"desktop" | "mobile">("desktop");
   const [activeLayer, setActiveLayer] = useState<string>("Faultline Engine");
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const prefersReducedMotion = useReducedMotion();
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion) return;
+    if (
+      typeof window !== "undefined" &&
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      return;
+    }
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({
+      rotateX: -y * 5,
+      rotateY: x * 5,
+    });
+  };
+
+  const handlePointerLeave = () => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+  };
 
   const layers = [
     { id: "hero", name: "Hero Platform", status: "Active" },
@@ -27,8 +51,19 @@ export default function StudioMockup() {
         aria-hidden="true"
       />
 
-      {/* Studio Window Frame */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0E0E12] shadow-[0_24px_80px_-16px_rgba(0,0,0,0.85)]">
+      {/* Studio Window Frame with entrance motion and subtle pointer tilt */}
+      <motion.div
+        initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
+        style={{
+          transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+          transition: "transform 0.15s ease-out",
+        }}
+        className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0E0E12] shadow-[0_24px_80px_-16px_rgba(0,0,0,0.85)] w-full"
+      >
         {/* Top Control Bar */}
         <div className="flex h-12 items-center justify-between border-b border-white/10 bg-[#141419] px-4 text-xs">
           {/* Left: Window dots & Brand Studio label */}
@@ -50,14 +85,14 @@ export default function StudioMockup() {
             <button
               type="button"
               onClick={() => setActiveDevice("desktop")}
-              className={`flex items-center gap-1.5 rounded px-2.5 py-1 font-display-sans text-[11px] transition-colors ${
+              className={`flex items-center gap-1.5 rounded px-2.5 py-1 font-display-sans text-[11px] transition-colors min-h-[28px] ${
                 activeDevice === "desktop"
                   ? "bg-white/15 text-text font-medium"
                   : "text-muted hover:text-text"
               }`}
               aria-label="Desktop viewport"
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <rect x="2" y="3" width="20" height="14" rx="2" />
                 <line x1="8" y1="21" x2="16" y2="21" />
                 <line x1="12" y1="17" x2="12" y2="21" />
@@ -68,14 +103,14 @@ export default function StudioMockup() {
             <button
               type="button"
               onClick={() => setActiveDevice("mobile")}
-              className={`flex items-center gap-1.5 rounded px-2.5 py-1 font-display-sans text-[11px] transition-colors ${
+              className={`flex items-center gap-1.5 rounded px-2.5 py-1 font-display-sans text-[11px] transition-colors min-h-[28px] ${
                 activeDevice === "mobile"
                   ? "bg-white/15 text-text font-medium"
                   : "text-muted hover:text-text"
               }`}
               aria-label="Mobile viewport"
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <rect x="5" y="2" width="14" height="20" rx="2" />
                 <line x1="12" y1="18" x2="12" y2="18.01" />
               </svg>
@@ -85,10 +120,13 @@ export default function StudioMockup() {
             <span className="ml-2 hidden font-mono text-[10px] text-muted/60 md:inline">100%</span>
           </div>
 
-          {/* Right: Telemetry Status & Avatars */}
+          {/* Right: Telemetry Status & Avatars (Blinking Live dot) */}
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
               <span className="font-mono text-[10px] font-medium text-emerald-400">Live · 12ms</span>
             </div>
 
@@ -105,8 +143,8 @@ export default function StudioMockup() {
         </div>
 
         {/* Studio Workspace Body */}
-        <div className="flex min-h-[440px] sm:min-h-[500px] lg:min-h-[560px]">
-          {/* Left Panel: Layers / System Tree (hidden on mobile) */}
+        <div className="flex min-h-[380px] sm:min-h-[460px] lg:min-h-[520px]">
+          {/* Left Panel: Layers / System Tree (hidden on mobile under 768px) */}
           <div className="hidden w-52 flex-col border-r border-white/10 bg-[#121216] p-3 md:flex">
             <div className="flex items-center justify-between border-b border-white/10 pb-2">
               <span className="font-mono text-[10px] uppercase tracking-wider text-muted">Systems Tree</span>
@@ -119,7 +157,7 @@ export default function StudioMockup() {
                   key={layer.id}
                   type="button"
                   onClick={() => setActiveLayer(layer.name)}
-                  className={`group flex items-center justify-between rounded-md px-2.5 py-1.5 text-left font-display-sans text-xs transition-colors ${
+                  className={`group flex items-center justify-between rounded-md px-2.5 py-1.5 text-left font-display-sans text-xs transition-colors min-h-[32px] ${
                     activeLayer === layer.name
                       ? "bg-accent/15 text-accent font-medium"
                       : "text-muted hover:bg-white/5 hover:text-text"
@@ -146,16 +184,16 @@ export default function StudioMockup() {
           </div>
 
           {/* Center Stage: Interactive Product Preview */}
-          <div className="relative flex flex-1 items-center justify-center bg-radial from-[#15151B] to-[#0A0A0D] p-3 sm:p-6 overflow-hidden">
-            {/* Viewport Frame */}
+          <div className="relative flex flex-1 items-center justify-center bg-radial from-[#15151B] to-[#0A0A0D] p-3 sm:p-6 overflow-hidden w-full">
+            {/* Viewport Frame with reserved aspect ratio */}
             <div
-              className={`relative overflow-hidden rounded-xl border border-white/15 bg-black/80 shadow-2xl transition-all duration-300 ${
+              className={`relative overflow-hidden rounded-xl border border-white/15 bg-black/80 shadow-2xl transition-all duration-300 w-full ${
                 activeDevice === "mobile"
-                  ? "w-[300px] sm:w-[320px] aspect-[9/18]"
-                  : "w-full aspect-[16/10]"
+                  ? "max-w-[280px] sm:max-w-[320px] aspect-[9/18]"
+                  : "aspect-[16/10]"
               }`}
             >
-              {/* Product Live Screenshot */}
+              {/* Product Live Screenshot with priority maintained */}
               <Image
                 src={
                   activeDevice === "mobile"
@@ -169,14 +207,14 @@ export default function StudioMockup() {
                 priority
               />
 
-              {/* Floating Tooltip Indicator */}
-              <div className="absolute top-4 left-4 z-10 hidden sm:flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/80 px-3 py-1 text-xs font-medium text-sky-200 backdrop-blur-md shadow-lg">
-                <span className="h-2 w-2 rounded-full bg-sky-400 animate-ping" />
-                <span>Contradiction Detected: Claim #0b1f</span>
+              {/* Floating Contradiction Card: stays visible at all sizes without overflowing */}
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex max-w-[calc(100%-24px)] items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/85 px-2.5 py-1 text-[11px] sm:text-xs font-medium text-sky-200 backdrop-blur-md shadow-lg">
+                <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 shrink-0 rounded-full bg-sky-400 animate-ping" />
+                <span className="truncate">Contradiction Detected: Claim #0b1f</span>
               </div>
 
               {/* Bottom Right Graph Resolution Pill */}
-              <div className="absolute bottom-4 right-4 z-10 hidden sm:flex items-center gap-2 rounded-full border border-accent/30 bg-[#0B0B0D]/90 px-3 py-1 text-xs font-medium text-accent backdrop-blur-md shadow-lg">
+              <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-10 hidden sm:flex items-center gap-2 rounded-full border border-accent/30 bg-[#0B0B0D]/90 px-3 py-1 text-xs font-medium text-accent backdrop-blur-md shadow-lg">
                 <span>⚡ Graph Synced</span>
                 <span className="text-[10px] text-muted">0.012s</span>
               </div>
@@ -224,7 +262,7 @@ export default function StudioMockup() {
             </div>
           </div>
 
-          {/* Right Panel: Architecture Inspector (hidden on tablet/mobile) */}
+          {/* Right Panel: Architecture Inspector (hidden under 768px, visible on lg) */}
           <div className="hidden w-56 flex-col border-l border-white/10 bg-[#121216] p-4 lg:flex">
             <span className="font-mono text-[10px] uppercase tracking-wider text-muted">Inspector</span>
 
@@ -258,8 +296,7 @@ export default function StudioMockup() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
-

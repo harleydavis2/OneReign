@@ -6,6 +6,7 @@ import ScreenshotFrame from "@/components/ui/ScreenshotFrame";
 import Cta from "@/components/Cta";
 import TechStack from "@/components/TechStack";
 import Introduction from "@/components/Introduction";
+import Hero from "@/components/Hero";
 import StudioMockup from "@/components/StudioMockup";
 import Works from "@/components/Works";
 import Approach from "@/components/Approach";
@@ -52,38 +53,7 @@ export default function HomePage() {
       {/* ── Section 1: Hero (Editorial Centered Layout with Studio Canvas) ── */}
       <section className={styles.heroSection}>
         <div className="container">
-          <div className={styles.heroCenter}>
-            <div className={styles.heroPill}>
-              <span className={styles.heroPillDot} />
-              <span>AI Platforms & Custom Software · Est. 2025</span>
-            </div>
-
-            <h1 className={styles.heroH1}>
-              We build the <span className={styles.heroH1Italic}>systems</span>
-              <br />
-              <span className={styles.heroH1Italic}>your business</span> runs on.
-            </h1>
-
-            <p className={styles.heroSub}>
-              OneReign designs and ships AI agents, automation workflows and custom software — so your team stops doing repetitive work and starts moving faster.
-            </p>
-
-            <div className={styles.heroCtas}>
-              <Button variant="primary" href="/contact">
-                Book a free 30-min call →
-              </Button>
-              <Button variant="secondary" href="/products">
-                See our products
-              </Button>
-            </div>
-
-            <div className={styles.trustLine}>
-              <span className={styles.trustDot} aria-hidden="true" />
-              <span>
-                {siteContent.brand.location} · {siteContent.brand.established} · {siteContent.contact.email}
-              </span>
-            </div>
-          </div>
+          <Hero />
 
           {/* Interactive Studio Canvas Mockup */}
           <StudioMockup />
