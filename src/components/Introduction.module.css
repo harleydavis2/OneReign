@@ -74,29 +74,36 @@
 .mosaicStack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   width: 100%;
 }
 
 .marqueeRowLeft {
   display: flex;
-  gap: 12px;
   width: max-content;
   will-change: transform;
-  animation: marqueeLeft 60s linear infinite;
+  animation: marqueeLeft 30s linear infinite;
 }
 
 .marqueeRowRight {
   display: flex;
-  gap: 12px;
   width: max-content;
   will-change: transform;
-  animation: marqueeRight 60s linear infinite;
+  animation: marqueeRight 38s linear infinite;
 }
 
-.marqueeRowLeft:hover,
-.marqueeRowRight:hover {
-  animation-play-state: paused;
+.trackGroup {
+  display: flex;
+  gap: 16px;
+  padding-right: 16px;
+  flex-shrink: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .marqueeRowLeft:hover,
+  .marqueeRowRight:hover {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes marqueeLeft {
@@ -119,8 +126,8 @@
 
 /* Tile Styles */
 .tile {
-  width: 440px;
-  height: 330px;
+  height: clamp(140px, 18vw, 260px);
+  aspect-ratio: 4 / 3;
   flex-shrink: 0;
   border-radius: 16px;
   position: relative;
@@ -131,8 +138,10 @@
   user-select: none;
 }
 
-.tile:hover {
-  border-color: rgba(198, 255, 77, 0.3);
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    border-color: rgba(198, 255, 77, 0.3);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -140,6 +149,9 @@
   .marqueeRowRight {
     animation: none !important;
     transform: none !important;
+  }
+  .trackGroup[aria-hidden="true"] {
+    display: none !important;
   }
 }
 
@@ -173,11 +185,6 @@
 
   .secondRow {
     display: none !important;
-  }
-
-  .tile {
-    width: 320px;
-    height: 240px;
   }
 }
 
