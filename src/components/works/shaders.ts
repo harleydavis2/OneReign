@@ -52,9 +52,9 @@ export const tileFragmentShader = /* glsl */ `
     }
 
     float t = clamp((vViewDepth - uNear) / (uFar - uNear), 0.0, 1.0);   // 0 = closest to camera, 1 = farthest
-    float dim = mix(uDimFront, uDimBack, t) + uHover * 0.10;
+    float dim = mix(uDimFront, uDimBack, t) + uHover * 0.12;
     vec3 col = texture2D(uTexture, uv).rgb * dim;
-    float rim = 1.0 - smoothstep(0.0, 0.012, abs(d + 0.006));           // thin 1px edge so dark screenshots stay visible on the dark background
+    float rim = 1.0 - smoothstep(0.0, 0.012, abs(d + 0.006));           // thin crisp edge so dark screenshots stay visible on the dark background
     col = mix(col, vec3(1.0), rim * uRim * mix(1.0, 0.6, t));
     gl_FragColor = vec4(col, coverage);
   }
@@ -80,16 +80,31 @@ export const backgroundFragmentShader = /* glsl */ `
 
   void main() {
     vec2 p = vUv * 2.0 - 1.0;
-    float w = sin(p.x * 3.0 + uTime * 0.2 + sin(p.y * 2.0 + uTime * 0.15) * 1.5) + sin(p.y * 4.0 - uTime * 0.12 + p.x * 1.5);
-    float l = clamp(0.012 / abs(sin(w * 2.5)), 0.0, 1.0);
-    vec3 col = mix(vec3(0.043, 0.043, 0.051), vec3(0.776, 1.0, 0.302), l * 0.16);   // #0B0B0D to #C6FF4D at low strength
+    
+    // Multi-octave organic fluid wave ribbons inspired by Visuvate
+    float t = uTime * 0.18;
+    float w1 = sin(p.x * 2.4 + t + sin(p.y * 1.8 + t * 0.8) * 1.6) + sin(p.y * 3.0 - t * 0.6 + p.x * 1.2);
+    float l1 = clamp(0.016 / (abs(sin(w1 * 2.2)) + 0.004), 0.0, 1.0);
+
+    float w2 = cos(p.x * 1.6 - t * 0.9 + cos(p.y * 2.2 + t * 0.6) * 1.4) + sin(p.y * 2.4 + t * 1.1 - p.x * 1.6);
+    float l2 = clamp(0.012 / (abs(sin(w2 * 2.0)) + 0.005), 0.0, 1.0);
+
+    // Deep brand background #0B0B0D
+    vec3 col = vec3(0.043, 0.043, 0.051);
+
+    // Electric cyan/blue fluid wave + OneReign lime accent wave
+    vec3 cyanRibbon = vec3(0.08, 0.35, 0.85);
+    vec3 limeRibbon = vec3(0.776, 1.0, 0.302);
+
+    col += cyanRibbon * (l1 * 0.28);
+    col += limeRibbon * (l2 * 0.16);
 
     // Soft vignette (darken toward edges)
     float vignette = clamp(1.0 - length(p) * 0.45, 0.0, 1.0);
     col *= vignette;
 
-    // Fine film grain (hash noise * 0.03)
-    float grain = (hash(vUv * 500.0 + fract(uTime)) - 0.5) * 0.03;
+    // Fine film grain
+    float grain = (hash(vUv * 500.0 + fract(uTime)) - 0.5) * 0.025;
     col += grain;
 
     gl_FragColor = vec4(col, 1.0);

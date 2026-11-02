@@ -2,9 +2,10 @@
   position: relative;
   width: 100%;
   min-height: 820px;
-  padding: 140px 0 130px;
+  padding: clamp(140px, 13vw, 190px) 0 130px;
   background-color: #000000;
   overflow: hidden; /* Strict: prevent horizontal scroll */
+  scroll-margin-top: 80px;
 }
 
 /* ── Interactive Rotating & Draggable World Globe ─────────────────── */
@@ -53,7 +54,7 @@
 /* ── Giant Heading "Testimonials" ─────────────────────────────────── */
 .giantTitleWrapper {
   position: absolute;
-  top: 130px;
+  top: clamp(24px, 4vw, 48px);
   left: 0;
   right: 0;
   display: flex;
@@ -66,7 +67,7 @@
 
 .giantTitle {
   font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(46px, 9vw, 132px);
+  font-size: clamp(40px, 8.5vw, 132px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.05em;

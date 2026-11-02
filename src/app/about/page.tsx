@@ -127,8 +127,12 @@ export default function AboutPage() {
     <>
       {/* ── Page Hero ───────────────────────────────── */}
       <section className={styles.pageHero}>
-        <div className="container">
-          <span className="eyebrow">About OneReign</span>
+        <div className={styles.ambientGlow} aria-hidden="true" />
+        <div className={styles.heroContainer}>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot} />
+            <span>About OneReign</span>
+          </div>
           <h1 className={styles.pageHeroH1}>
             AI should eliminate manual work.<br />
             Not multiply it.
@@ -144,7 +148,10 @@ export default function AboutPage() {
         <div className="container">
           <div className={styles.teamHeaderRow}>
             <div className={styles.teamHeaderLeft}>
-              <span className="eyebrow">The Leadership</span>
+              <div className={styles.eyebrow}>
+                <span className={styles.eyebrowDot} />
+                <span>The Leadership</span>
+              </div>
               <h2 className={styles.sectionH2}>Meet the Builders.</h2>
               <p className={styles.teamSub}>
                 Engineers, architects, and product strategists shaping autonomous systems and graph-native software.
@@ -251,7 +258,10 @@ export default function AboutPage() {
         <div className="container">
           <div className={styles.whyLayout}>
             <div className={styles.whyLeft}>
-              <span className="eyebrow">Our Principles</span>
+              <div className={styles.eyebrow}>
+                <span className={styles.eyebrowDot} />
+                <span>Our Principles</span>
+              </div>
               <h2 className={styles.sectionH2}>Engineered for operational clarity.</h2>
               <p className={styles.bodyText}>
                 We refuse to ship brittle boilerplate. Every system we build has verified test coverage, explicit error handling, and documentation that actually matches production behavior.

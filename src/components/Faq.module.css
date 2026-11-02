@@ -8,9 +8,9 @@
 
 /* Header */
 .sectionHeader {
-  max-width: 840px;
-  margin: 0 auto 52px;
-  text-align: left;
+  max-width: 820px;
+  margin: 0 auto 56px;
+  text-align: center;
 }
 
 .eyebrow {
@@ -21,9 +21,13 @@
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-bottom: 12px;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin-bottom: 20px;
 }
 
 .eyebrowDot {
@@ -31,14 +35,15 @@
   height: 6px;
   border-radius: 9999px;
   background-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .sectionTitle {
   font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(38px, 5vw, 60px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   color: var(--text);
   margin: 0;
 }

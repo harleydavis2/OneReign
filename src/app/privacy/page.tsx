@@ -12,7 +12,10 @@ export default function PrivacyPage() {
       <div className={styles.pageHero}>
         <div className={styles.heroBg} />
         <div className="container">
-          <p className="eyebrow">Legal</p>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot} />
+            <span>Legal</span>
+          </div>
           <h1 className={styles.heroH1}>Privacy Policy</h1>
           <p className={styles.heroSub}>
             Governed by: Digital Personal Data Protection Act, 2023 (DPDP Act) · IT Act 2000 · GDPR (EEA) · CCPA/CPRA (California)

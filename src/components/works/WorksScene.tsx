@@ -9,7 +9,6 @@ import React, {
   useCallback,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import { useRouter } from "next/navigation";
 import type { MotionValue } from "motion/react";
@@ -63,7 +62,7 @@ function createPlaceholderTexture(project: string, status: string): THREE.Canvas
 }
 
 /**
- * Animated background plane with slow glowing flowing lines, soft vignette, and film grain
+ * Animated background plane with glowing flowing lines, vignette, and grain
  */
 function BackgroundPlane() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -107,82 +106,109 @@ function BackgroundPlane() {
 }
 
 /**
+ * Generates a crisp CanvasTexture for the centered title "Our Works"
+ * Uses 2D canvas context — completely eliminating WebGL context leaks from troika SDF.
+ */
+function createTitleTexture(): { texture: THREE.CanvasTexture; aspect: number } {
+  const canvas = document.createElement("canvas");
+  canvas.width = 2048;
+  canvas.height = 512;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    const tex = new THREE.CanvasTexture(canvas);
+    return { texture: tex, aspect: 4 };
+  }
+
+  const renderText = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const fontSize = 160;
+    // Inter Tight 700 for "Our", Instrument Serif 400 italic for "Works"
+    const fontSans = `700 ${fontSize}px "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const fontSerif = `italic 400 ${Math.round(fontSize * 1.15)}px "Instrument Serif", Georgia, serif`;
+
+    ctx.font = fontSans;
+    const ourMetrics = ctx.measureText("Our");
+    const ourW = ourMetrics.width;
+
+    ctx.font = fontSerif;
+    const worksMetrics = ctx.measureText("Works");
+    const worksW = worksMetrics.width;
+
+    const gap = 38;
+    const totalW = ourW + gap + worksW;
+    const startX = (canvas.width - totalW) / 2;
+    const baselineY = canvas.height / 2 + fontSize * 0.32;
+
+    // Draw "Our"
+    ctx.font = fontSans;
+    ctx.fillStyle = "#F5F5F5";
+    ctx.fillText("Our", startX, baselineY);
+
+    // Draw "Works"
+    ctx.font = fontSerif;
+    ctx.fillStyle = "#F5F5F5";
+    ctx.fillText("Works", startX + ourW + gap, baselineY);
+  };
+
+  renderText();
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  texture.needsUpdate = true;
+
+  // If custom web fonts finish loading later, re-render to update the glyphs
+  if (typeof document !== "undefined" && document.fonts) {
+    document.fonts.ready.then(() => {
+      renderText();
+      texture.needsUpdate = true;
+    });
+  }
+
+  return { texture, aspect: canvas.width / canvas.height };
+}
+
+/**
  * Centered Title inside the ring: "Our Works"
  * Positioned at [0, -0.1, 0] OUTSIDE the spin and tilt groups.
  * Recomputes scale whenever size or camera changes to stay exactly TITLE_FRACTION wide.
  */
 function TitleMesh() {
-  const groupRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   const { size, camera } = useThree();
-  const [widths, setWidths] = useState({ our: 1.4, works: 2.1, ready: false });
 
-  const handleSyncOur = useCallback((troikaObj: any) => {
-    if (troikaObj?.material) {
-      troikaObj.material.depthTest = true;
-      troikaObj.material.depthWrite = true;
-    }
-    const bounds = troikaObj?.textRenderInfo?.blockBounds;
-    if (bounds) {
-      const w = bounds[2] - bounds[0];
-      setWidths((prev) => ({ ...prev, our: w, ready: true }));
-    }
+  const titleData = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return createTitleTexture();
   }, []);
-
-  const handleSyncWorks = useCallback((troikaObj: any) => {
-    if (troikaObj?.material) {
-      troikaObj.material.depthTest = true;
-      troikaObj.material.depthWrite = true;
-    }
-    const bounds = troikaObj?.textRenderInfo?.blockBounds;
-    if (bounds) {
-      const w = bounds[2] - bounds[0];
-      setWidths((prev) => ({ ...prev, works: w, ready: true }));
-    }
-  }, []);
-
-  const gap = 0.28;
-  const totalW = widths.our + gap + widths.works;
-  const ourX = -totalW / 2 + widths.our / 2;
-  const worksX = totalW / 2 - widths.works / 2;
 
   useLayoutEffect(() => {
-    if (!groupRef.current) return;
+    if (!meshRef.current || !titleData) return;
     const aspect = size.width / size.height;
+    const safeAspect = Math.max(aspect, 1);
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(WORKS_CONFIG.FOV / 2));
-    const visibleWidthAtCenter = 2 * camera.position.z * tanHalf * aspect;
-    const targetScale = (WORKS_CONFIG.TITLE_FRACTION * visibleWidthAtCenter) / totalW;
-    groupRef.current.scale.setScalar(targetScale);
-  }, [size.width, size.height, camera.position.z, totalW]);
+    const visibleWidthAtCenter = 2 * camera.position.z * tanHalf * safeAspect;
+    const targetW = WORKS_CONFIG.TITLE_FRACTION * visibleWidthAtCenter;
+    const targetH = targetW / titleData.aspect;
+    meshRef.current.scale.set(targetW, targetH, 1);
+  }, [size.width, size.height, camera.position.z, titleData]);
+
+  if (!titleData) return null;
 
   return (
-    <group ref={groupRef} position={[0, -0.1, 0]}>
-      <Text
-        font="/fonts/inter-tight-latin-700-normal.woff"
-        fontSize={1}
-        color="#F5F5F5"
-        anchorX="center"
-        anchorY="middle"
-        position={[ourX, 0, 0]}
-        material-depthTest={true}
-        material-depthWrite={true}
-        onSync={handleSyncOur}
-      >
-        Our
-      </Text>
-      <Text
-        font="/fonts/instrument-serif-latin-400-italic.woff"
-        fontSize={1}
-        color="#F5F5F5"
-        anchorX="center"
-        anchorY="middle"
-        position={[worksX, 0, 0]}
-        material-depthTest={true}
-        material-depthWrite={true}
-        onSync={handleSyncWorks}
-      >
-        Works
-      </Text>
-    </group>
+    <mesh ref={meshRef} position={[0, -0.1, 0]}>
+      <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial
+        map={titleData.texture}
+        transparent={true}
+        depthWrite={true}
+        depthTest={true}
+        alphaTest={0.02}
+      />
+    </mesh>
   );
 }
 
@@ -326,19 +352,18 @@ function SceneContent({
   const frontDistRef = useRef(0);
   const tileMaterialsRef = useRef<THREE.ShaderMaterial[]>([]);
 
-  // 1) Dynamic Camera Fit
+  // 1) Dynamic Camera Fit with safe aspect clamping
   useLayoutEffect(() => {
     const C = WORKS_CONFIG;
     const aspect = size.width / size.height;
-    const frac =
-      size.width >= 1024
-        ? C.FRONT_FRACTION_DESKTOP
-        : size.width >= 768
-        ? C.FRONT_FRACTION_TABLET
-        : C.FRONT_FRACTION_MOBILE;
+    const safeAspect = Math.max(aspect, 1);
+    const frac = C.FRONT_FRACTION_DESKTOP;
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(C.FOV / 2));
     const visibleWidthAtFront = C.TILE_W / frac;
-    const frontDist = visibleWidthAtFront / (2 * tanHalf * aspect);
+    let frontDist = visibleWidthAtFront / (2 * tanHalf * safeAspect);
+
+    // Clamp frontDist so tiles never get swallowed by fog or pushed out of frustum
+    frontDist = THREE.MathUtils.clamp(frontDist, 9.0, 22.0);
     frontDistRef.current = frontDist;
 
     camera.position.set(0, C.CAMERA_Y, C.RADIUS + frontDist);
@@ -360,7 +385,7 @@ function SceneContent({
     if (!tileMaterialsRef.current.includes(mat)) {
       tileMaterialsRef.current.push(mat);
       const C = WORKS_CONFIG;
-      const uNear = frontDistRef.current || 6.0;
+      const uNear = frontDistRef.current || 9.0;
       const uFar = uNear + 2 * C.RADIUS;
       if (mat.uniforms?.uNear) mat.uniforms.uNear.value = uNear;
       if (mat.uniforms?.uFar) mat.uniforms.uFar.value = uFar;
@@ -383,10 +408,13 @@ function SceneContent({
           (t) => {
             t.colorSpace = THREE.SRGBColorSpace;
             t.anisotropy = 8;
+            t.generateMipmaps = true;
+            t.minFilter = THREE.LinearMipmapLinearFilter;
             const img = t.image as HTMLImageElement | undefined;
-            const asp = img?.naturalWidth && img?.naturalHeight
-              ? img.naturalWidth / img.naturalHeight
-              : 1.6;
+            const asp =
+              img?.naturalWidth && img?.naturalHeight
+                ? img.naturalWidth / img.naturalHeight
+                : 1.6;
             const entry = loadedList.find((e) => e.texture === t);
             if (entry) entry.aspect = asp;
           },
@@ -399,6 +427,8 @@ function SceneContent({
         );
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.anisotropy = 8;
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
         loadedList.push({ texture: tex, aspect: 1.6 });
       } catch {
         loadedList.push({
@@ -411,7 +441,11 @@ function SceneContent({
     setTextureEntries(loadedList);
 
     return () => {
-      loadedList.forEach((e) => e.texture.dispose());
+      loadedList.forEach((e) => {
+        try {
+          e.texture.dispose();
+        } catch {}
+      });
     };
   }, [worksList]);
 
@@ -456,15 +490,11 @@ function SceneContent({
     }
   });
 
-  const tileCount =
-    size.width < 768
-      ? WORKS_CONFIG.TILE_COUNT_MOBILE
-      : WORKS_CONFIG.TILE_COUNT_DESKTOP;
-
-  if (textureEntries.length === 0) return null;
+  const tileCount = WORKS_CONFIG.TILE_COUNT_DESKTOP;
 
   return (
     <>
+      <color attach="background" args={["#0B0B0D"]} />
       <BackgroundPlane />
 
       {/* Title placed at [0, -0.1, 0] OUTSIDE the spin and tilt groups */}
@@ -477,23 +507,24 @@ function SceneContent({
       >
         {/* Spin Group holding all tiles */}
         <group ref={spinGroupRef}>
-          {Array.from({ length: tileCount }).map((_, i) => {
-            const item = worksList[i % worksList.length];
-            const entry = textureEntries[i % textureEntries.length];
-            return (
-              <SingleTile
-                key={`ring-tile-${i}`}
-                item={item}
-                index={i}
-                totalCount={tileCount}
-                texture={entry.texture}
-                texAspect={entry.aspect}
-                onHover={onHoverTile}
-                onSelect={onSelectTile}
-                onRegisterMaterial={registerMaterial}
-              />
-            );
-          })}
+          {textureEntries.length > 0 &&
+            Array.from({ length: tileCount }).map((_, i) => {
+              const item = worksList[i % worksList.length];
+              const entry = textureEntries[i % textureEntries.length];
+              return (
+                <SingleTile
+                  key={`ring-tile-${i}`}
+                  item={item}
+                  index={i}
+                  totalCount={tileCount}
+                  texture={entry.texture}
+                  texAspect={entry.aspect}
+                  onHover={onHoverTile}
+                  onSelect={onSelectTile}
+                  onRegisterMaterial={registerMaterial}
+                />
+              );
+            })}
         </group>
       </group>
     </>
@@ -502,29 +533,39 @@ function SceneContent({
 
 /**
  * WorksScene - The Primary WebGL React Three Fiber Canvas Component
+ * Running exclusively on desktop screens (>=1024px) with fine pointer.
  */
 export interface WorksSceneProps {
   worksList: WorkItem[];
   scrollProgress: MotionValue<number>;
-  isMobileDevice?: boolean;
 }
 
 export default function WorksScene({
   worksList,
   scrollProgress,
-  isMobileDevice = false,
 }: WorksSceneProps) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(true);
+  const [isTabVisible, setIsTabVisible] = useState(true);
   const [hoveredItem, setHoveredItem] = useState<WorkItem | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
 
   const pointerRef = useRef({ x: 0, y: 0, isTouch: false });
   const dragOffsetRef = useRef(0);
   const dragVelocityRef = useRef(0);
   const isDraggingRef = useRef(false);
   const lastDragXRef = useRef(0);
+
+  // Tab visibility tracking
+  useEffect(() => {
+    const handleVisibility = () => {
+      setIsTabVisible(document.visibilityState !== "hidden");
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   // Pause rendering when off screen
   useEffect(() => {
@@ -535,7 +576,7 @@ export default function WorksScene({
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.05 }
+      { threshold: 0.0, rootMargin: "400px" }
     );
 
     observer.observe(el);
@@ -557,10 +598,8 @@ export default function WorksScene({
   }, []);
 
   const handlePointerDown = (e: React.PointerEvent) => {
-    if (e.pointerType === "touch") {
-      pointerRef.current.isTouch = true;
-    }
     isDraggingRef.current = true;
+    setIsDragging(true);
     lastDragXRef.current = e.clientX;
   };
 
@@ -586,12 +625,15 @@ export default function WorksScene({
 
   const handlePointerUp = () => {
     isDraggingRef.current = false;
+    setIsDragging(false);
   };
 
   return (
     <div
       ref={containerRef}
-      className="relative h-full w-full select-none"
+      className={`relative h-full w-full select-none bg-[#0B0B0D] ${
+        hoveredItem ? "cursor-pointer" : isDragging ? "cursor-grabbing" : "cursor-grab"
+      }`}
       style={{ touchAction: "pan-y" }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -602,15 +644,24 @@ export default function WorksScene({
       }}
     >
       <Canvas
-        dpr={[1, isMobileDevice ? 1.5 : WORKS_CONFIG.DPR_MAX]}
+        dpr={[1, 1.5]}
         camera={{
           fov: WORKS_CONFIG.FOV,
-          position: [0, WORKS_CONFIG.CAMERA_Y, 14],
+          position: [0, WORKS_CONFIG.CAMERA_Y, 16],
+          near: 0.1,
+          far: 100,
         }}
-        gl={{ antialias: true, alpha: false }}
-        frameloop={isInView ? "always" : "never"}
+        gl={{
+          antialias: true,
+          alpha: false,
+          powerPreference: "high-performance",
+        }}
+        onCreated={({ gl }) => {
+          gl.setClearColor("#0B0B0D", 1);
+        }}
+        frameloop={isTabVisible ? "always" : "never"}
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{ width: "100%", height: "100%", display: "block", backgroundColor: "#0B0B0D" }}
       >
         <SceneContent
           worksList={worksList}
@@ -623,7 +674,7 @@ export default function WorksScene({
       </Canvas>
 
       {/* Hover HTML Label Overlay near cursor */}
-      {hoveredItem && !pointerRef.current.isTouch && (
+      {hoveredItem && (
         <div
           className="pointer-events-none fixed z-50 flex items-center gap-2.5 rounded-full border border-white/20 bg-black/85 px-3.5 py-1.5 backdrop-blur-md transition-opacity duration-150"
           style={{
@@ -653,3 +704,4 @@ export default function WorksScene({
     </div>
   );
 }
+

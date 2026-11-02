@@ -33,8 +33,12 @@ export default function BlogPage() {
   return (
     <>
       <section className={styles.pageHero}>
-        <div className="container">
-          <span className="eyebrow">Engineering Journal</span>
+        <div className={styles.ambientGlow} aria-hidden="true" />
+        <div className={styles.heroContainer}>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot} />
+            <span>Engineering Journal</span>
+          </div>
           <h1 className={styles.heroH1}>Systems, Architecture &amp; Operations</h1>
           <p className={styles.heroSub}>
             Real post-mortems, graph database experiments, and systems engineering principles written directly by our builders.

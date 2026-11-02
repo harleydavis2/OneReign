@@ -2,26 +2,30 @@
   position: relative;
   display: grid;
   grid-template-columns: 1.15fr 1fr;
-  gap: var(--space-48);
+  gap: clamp(36px, 4vw, 56px);
   align-items: center;
-  background: rgba(18, 18, 23, 0.65);
+  background: rgba(18, 18, 23, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
-  padding: 44px;
+  border-radius: 32px;
+  padding: clamp(32px, 3.5vw, 48px);
   overflow: hidden;
-  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+              0 24px 60px -15px rgba(0, 0, 0, 0.7);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.productCard:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 36px 90px -20px rgba(0, 0, 0, 0.85),
-              0 0 45px -10px rgba(198, 255, 77, 0.08);
+@media (hover: hover) and (pointer: fine) {
+  .productCard:hover {
+    transform: translateY(-4px);
+    border-color: rgba(198, 255, 77, 0.3);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+                0 36px 90px -20px rgba(0, 0, 0, 0.9),
+                0 0 50px -10px rgba(198, 255, 77, 0.1);
+  }
 }
 
 /* Hairline bevel highlight along top card border */
@@ -31,9 +35,9 @@
   left: 50%;
   transform: translateX(-50%);
   height: 1px;
-  width: 520px;
-  max-width: 80%;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+  width: 580px;
+  max-width: 85%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
   pointer-events: none;
   z-index: 2;
 }
@@ -52,6 +56,9 @@
   position: relative;
   z-index: 2;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .infoCol {
@@ -75,40 +82,42 @@
 }
 
 .contextTag {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #A1A1AA;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 9999px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   backdrop-filter: blur(8px);
 }
 
 .title {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.2vw, 2.625rem);
-  font-weight: 500;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2.25rem, 3.5vw, 3rem);
+  font-weight: 700;
   color: #F5F5F5;
-  margin-bottom: 6px;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .tagline {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.125rem;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
   color: #C6FF4D;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-16);
   line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 .description {
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
   color: #A1A1AA;
   line-height: 1.65;
   margin-bottom: var(--space-24);
@@ -122,21 +131,23 @@
 }
 
 .tag {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #D4D4D8;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 4px 12px;
+  padding: 5px 13px;
   border-radius: 9999px;
   transition: all 0.2s ease;
 }
 
-.tag:hover {
-  background: rgba(198, 255, 77, 0.06);
-  border-color: rgba(198, 255, 77, 0.25);
-  color: #F5F5F5;
+@media (hover: hover) and (pointer: fine) {
+  .tag:hover {
+    background: rgba(198, 255, 77, 0.08);
+    border-color: rgba(198, 255, 77, 0.3);
+    color: #F5F5F5;
+  }
 }
 
 .actions {
@@ -151,14 +162,14 @@
     grid-template-columns: 1fr;
     gap: var(--space-32);
     padding: 28px 24px;
-    border-radius: 20px;
+    border-radius: 24px;
   }
 
   .title {
-    font-size: 1.875rem;
+    font-size: 2rem;
   }
 
   .tagline {
-    font-size: 1rem;
+    font-size: 1.0625rem;
   }
 }

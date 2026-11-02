@@ -4,7 +4,7 @@ export const WORKS_CONFIG = {
   RADIUS: 5.2,
   TILE_W: 2.4,
   TILE_H: 1.5,
-  BEND: 0.22,
+  BEND: 0.26,
   HELIX_HEIGHT: 2.6,
   ROLL_JITTER: 0.05,
   TILT_X: 0.30,

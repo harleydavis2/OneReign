@@ -73,3 +73,12 @@ This document tracks every `TODO` item across the OneReign codebase that require
 - **Live Behavior:** 8 custom abstract system tiles rendered with CSS gradients in the brand palette.
 - **What is needed from Rajesh:**
   - Save real product screenshots into `/public/images/intro/` (e.g., Faultline graphs, database schemas, code snippets).
+
+---
+
+## 9. Flagship Product Asset Captures (`content/works.ts` & `/public/images/products/`)
+- **Faultline Resolution Capture:**
+  - **Action Needed:** Recapture Faultline at 2880x1800 with the conflict panel filling the frame.
+- **Quiet App Map View Capture:**
+  - **Action Needed:** Capture Quiet map view on Pixel 7 emulator and save to `/public/images/products/quiet-map-mobile.png`. Surface placeholder "Map" rendered in the interim.
+

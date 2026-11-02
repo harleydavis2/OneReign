@@ -22,8 +22,12 @@ export default function ProductsPage() {
   return (
     <>
       <section className={styles.heroSection}>
-        <div className="container">
-          <span className="eyebrow">Flagship Products</span>
+        <div className={styles.ambientGlow} aria-hidden="true" />
+        <div className={styles.heroContainer}>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot} />
+            <span>Flagship Products</span>
+          </div>
           <h1 className={styles.heroH1}>Systems built to solve real friction.</h1>
           <p className={styles.heroSub}>
             We engineer and run production products alongside our client systems. Every product is built on clean architectural boundaries, zero fluff, and verified real-world utility.

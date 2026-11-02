@@ -88,7 +88,8 @@ export default function Button({
 
                   {/* Duplicate character sliding up from below */}
                   <span
-                    className="absolute top-full left-0 inline-block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full motion-reduce:hidden select-none"
+                    aria-hidden="true"
+                    className="absolute top-full left-0 inline-block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full motion-reduce:hidden select-none pointer-events-none"
                     style={{ transitionDelay: delay }}
                   >
                     {displayChar}

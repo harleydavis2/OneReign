@@ -10,8 +10,8 @@
 .heroCenter {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   max-width: 980px;
   margin: 0 auto;
 }
@@ -62,26 +62,40 @@
   color: var(--muted);
   line-height: 1.6;
   max-width: 680px;
-  margin: 0 auto 32px auto;
+  margin: 0 0 32px 0;
+  text-align: left;
 }
 
 .heroCtas {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 16px;
   margin-bottom: 24px;
-  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .heroCtas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .heroCtas > * {
+    width: 100% !important;
+  }
 }
 
 .trustLine {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
   font-family: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   font-size: 0.8125rem;
   color: var(--muted);
+  text-align: left;
 }
 
 .trustDot {
