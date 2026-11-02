@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, type Variants } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import {
   SiNextdotjs,
   SiSupabase,
@@ -60,74 +60,91 @@ const iconComponentMap: Record<
   vercel: SiVercel,
 };
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.06, // 60ms stagger entrance
-    },
-  },
-};
+function TechItem({ name, icon }: { name: string; icon: string }) {
+  const Icon =
+    iconComponentMap[icon.toLowerCase()] ||
+    iconComponentMap[name.toLowerCase()] ||
+    SiNextdotjs;
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
-  },
-};
+  return (
+    <div className="group flex shrink-0 items-center gap-3 cursor-default transition-transform duration-200 hover:-translate-y-0.5">
+      <span
+        className="flex items-center text-muted transition-colors duration-200 group-hover:text-text"
+        aria-hidden="true"
+      >
+        <Icon size={22} aria-hidden="true" />
+      </span>
+      <span className="font-display-sans text-base sm:text-lg font-medium leading-none text-muted transition-colors duration-200 group-hover:text-text whitespace-nowrap">
+        {name}
+      </span>
+    </div>
+  );
+}
 
 export default function TechStack() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <section className="bg-transparent py-[96px]">
+    <section className="bg-transparent py-16 sm:py-24 overflow-hidden w-full">
       <Container>
         {/* Small muted eyebrow centered */}
-        <p className="mb-10 text-center font-display-sans text-xs font-semibold uppercase tracking-widest text-muted">
+        <p className="mb-8 sm:mb-12 text-center font-display-sans text-xs font-semibold uppercase tracking-widest text-muted">
           Tools we build with
         </p>
-
-        {/* Centered grid: 4 cols desktop, 2 cols mobile, 60ms stagger entrance */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          className="mx-auto grid max-w-[1000px] grid-cols-2 gap-x-6 gap-y-8 sm:gap-x-8 md:grid-cols-4 md:gap-y-10"
-        >
-          {techStack.map((item) => {
-            const Icon =
-              iconComponentMap[item.icon.toLowerCase()] ||
-              iconComponentMap[item.name.toLowerCase()] ||
-              SiNextdotjs;
-
-            return (
-              <motion.div
-                key={item.name}
-                variants={itemVariants}
-                className="group flex items-center justify-center gap-3 cursor-default transition-all duration-200 hover:-translate-y-[2px]"
-              >
-                {/* Monochrome logo icon (#A1A1AA -> #F5F5F5 on hover), decorative */}
-                <span
-                  className="flex items-center text-muted transition-colors duration-200 group-hover:text-text"
-                  aria-hidden="true"
-                >
-                  <Icon size={22} aria-hidden="true" />
-                </span>
-
-                {/* 18px medium text beside it (#A1A1AA -> #F5F5F5 on hover) */}
-                <span className="font-display-sans text-[18px] font-medium leading-none text-muted transition-colors duration-200 group-hover:text-text">
-                  {item.name}
-                </span>
-              </motion.div>
-            );
-          })}
-        </motion.div>
       </Container>
+
+      {/* Reduced Motion: Static wrapped row */}
+      {prefersReducedMotion ? (
+        <Container>
+          <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-6">
+            {techStack.map((item) => (
+              <TechItem key={item.name} name={item.name} icon={item.icon} />
+            ))}
+          </div>
+        </Container>
+      ) : (
+        /* Infinite Marquee: 40s linear loop, pauses on hover, soft fade masks */
+        <div
+          className="group relative w-full overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, black 48px, black calc(100% - 48px), transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 48px, black calc(100% - 48px), transparent)",
+          }}
+        >
+          <div
+            className="flex w-max gap-12 sm:gap-16 [animation:techMarquee_40s_linear_infinite] group-hover:[animation-play-state:paused]"
+            style={{ willChange: "transform" }}
+          >
+            {/* Original track */}
+            <div className="flex shrink-0 items-center gap-12 sm:gap-16">
+              {techStack.map((item) => (
+                <TechItem key={`tech-orig-${item.name}`} name={item.name} icon={item.icon} />
+              ))}
+            </div>
+
+            {/* Cloned track for infinite seamless loop with aria-hidden="true" */}
+            <div className="flex shrink-0 items-center gap-12 sm:gap-16" aria-hidden="true">
+              {techStack.map((item) => (
+                <TechItem key={`tech-clone-${item.name}`} name={item.name} icon={item.icon} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Scoped CSS keyframe for linear 40s loop */}
+      <style jsx global>{`
+        @keyframes techMarquee {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </section>
   );
 }
