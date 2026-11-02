@@ -63,7 +63,7 @@ function createPlaceholderTexture(project: string, status: string): THREE.Canvas
 }
 
 /**
- * Animated background plane with slow glowing flowing lines, soft vignette, and film grain
+ * Animated background plane with glowing flowing caustic waves, vignette, and grain
  */
 function BackgroundPlane() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -120,6 +120,7 @@ function TitleMesh() {
     if (troikaObj?.material) {
       troikaObj.material.depthTest = true;
       troikaObj.material.depthWrite = true;
+      troikaObj.material.alphaTest = 0.5;
     }
     const bounds = troikaObj?.textRenderInfo?.blockBounds;
     if (bounds) {
@@ -132,6 +133,7 @@ function TitleMesh() {
     if (troikaObj?.material) {
       troikaObj.material.depthTest = true;
       troikaObj.material.depthWrite = true;
+      troikaObj.material.alphaTest = 0.5;
     }
     const bounds = troikaObj?.textRenderInfo?.blockBounds;
     if (bounds) {
@@ -148,8 +150,9 @@ function TitleMesh() {
   useLayoutEffect(() => {
     if (!groupRef.current) return;
     const aspect = size.width / size.height;
+    const safeAspect = Math.max(aspect, 1);
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(WORKS_CONFIG.FOV / 2));
-    const visibleWidthAtCenter = 2 * camera.position.z * tanHalf * aspect;
+    const visibleWidthAtCenter = 2 * camera.position.z * tanHalf * safeAspect;
     const targetScale = (WORKS_CONFIG.TITLE_FRACTION * visibleWidthAtCenter) / totalW;
     groupRef.current.scale.setScalar(targetScale);
   }, [size.width, size.height, camera.position.z, totalW]);
@@ -216,6 +219,7 @@ function SingleTile({
 
   const C = WORKS_CONFIG;
 
+  // Exact helical placement math
   const angle = (index / totalCount) * Math.PI * 2;
   const posX = C.RADIUS * Math.sin(angle);
   const posZ = C.RADIUS * Math.cos(angle);
@@ -325,19 +329,18 @@ function SceneContent({
   const frontDistRef = useRef(0);
   const tileMaterialsRef = useRef<THREE.ShaderMaterial[]>([]);
 
-  // 1) Dynamic Camera Fit
+  // Dynamic Camera Fit with safe aspect clamping
   useLayoutEffect(() => {
     const C = WORKS_CONFIG;
     const aspect = size.width / size.height;
-    const frac =
-      size.width >= 1024
-        ? C.FRONT_FRACTION_DESKTOP
-        : size.width >= 768
-        ? C.FRONT_FRACTION_TABLET
-        : C.FRONT_FRACTION_MOBILE;
+    const safeAspect = Math.max(aspect, 1);
+    const frac = C.FRONT_FRACTION_DESKTOP;
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(C.FOV / 2));
     const visibleWidthAtFront = C.TILE_W / frac;
-    const frontDist = visibleWidthAtFront / (2 * tanHalf * aspect);
+    let frontDist = visibleWidthAtFront / (2 * tanHalf * safeAspect);
+
+    // Clamp frontDist so tiles never get swallowed by fog or pushed out of frustum
+    frontDist = THREE.MathUtils.clamp(frontDist, 9.0, 22.0);
     frontDistRef.current = frontDist;
 
     camera.position.set(0, C.CAMERA_Y, C.RADIUS + frontDist);
@@ -359,7 +362,7 @@ function SceneContent({
     if (!tileMaterialsRef.current.includes(mat)) {
       tileMaterialsRef.current.push(mat);
       const C = WORKS_CONFIG;
-      const uNear = frontDistRef.current || 6.0;
+      const uNear = frontDistRef.current || 9.0;
       const uFar = uNear + 2 * C.RADIUS;
       if (mat.uniforms?.uNear) mat.uniforms.uNear.value = uNear;
       if (mat.uniforms?.uFar) mat.uniforms.uFar.value = uFar;
@@ -373,44 +376,50 @@ function SceneContent({
 
   useEffect(() => {
     const loader = new THREE.TextureLoader();
-    const loadedList: Array<{ texture: THREE.Texture; aspect: number }> = [];
+    let isCancelled = false;
 
-    worksList.forEach((item) => {
-      try {
-        const tex = loader.load(
-          item.image,
-          (t) => {
-            t.colorSpace = THREE.SRGBColorSpace;
-            t.anisotropy = 8;
-            const img = t.image as HTMLImageElement | undefined;
-            const asp = img?.naturalWidth && img?.naturalHeight
+    const initialEntries = worksList.map((item) => {
+      const tex = loader.load(
+        item.image,
+        (t) => {
+          if (isCancelled) return;
+          t.colorSpace = THREE.SRGBColorSpace;
+          t.anisotropy = 8;
+          t.generateMipmaps = true;
+          t.minFilter = THREE.LinearMipmapLinearFilter;
+          const img = t.image as HTMLImageElement | undefined;
+          const asp =
+            img?.naturalWidth && img?.naturalHeight
               ? img.naturalWidth / img.naturalHeight
               : 1.6;
-            const entry = loadedList.find((e) => e.texture === t);
-            if (entry) entry.aspect = asp;
-          },
-          undefined,
-          () => {
-            const fallback = createPlaceholderTexture(item.project, item.status);
-            (tex as any).image = fallback.image;
-            tex.needsUpdate = true;
-          }
-        );
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.anisotropy = 8;
-        loadedList.push({ texture: tex, aspect: 1.6 });
-      } catch {
-        loadedList.push({
-          texture: createPlaceholderTexture(item.project, item.status),
-          aspect: 1.6,
-        });
-      }
+          setTextureEntries((prev) =>
+            prev.map((e) => (e.texture === t ? { ...e, aspect: asp } : e))
+          );
+        },
+        undefined,
+        () => {
+          if (isCancelled) return;
+          const fallback = createPlaceholderTexture(item.project, item.status);
+          (tex as any).image = fallback.image;
+          tex.needsUpdate = true;
+        }
+      );
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 8;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      return { texture: tex, aspect: 1.6 };
     });
 
-    setTextureEntries(loadedList);
+    setTextureEntries(initialEntries);
 
     return () => {
-      loadedList.forEach((e) => e.texture.dispose());
+      isCancelled = true;
+      initialEntries.forEach((e) => {
+        try {
+          e.texture.dispose();
+        } catch {}
+      });
     };
   }, [worksList]);
 
@@ -455,10 +464,7 @@ function SceneContent({
     }
   });
 
-  const tileCount =
-    size.width < 768
-      ? WORKS_CONFIG.TILE_COUNT_MOBILE
-      : WORKS_CONFIG.TILE_COUNT_DESKTOP;
+  const tileCount = WORKS_CONFIG.TILE_COUNT_DESKTOP;
 
   if (textureEntries.length === 0) return null;
 
@@ -501,29 +507,39 @@ function SceneContent({
 
 /**
  * WorksScene - The Primary WebGL React Three Fiber Canvas Component
+ * Running exclusively on desktop screens (>=1024px) with fine pointer.
  */
 export interface WorksSceneProps {
   worksList: WorkItem[];
   scrollProgress: MotionValue<number>;
-  isMobileDevice?: boolean;
 }
 
 export default function WorksScene({
   worksList,
   scrollProgress,
-  isMobileDevice = false,
 }: WorksSceneProps) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(true);
+  const [isTabVisible, setIsTabVisible] = useState(true);
   const [hoveredItem, setHoveredItem] = useState<WorkItem | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
 
   const pointerRef = useRef({ x: 0, y: 0, isTouch: false });
   const dragOffsetRef = useRef(0);
   const dragVelocityRef = useRef(0);
   const isDraggingRef = useRef(false);
   const lastDragXRef = useRef(0);
+
+  // Tab visibility tracking
+  useEffect(() => {
+    const handleVisibility = () => {
+      setIsTabVisible(document.visibilityState !== "hidden");
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   // Pause rendering when off screen
   useEffect(() => {
@@ -556,10 +572,8 @@ export default function WorksScene({
   }, []);
 
   const handlePointerDown = (e: React.PointerEvent) => {
-    if (e.pointerType === "touch") {
-      pointerRef.current.isTouch = true;
-    }
     isDraggingRef.current = true;
+    setIsDragging(true);
     lastDragXRef.current = e.clientX;
   };
 
@@ -585,12 +599,15 @@ export default function WorksScene({
 
   const handlePointerUp = () => {
     isDraggingRef.current = false;
+    setIsDragging(false);
   };
 
   return (
     <div
       ref={containerRef}
-      className="relative h-full w-full select-none"
+      className={`relative h-full w-full select-none ${
+        hoveredItem ? "cursor-pointer" : isDragging ? "cursor-grabbing" : "cursor-grab"
+      }`}
       style={{ touchAction: "pan-y" }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -601,13 +618,19 @@ export default function WorksScene({
       }}
     >
       <Canvas
-        dpr={[1, isMobileDevice ? 1.5 : WORKS_CONFIG.DPR_MAX]}
+        dpr={[1, 1.5]}
         camera={{
           fov: WORKS_CONFIG.FOV,
-          position: [0, WORKS_CONFIG.CAMERA_Y, 14],
+          position: [0, WORKS_CONFIG.CAMERA_Y, 16],
+          near: 0.1,
+          far: 100,
         }}
-        gl={{ antialias: true, alpha: false }}
-        frameloop={isInView ? "always" : "never"}
+        gl={{
+          antialias: true,
+          alpha: false,
+          powerPreference: "high-performance",
+        }}
+        frameloop={isInView && isTabVisible ? "always" : "never"}
         aria-hidden="true"
         style={{ width: "100%", height: "100%", display: "block" }}
       >
@@ -622,7 +645,7 @@ export default function WorksScene({
       </Canvas>
 
       {/* Hover HTML Label Overlay near cursor */}
-      {hoveredItem && !pointerRef.current.isTouch && (
+      {hoveredItem && (
         <div
           className="pointer-events-none fixed z-50 flex items-center gap-2.5 rounded-full border border-white/20 bg-black/85 px-3.5 py-1.5 backdrop-blur-md transition-opacity duration-150"
           style={{
