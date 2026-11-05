@@ -87,8 +87,8 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: var(--space-48);
+  grid-template-columns: 1fr 288px;
+  gap: 40px;
   align-items: start;
 }
 
@@ -96,7 +96,7 @@
 .postsList {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .postCard {
@@ -252,9 +252,11 @@
 
 /* ── Sidebar ────────────────────────────────── */
 .sidebar {
+  position: sticky;
+  top: 90px; /* clear floating navbar */
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 .sidebarCard {
@@ -397,7 +399,7 @@
 @media (max-width: 960px) {
   .layout {
     grid-template-columns: 1fr;
-    gap: var(--space-48);
+    gap: var(--space-40);
   }
 
   .postCard {

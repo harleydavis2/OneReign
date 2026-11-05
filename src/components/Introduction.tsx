@@ -154,7 +154,7 @@ export default function Introduction() {
                         width={440}
                         height={330}
                         className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                        loading="lazy"
+                        priority
                       />
                     </div>
                   ))}
@@ -166,7 +166,7 @@ export default function Introduction() {
                     <div key={`clone-r1-${tile.id}`} className={styles.tile}>
                       <Image
                         src={tile.src}
-                        alt={tile.alt}
+                        alt=""
                         width={440}
                         height={330}
                         className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
@@ -201,7 +201,7 @@ export default function Introduction() {
                     <div key={`clone-r2-${tile.id}`} className={styles.tile}>
                       <Image
                         src={tile.src}
-                        alt={tile.alt}
+                        alt=""
                         width={440}
                         height={330}
                         className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"

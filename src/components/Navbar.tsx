@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "@/components/ui/Button";
@@ -14,6 +14,7 @@ export default function Navbar() {
   const [prevPathname, setPrevPathname] = useState(pathname);
   const navRef = useRef<HTMLElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   // Close menu on route change without cascading effect
   if (prevPathname !== pathname) {
@@ -21,15 +22,38 @@ export default function Navbar() {
     setMenuOpen(false);
   }
 
-  // Handle escape key, body scroll lock, and mobile menu state for floating elements
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && menuOpen) {
-        setMenuOpen(false);
-        menuBtnRef.current?.focus();
+  // Focus trap: cycle focus within the mobile overlay when it is open
+  const handleOverlayKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!overlayRef.current) return;
+    const focusable = Array.from(
+      overlayRef.current.querySelectorAll<HTMLElement>(
+        'a, button, [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter((el) => !el.hasAttribute("disabled"));
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.key === "Tab") {
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
-    };
+    }
+    if (e.key === "Escape") {
+      setMenuOpen(false);
+      menuBtnRef.current?.focus();
+    }
+  }, []);
 
+  // Handle body scroll lock and mobile menu state for floating elements
+  useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
       document.body.classList.add("menu-open");
@@ -37,7 +61,11 @@ export default function Navbar() {
       window.dispatchEvent(
         new CustomEvent("onereign:menu-toggle", { detail: { open: true } })
       );
-      window.addEventListener("keydown", handleKeyDown);
+      // Move focus into overlay on open
+      const firstFocusable = overlayRef.current?.querySelector<HTMLElement>(
+        'a, button, [tabindex]:not([tabindex="-1"])'
+      );
+      firstFocusable?.focus();
     } else {
       document.body.style.overflow = "";
       document.body.classList.remove("menu-open");
@@ -51,7 +79,6 @@ export default function Navbar() {
       document.body.style.overflow = "";
       document.body.classList.remove("menu-open");
       document.documentElement.removeAttribute("data-menu-open");
-      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [menuOpen]);
 
@@ -114,11 +141,17 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Accessible Full-Width Mobile Menu Overlay */}
+        {/* Accessible Full-Width Mobile Menu Overlay — focus-trapped when open */}
         <div
+          ref={overlayRef}
           id="mobile-nav"
           className={`${styles.mobileOverlay} ${menuOpen ? styles.mobileOpen : ""}`}
           aria-hidden={!menuOpen}
+          aria-modal={menuOpen || undefined}
+          role={menuOpen ? "dialog" : undefined}
+          aria-label="Navigation menu"
+          tabIndex={-1}
+          onKeyDown={handleOverlayKeyDown}
         >
           <div className={styles.mobileContent}>
             <nav ref={navRef} aria-label="Mobile Navigation">

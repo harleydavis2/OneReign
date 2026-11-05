@@ -40,7 +40,7 @@
 
 .sectionTitle {
   font-family: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(38px, 5.5vw, 64px);
+  font-size: var(--h2-size);
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.035em;
@@ -122,6 +122,33 @@
   color: var(--accent) !important;
   border-color: rgba(198, 255, 77, 0.35) !important;
   background: rgba(198, 255, 77, 0.08) !important;
+}
+
+/* Answer Panel — CSS grid transition: zero layout reflow, works without JS animation */
+.answerPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease;
+  overflow: hidden;
+}
+
+.answerPanel > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.answerPanelOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .answerPanel {
+    transition: none !important;
+  }
 }
 
 /* Answer Body */

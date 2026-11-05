@@ -11,7 +11,6 @@ import Faq from "@/components/Faq";
 import Services from "@/components/Services";
 import Pricing from "@/components/Pricing";
 import Products from "@/components/Products";
-import siteContent from "@/content/site";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -24,29 +23,8 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: siteContent.brand.name,
-    legalName: siteContent.brand.legalName,
-    url: siteContent.brand.canonicalUrl,
-    logo: `${siteContent.brand.canonicalUrl}/logo-full.png`,
-    description: siteContent.brand.subtitle,
-    foundingDate: "2025",
-    sameAs: [siteContent.socials.linkedin].filter(Boolean),
-    contactPoint: {
-      "@type": "ContactPoint",
-      email: siteContent.contact.email,
-      contactType: "customer service",
-    },
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
       {/* ── Section 1: Hero (Editorial Centered Layout with Studio Canvas) ── */}
       <section className={styles.heroSection}>
         <div className="container">

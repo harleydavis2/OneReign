@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
 import Container from "@/components/ui/Container";
 import { faqs, type FaqItem } from "@/content/site";
 import styles from "./Faq.module.css";
@@ -80,25 +79,15 @@ export default function Faq() {
                   </div>
                 </button>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={answerId}
-                      role="region"
-                      aria-labelledby={questionId}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{
-                        duration: 0.3,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <p className={styles.answerText}>{faq.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* CSS grid-template-rows transition — zero layout reflow */}
+                <div
+                  id={answerId}
+                  role="region"
+                  aria-labelledby={questionId}
+                  className={`${styles.answerPanel} ${isOpen ? styles.answerPanelOpen : ""}`}
+                >
+                  <p className={styles.answerText}>{faq.answer}</p>
+                </div>
               </div>
             );
           })}
