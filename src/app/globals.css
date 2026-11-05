@@ -16,6 +16,7 @@
 }
 
 :root {
+  --h2-size: clamp(38px, 5.5vw, 64px);
   --ease-brand: cubic-bezier(0.22, 0.61, 0.36, 1);
   --bg: #000000;
   --surface: #141414;
@@ -25,6 +26,22 @@
   --accent: #C6FF4D;
   --blue-500: #0099FF;
   --border-subtle: rgba(255, 255, 255, 0.12);
+
+  /* ── Spacing scale (4px base) ─────────────── */
+  --space-4:  4px;
+  --space-8:  8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-96: 96px;
+  --space-120: 120px;
 
   /* Visuvate studio card tokens */
   --vv-bg: #000000;
@@ -43,7 +60,6 @@ html {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -55,6 +71,16 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+
+/* ──────────── Layout Utilities ──────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 /* ──────────── Visuvate Accent Typography ──────────── */

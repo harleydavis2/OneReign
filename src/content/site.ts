@@ -458,6 +458,12 @@ export const faqs: FaqItem[] = [
   },
 ];
 
+// Canonical URL: set NEXT_PUBLIC_SITE_URL in your environment for production.
+// Falls back to the Vercel deployment URL during staging/preview.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://one-reign.vercel.app";
+
 export const siteContent: SiteConfig = {
   brand: {
     name: "OneReign",
@@ -467,8 +473,8 @@ export const siteContent: SiteConfig = {
       "OneReign designs and ships AI agents, automation workflows and custom software — so your team stops doing repetitive work and starts moving faster.",
     established: "Est. 2025",
     location: "Remote / Global",
-    domain: "https://one-reign.vercel.app",
-    canonicalUrl: "https://one-reign.vercel.app",
+    domain: SITE_URL,
+    canonicalUrl: SITE_URL,
   },
   contact: {
     email: "onereign.official@gmail.com",

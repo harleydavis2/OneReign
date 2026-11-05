@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { posts } from "./posts";
 import Button from "@/components/ui/Button";
+import Container from "@/components/ui/Container";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -47,7 +48,7 @@ export default function BlogPage() {
       </section>
 
       <section className={styles.blogSection}>
-        <div className="container">
+        <Container>
           <div className={styles.layout}>
             {/* Posts List */}
             <div className={styles.postsList}>
@@ -131,7 +132,7 @@ export default function BlogPage() {
               </div>
             </aside>
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

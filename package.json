@@ -25,14 +25,17 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@fontsource/instrument-serif": "^5.3.0",
     "@fontsource/inter-tight": "^5.3.0",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "lighthouse": "^13.6.0",
     "typescript": "^5"
   }
 }

@@ -9,7 +9,7 @@ import { proof, testimonials, type TestimonialItem } from "@/content/site";
 import styles from "./Proof.module.css";
 
 // 1,600 points distributed evenly on a unit sphere using the Fibonacci sphere algorithm
-const DOT_COUNT = 1600;
+const DOT_COUNT = 900;
 const SPHERE_POINTS: Array<{ x: number; y: number; z: number }> = [];
 const PHI = Math.PI * (3 - Math.sqrt(5)); // Golden angle
 
@@ -62,11 +62,16 @@ function InteractiveWorldGlobe() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Interactive pointer drag controls
+    // Interactive pointer drag controls — only capture horizontal movement
+    // touch-action is managed dynamically so vertical scroll is never blocked
     const onPointerDown = (e: PointerEvent) => {
+      // Only handle primary pointer (ignore secondary touches)
+      if (!e.isPrimary) return;
       dragStartX = e.clientX;
       isDragging = true;
       canvas.style.cursor = "grabbing";
+      // Lock pointer to canvas for the drag only
+      canvas.setPointerCapture(e.pointerId);
     };
 
     const onPointerMove = (e: PointerEvent) => {
@@ -77,15 +82,17 @@ function InteractiveWorldGlobe() {
       velocity = deltaX * 0.003;
     };
 
-    const onPointerUp = () => {
+    const onPointerUp = (e: PointerEvent) => {
+      if (!e.isPrimary) return;
       isDragging = false;
       dragStartX = null;
       if (canvas) canvas.style.cursor = "grab";
     };
 
     canvas.addEventListener("pointerdown", onPointerDown);
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", onPointerUp);
+    canvas.addEventListener("pointermove", onPointerMove);
+    canvas.addEventListener("pointerup", onPointerUp);
+    canvas.addEventListener("pointercancel", onPointerUp);
 
     const renderFrame = () => {
       const rect = container.getBoundingClientRect();
@@ -170,8 +177,9 @@ function InteractiveWorldGlobe() {
       return () => {
         window.removeEventListener("resize", resizeCanvas);
         canvas.removeEventListener("pointerdown", onPointerDown);
-        window.removeEventListener("pointermove", onPointerMove);
-        window.removeEventListener("pointerup", onPointerUp);
+        canvas.removeEventListener("pointermove", onPointerMove);
+        canvas.removeEventListener("pointerup", onPointerUp);
+        canvas.removeEventListener("pointercancel", onPointerUp);
       };
     }
 
@@ -200,8 +208,9 @@ function InteractiveWorldGlobe() {
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       canvas.removeEventListener("pointerdown", onPointerDown);
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerUp);
+      canvas.removeEventListener("pointermove", onPointerMove);
+      canvas.removeEventListener("pointerup", onPointerUp);
+      canvas.removeEventListener("pointercancel", onPointerUp);
       observer.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
@@ -210,7 +219,8 @@ function InteractiveWorldGlobe() {
   return (
     <div ref={containerRef} className={styles.globeWrapper} aria-hidden="true">
       <div className={styles.globeRadialFade} />
-      <canvas ref={canvasRef} className={styles.globeCanvas} />
+      {/* touch-action: pan-y allows vertical scroll; horizontal drag is handled via pointer capture */}
+      <canvas ref={canvasRef} className={styles.globeCanvas} style={{ touchAction: "pan-y" }} />
     </div>
   );
 }
@@ -348,6 +358,7 @@ function TestimonialOrFallback({ items }: { items: TestimonialItem[] }) {
 
       {/* 5 Amber Stars */}
       <div
+        role="img"
         className={styles.starsRow}
         aria-label={`${current.rating || 5} out of 5 stars`}
       >

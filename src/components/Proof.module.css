@@ -48,7 +48,8 @@
   height: 100%;
   display: block;
   cursor: grab;
-  touch-action: none;
+  /* pan-y: vertical scroll remains native; horizontal drag handled via pointer capture */
+  touch-action: pan-y;
 }
 
 /* ── Giant Heading "Testimonials" ─────────────────────────────────── */

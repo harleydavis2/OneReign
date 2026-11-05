@@ -53,7 +53,7 @@ export default function FloatingWhatsApp() {
       href={siteContent.contact.whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
+      aria-label="Chat on WhatsApp (opens in new tab)"
       className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-[#151519] shadow-2xl transition-all duration-200 hover:scale-105 hover:border-accent/40 hover:shadow-[0_0_24px_rgba(198,255,77,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-95"
       style={{
         boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.6)",
